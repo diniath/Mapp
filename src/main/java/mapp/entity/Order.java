@@ -33,11 +33,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "order", catalog = "mydb", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o")
-    , @NamedQuery(name = "Order1.findById", query = "SELECT o FROM Order1 o WHERE o.id = :id")
-    , @NamedQuery(name = "Order1.findByOrderdate", query = "SELECT o FROM Order1 o WHERE o.orderdate = :orderdate")
-    , @NamedQuery(name = "Order1.findByPaymentMethod", query = "SELECT o FROM Order1 o WHERE o.paymentMethod = :paymentMethod")})
-public class Order1 implements Serializable {
+    @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
+    , @NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id")
+    , @NamedQuery(name = "Order.findByOrderdate", query = "SELECT o FROM Order o WHERE o.orderdate = :orderdate")
+    , @NamedQuery(name = "Order.findByPaymentMethod", query = "SELECT o FROM Order o WHERE o.paymentMethod = :paymentMethod")})
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,18 +57,18 @@ public class Order1 implements Serializable {
     private String paymentMethod;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private EnrolledUser clientId;
+    private EnrolledUser enrolledUser;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
     private List<Orderlist> orderlistList;
 
-    public Order1() {
+    public Order() {
     }
 
-    public Order1(Integer id) {
+    public Order(Integer id) {
         this.id = id;
     }
 
-    public Order1(Integer id, Date orderdate, String paymentMethod) {
+    public Order(Integer id, Date orderdate, String paymentMethod) {
         this.id = id;
         this.orderdate = orderdate;
         this.paymentMethod = paymentMethod;
@@ -99,11 +99,11 @@ public class Order1 implements Serializable {
     }
 
     public EnrolledUser getClientId() {
-        return clientId;
+        return enrolledUser;
     }
 
-    public void setClientId(EnrolledUser clientId) {
-        this.clientId = clientId;
+    public void setClientId(EnrolledUser enrolledUser) {
+        this.enrolledUser = enrolledUser;
     }
 
     public List<Orderlist> getOrderlistList() {
@@ -124,10 +124,10 @@ public class Order1 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order1)) {
+        if (!(object instanceof Order)) {
             return false;
         }
-        Order1 other = (Order1) object;
+        Order other = (Order) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -136,7 +136,7 @@ public class Order1 implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Order1[ id=" + id + " ]";
+        return "mapp.Order[ id=" + id + " ]";
     }
     
 }

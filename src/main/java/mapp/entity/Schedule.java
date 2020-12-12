@@ -59,7 +59,7 @@ public class Schedule implements Serializable {
     private Short reclosetime;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Company companyId;
+    private Company company;
 
     public Schedule() {
     }
@@ -124,11 +124,11 @@ public class Schedule implements Serializable {
     }
 
     public Company getCompanyId() {
-        return companyId;
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompanyId(Company company) {
+        this.company = company;
     }
 
     @Override

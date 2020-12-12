@@ -47,10 +47,10 @@ public class Orderlist implements Serializable {
     private List<Review> reviewList;
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Order1 orderId;
+    private Order order;
     @JoinColumn(name = "service_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Service serviceId;
+    private Service service;
 
     public Orderlist() {
     }
@@ -91,20 +91,20 @@ public class Orderlist implements Serializable {
         this.reviewList = reviewList;
     }
 
-    public Order1 getOrderId() {
-        return orderId;
+    public Order getOrderId() {
+        return order;
     }
 
-    public void setOrderId(Order1 orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Order order) {
+        this.order = order;
     }
 
     public Service getServiceId() {
-        return serviceId;
+        return service;
     }
 
-    public void setServiceId(Service serviceId) {
-        this.serviceId = serviceId;
+    public void setServiceId(Service service) {
+        this.service = service;
     }
 
     @Override

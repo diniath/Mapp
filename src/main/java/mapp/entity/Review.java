@@ -62,10 +62,10 @@ public class Review implements Serializable {
     private String commentCompany;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Company companyId;
+    private Company company;
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Orderlist orderlistId;
+    private Orderlist orderlist;
 
     public Review() {
     }
@@ -128,19 +128,19 @@ public class Review implements Serializable {
     }
 
     public Company getCompanyId() {
-        return companyId;
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompanyId(Company company) {
+        this.company = company;
     }
 
     public Orderlist getOrderlistId() {
-        return orderlistId;
+        return orderlist;
     }
 
-    public void setOrderlistId(Orderlist orderlistId) {
-        this.orderlistId = orderlistId;
+    public void setOrderlistId(Orderlist orderlist) {
+        this.orderlist = orderlist;
     }
 
     @Override

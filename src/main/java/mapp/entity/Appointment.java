@@ -41,11 +41,11 @@ public class Appointment implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "enddate")
-    private Character enddate;
+    private short enddate;
     @Column(name = "startdate")
-    private Character startdate;
+    private short startdate;
     @Column(name = "day")
-    private Integer day;
+    private short day;
     @JoinTable(name = "client_appointment", joinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "client_id", referencedColumnName = "id")})
@@ -53,10 +53,10 @@ public class Appointment implements Serializable {
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Company companyId;
+    private Company company;
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Orderlist orderlistId;
+    private Orderlist orderlist;
 
     public Appointment() {
     }
@@ -73,27 +73,27 @@ public class Appointment implements Serializable {
         this.id = id;
     }
 
-    public Character getEnddate() {
+    public short getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(Character enddate) {
+    public void setEnddate(short enddate) {
         this.enddate = enddate;
     }
 
-    public Character getStartdate() {
+    public short getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(Character startdate) {
+    public void setStartdate(short startdate) {
         this.startdate = startdate;
     }
 
-    public Integer getDay() {
+    public short getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(short day) {
         this.day = day;
     }
 
@@ -106,19 +106,19 @@ public class Appointment implements Serializable {
     }
 
     public Company getCompanyId() {
-        return companyId;
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompanyId(Company company) {
+        this.company = company;
     }
 
     public Orderlist getOrderlistId() {
-        return orderlistId;
+        return orderlist;
     }
 
-    public void setOrderlistId(Orderlist orderlistId) {
-        this.orderlistId = orderlistId;
+    public void setOrderlistId(Orderlist orderlist) {
+        this.orderlist = orderlist;
     }
 
     @Override

@@ -73,10 +73,10 @@ public class Service implements Serializable {
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Company companyId;
+    private Company company;
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Subcategory subcategoryId;
+    private Subcategory subcategory;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceId")
     private List<Orderlist> orderlistList;
 
@@ -160,19 +160,19 @@ public class Service implements Serializable {
     }
 
     public Company getCompanyId() {
-        return companyId;
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompanyId(Company company) {
+        this.company = company;
     }
 
     public Subcategory getSubcategoryId() {
-        return subcategoryId;
+        return subcategory;
     }
 
-    public void setSubcategoryId(Subcategory subcategoryId) {
-        this.subcategoryId = subcategoryId;
+    public void setSubcategoryId(Subcategory subcategory) {
+        this.subcategory = subcategory;
     }
 
     public List<Orderlist> getOrderlistList() {

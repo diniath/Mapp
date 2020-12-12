@@ -44,14 +44,14 @@ public class Subcategory implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategoryId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategory")
     private List<Service> serviceList;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Category categoryId;
+    private Category category;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ImageUrl imageUrlId;
+    private ImageUrl imageUrl;
 
     public Subcategory() {
     }
@@ -90,19 +90,19 @@ public class Subcategory implements Serializable {
     }
 
     public Category getCategoryId() {
-        return categoryId;
+        return category;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(Category category) {
+        this.category = category;
     }
 
     public ImageUrl getImageUrlId() {
-        return imageUrlId;
+        return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrlId) {
-        this.imageUrlId = imageUrlId;
+    public void setImageUrlId(ImageUrl imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override

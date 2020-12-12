@@ -46,7 +46,7 @@ public class Category implements Serializable {
     private String description;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ImageUrl imageUrlId;
+    private ImageUrl imageUrl;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private List<Subcategory> subcategoryList;
 
@@ -79,11 +79,11 @@ public class Category implements Serializable {
     }
 
     public ImageUrl getImageUrlId() {
-        return imageUrlId;
+        return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrlId) {
-        this.imageUrlId = imageUrlId;
+    public void setImageUrlId(ImageUrl imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public List<Subcategory> getSubcategoryList() {

@@ -1,3 +1,5 @@
+package RecBin;
+
 //package mapp.dao;
 //
 //import java.io.Serializable;

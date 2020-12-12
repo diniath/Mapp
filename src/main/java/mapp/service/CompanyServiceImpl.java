@@ -16,31 +16,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CompanyServiceImpl{
     
     @Autowired
-    private CompanyDao cdao;
+    private CompanyDao dao;
     
     public List<Company> findAll() {
-        return cdao.findAll();
+        return dao.findAll();
     }
     
     public Company create(Company company) {
-        Company comp = cdao.save(company);
+        Company comp = dao.save(company);
         return comp;
     }
     
     public void edit(Company company) {
-        cdao.saveAndFlush(company);
+        dao.saveAndFlush(company);
     }
 
     public void delete(int id) {
-        cdao.deleteById(id);
+        dao.deleteById(id);
     }
 
     public Optional<Company> findById(int id) {
-        Optional<Company> company = cdao.findById(id);
+        Optional<Company> company = dao.findById(id);
         return company;
     }
     
     public Company findCompanyByAddress(@PathVariable(value = "address") String address){
-        return cdao.findByAddress(address);
+        return dao.findByAddress(address);
     }
 }

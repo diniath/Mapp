@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -134,16 +135,19 @@ public class Company implements Serializable {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "postal_code_id", referencedColumnName = "id")})
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<PostalCode> postalCodeList;
     @JoinTable(name = "company_image", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<ImageUrl> imageUrlList;
     @JoinTable(name = "paid", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "orderlist_id", referencedColumnName = "id")})
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Orderlist> orderlistList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private List<Appointment> appointmentList;
@@ -155,7 +159,8 @@ public class Company implements Serializable {
     private List<Service> serviceList;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ImageUrl imageUrlId;
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    private ImageUrl imageUrl;
 
     public Company() {
     }
@@ -375,11 +380,11 @@ public class Company implements Serializable {
     }
 
     public ImageUrl getImageUrlId() {
-        return imageUrlId;
+        return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrlId) {
-        this.imageUrlId = imageUrlId;
+    public void setImageUrlId(ImageUrl imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
@@ -402,9 +407,11 @@ public class Company implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "mapp.Company[ id=" + id + " ]";
-    }
+    
+    
+//    @Override
+//    public String toString() {
+//        return "mapp.Company[ id=" + id + " ]";
+//    }
     
 }

@@ -60,9 +60,9 @@ public class CompanyController {
             @RequestBody Company newCompanyDetails) throws Exception {
         Optional<Company> optionalCompany = service.findById(companyId);
         Company companyToUpdate = optionalCompany.orElseThrow(() -> new Exception("Company not exists with id:" + companyId));
-        
-        companyToUpdate.setAddress(newCompanyDetails.getAddress());
-        service.edit(companyToUpdate);
+//        companyToUpdate.setAddress(newCompanyDetails.getAddress());
+        newCompanyDetails.setId(companyId);
+        service.edit(newCompanyDetails);
     }
     
     @GetMapping("/search/{address}")

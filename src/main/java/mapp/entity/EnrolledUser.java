@@ -129,9 +129,9 @@ public class EnrolledUser implements Serializable {
     private List<Service> serviceList;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ImageUrl imageUrlId;
+    private ImageUrl imageUrl;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
-    private List<Order1> order1List;
+    private List<Order> orderList;
 
     public EnrolledUser() {
     }
@@ -285,19 +285,19 @@ public class EnrolledUser implements Serializable {
     }
 
     public ImageUrl getImageUrlId() {
-        return imageUrlId;
+        return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrlId) {
-        this.imageUrlId = imageUrlId;
+    public void setImageUrlId(ImageUrl imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public List<Order1> getOrder1List() {
-        return order1List;
+    public List<Order> getOrderList() {
+        return orderList;
     }
 
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     @Override
