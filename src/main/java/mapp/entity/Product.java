@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -30,16 +31,16 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "service", catalog = "mydb", schema = "")
+@Table(name = "product", catalog = "mapp", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s")
-    , @NamedQuery(name = "Service.findById", query = "SELECT s FROM Service s WHERE s.id = :id")
-    , @NamedQuery(name = "Service.findByDescription", query = "SELECT s FROM Service s WHERE s.description = :description")
-    , @NamedQuery(name = "Service.findByPrice", query = "SELECT s FROM Service s WHERE s.price = :price")
-    , @NamedQuery(name = "Service.findByRating", query = "SELECT s FROM Service s WHERE s.rating = :rating")
-    , @NamedQuery(name = "Service.findByDuration", query = "SELECT s FROM Service s WHERE s.duration = :duration")
-    , @NamedQuery(name = "Service.findByStatus", query = "SELECT s FROM Service s WHERE s.status = :status")})
-public class Service implements Serializable {
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+    , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
+    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findByRating", query = "SELECT p FROM Product p WHERE p.rating = :rating")
+    , @NamedQuery(name = "Product.findByDuration", query = "SELECT p FROM Product p WHERE p.duration = :duration")
+    , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,9 +68,12 @@ public class Service implements Serializable {
     @NotNull
     @Column(name = "status")
     private boolean status;
-    @ManyToMany(mappedBy = "serviceList")
+    @JoinTable(name = "service_image", joinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
+    @ManyToMany
     private List<ImageUrl> imageUrlList;
-    @ManyToMany(mappedBy = "serviceList")
+    @ManyToMany(mappedBy = "productList")
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -77,17 +81,17 @@ public class Service implements Serializable {
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Subcategory subcategory;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Orderlist> orderlistList;
 
-    public Service() {
+    public Product() {
     }
 
-    public Service(Integer id) {
+    public Product(Integer id) {
         this.id = id;
     }
 
-    public Service(Integer id, String description, BigDecimal price, int duration, boolean status) {
+    public Product(Integer id, String description, BigDecimal price, int duration, boolean status) {
         this.id = id;
         this.description = description;
         this.price = price;
@@ -159,19 +163,19 @@ public class Service implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
-    public Company getCompanyId() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompanyId(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
-    public Subcategory getSubcategoryId() {
+    public Subcategory getSubcategory() {
         return subcategory;
     }
 
-    public void setSubcategoryId(Subcategory subcategory) {
+    public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
     }
 
@@ -193,10 +197,10 @@ public class Service implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Service)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        Service other = (Service) object;
+        Product other = (Product) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -205,7 +209,7 @@ public class Service implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Service[ id=" + id + " ]";
+        return "mapp.entity.Product[ id=" + id + " ]";
     }
     
 }

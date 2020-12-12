@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "schedule", catalog = "mydb", schema = "")
+@Table(name = "schedule", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
     , @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id")
@@ -123,11 +123,11 @@ public class Schedule implements Serializable {
         this.reclosetime = reclosetime;
     }
 
-    public Company getCompanyId() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompanyId(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -153,7 +153,7 @@ public class Schedule implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Schedule[ id=" + id + " ]";
+        return "mapp.entity.Schedule[ id=" + id + " ]";
     }
     
 }

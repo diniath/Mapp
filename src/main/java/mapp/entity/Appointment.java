@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "appointment", catalog = "mydb", schema = "")
+@Table(name = "appointment", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a")
     , @NamedQuery(name = "Appointment.findById", query = "SELECT a FROM Appointment a WHERE a.id = :id")
@@ -41,14 +41,14 @@ public class Appointment implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "enddate")
-    private short enddate;
+    private Short enddate;
     @Column(name = "startdate")
-    private short startdate;
+    private Short startdate;
     @Column(name = "day")
-    private short day;
+    private Short day;
     @JoinTable(name = "client_appointment", joinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "client_id", referencedColumnName = "id")})
+        @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")})
     @ManyToMany
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
@@ -73,27 +73,27 @@ public class Appointment implements Serializable {
         this.id = id;
     }
 
-    public short getEnddate() {
+    public Short getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(short enddate) {
+    public void setEnddate(Short enddate) {
         this.enddate = enddate;
     }
 
-    public short getStartdate() {
+    public Short getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(short startdate) {
+    public void setStartdate(Short startdate) {
         this.startdate = startdate;
     }
 
-    public short getDay() {
+    public Short getDay() {
         return day;
     }
 
-    public void setDay(short day) {
+    public void setDay(Short day) {
         this.day = day;
     }
 
@@ -105,19 +105,19 @@ public class Appointment implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
-    public Company getCompanyId() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompanyId(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
-    public Orderlist getOrderlistId() {
+    public Orderlist getOrderlist() {
         return orderlist;
     }
 
-    public void setOrderlistId(Orderlist orderlist) {
+    public void setOrderlist(Orderlist orderlist) {
         this.orderlist = orderlist;
     }
 
@@ -143,7 +143,7 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Appointment[ id=" + id + " ]";
+        return "mapp.entity.Appointment[ id=" + id + " ]";
     }
     
 }

@@ -37,8 +37,8 @@ public class CompanyController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Company getCompanyById(@PathVariable(value = "myvariable") Integer companyId) throws Exception {
+    @GetMapping("/{id}")
+    public Company getCompanyById(@PathVariable(value = "id") Integer companyId) throws Exception {
         Optional<Company> optionalCompany = service.findById(companyId);
         return optionalCompany.orElseThrow(() -> new Exception("Company not exists with id:" + companyId));
         //return optionalCompany.get();

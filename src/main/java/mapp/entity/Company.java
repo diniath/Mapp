@@ -31,7 +31,7 @@ import org.hibernate.annotations.Cascade;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "company", catalog = "mydb", schema = "")
+@Table(name = "company", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
     , @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id")
@@ -140,23 +140,23 @@ public class Company implements Serializable {
     @JoinTable(name = "company_image", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
-    @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToMany
     private List<ImageUrl> imageUrlList;
     @JoinTable(name = "paid", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "orderlist_id", referencedColumnName = "id")})
-    @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToMany
     private List<Orderlist> orderlistList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<Product> productList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Appointment> appointmentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Schedule> scheduleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Review> reviewList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
-    private List<Service> serviceList;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
@@ -347,6 +347,14 @@ public class Company implements Serializable {
         this.orderlistList = orderlistList;
     }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
@@ -371,19 +379,11 @@ public class Company implements Serializable {
         this.reviewList = reviewList;
     }
 
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
-    }
-
-    public ImageUrl getImageUrlId() {
+    public ImageUrl getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrl) {
+    public void setImageUrl(ImageUrl imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -407,11 +407,9 @@ public class Company implements Serializable {
         return true;
     }
 
-    
-    
-//    @Override
-//    public String toString() {
-//        return "mapp.Company[ id=" + id + " ]";
-//    }
+    @Override
+    public String toString() {
+        return "mapp.entity.Company[ id=" + id + " ]";
+    }
     
 }

@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "review", catalog = "mydb", schema = "")
+@Table(name = "review", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r")
     , @NamedQuery(name = "Review.findById", query = "SELECT r FROM Review r WHERE r.id = :id")
@@ -127,19 +127,19 @@ public class Review implements Serializable {
         this.commentCompany = commentCompany;
     }
 
-    public Company getCompanyId() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompanyId(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
-    public Orderlist getOrderlistId() {
+    public Orderlist getOrderlist() {
         return orderlist;
     }
 
-    public void setOrderlistId(Orderlist orderlist) {
+    public void setOrderlist(Orderlist orderlist) {
         this.orderlist = orderlist;
     }
 
@@ -165,7 +165,7 @@ public class Review implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Review[ id=" + id + " ]";
+        return "mapp.entity.Review[ id=" + id + " ]";
     }
     
 }

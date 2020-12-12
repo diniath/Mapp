@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "postal_code", catalog = "mydb", schema = "")
+@Table(name = "postal_code", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "PostalCode.findAll", query = "SELECT p FROM PostalCode p")
     , @NamedQuery(name = "PostalCode.findById", query = "SELECT p FROM PostalCode p WHERE p.id = :id")
@@ -116,7 +116,7 @@ public class PostalCode implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.PostalCode[ id=" + id + " ]";
+        return "mapp.entity.PostalCode[ id=" + id + " ]";
     }
     
 }

@@ -6,7 +6,7 @@
 package mapp.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,13 +27,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author Hello Java !
  */
 @Entity
-@Table(name = "enrolled_user", catalog = "mydb", schema = "")
+@Table(name = "enrolled_user", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "EnrolledUser.findAll", query = "SELECT e FROM EnrolledUser e")
     , @NamedQuery(name = "EnrolledUser.findById", query = "SELECT e FROM EnrolledUser e WHERE e.id = :id")
@@ -42,7 +44,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "EnrolledUser.findByFname", query = "SELECT e FROM EnrolledUser e WHERE e.fname = :fname")
     , @NamedQuery(name = "EnrolledUser.findByLname", query = "SELECT e FROM EnrolledUser e WHERE e.lname = :lname")
     , @NamedQuery(name = "EnrolledUser.findByEmail", query = "SELECT e FROM EnrolledUser e WHERE e.email = :email")
-    , @NamedQuery(name = "EnrolledUser.findByDateofbirth", query = "SELECT e FROM EnrolledUser e WHERE e.dateofbirth = :dateofbirth")
+    , @NamedQuery(name = "EnrolledUser.findByLocalDateofbirth", query = "SELECT e FROM EnrolledUser e WHERE e.dateofbirth = :dateofbirth")
     , @NamedQuery(name = "EnrolledUser.findByPostalcode", query = "SELECT e FROM EnrolledUser e WHERE e.postalcode = :postalcode")
     , @NamedQuery(name = "EnrolledUser.findByAddress", query = "SELECT e FROM EnrolledUser e WHERE e.address = :address")
     , @NamedQuery(name = "EnrolledUser.findByCity", query = "SELECT e FROM EnrolledUser e WHERE e.city = :city")
@@ -86,8 +88,9 @@ public class EnrolledUser implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "dateofbirth")
-    @Temporal(TemporalType.DATE)
-    private Date dateofbirth;
+//    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateofbirth;
     @Basic(optional = false)
     @NotNull
     @Column(name = "postalcode")
@@ -115,23 +118,27 @@ public class EnrolledUser implements Serializable {
     @NotNull
     @Column(name = "mobile")
     private int mobile;
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToMany(mappedBy = "enrolledUserList")
     private List<Appointment> appointmentList;
     @JoinTable(name = "user_role", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToMany
     private List<Role> roleList;
     @JoinTable(name = "favorite", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "service_id", referencedColumnName = "id")})
+        @JoinColumn(name = "product_id", referencedColumnName = "id")})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)    
     @ManyToMany
-    private List<Service> serviceList;
+    private List<Product> productList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enrolledUser")
+    private List<Ordering> orderingList;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
-    private List<Order> orderList;
 
     public EnrolledUser() {
     }
@@ -140,7 +147,7 @@ public class EnrolledUser implements Serializable {
         this.id = id;
     }
 
-    public EnrolledUser(Integer id, String username, String password, String fname, String lname, String email, Date dateofbirth, int postalcode, String address, String city, String municipality, int telephone, int mobile) {
+    public EnrolledUser(Integer id, String username, String password, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, int telephone, int mobile) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -204,11 +211,11 @@ public class EnrolledUser implements Serializable {
         this.email = email;
     }
 
-    public Date getDateofbirth() {
+    public LocalDate getDateofbirth() {
         return dateofbirth;
     }
 
-    public void setDateofbirth(Date dateofbirth) {
+    public void setDateofbirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
 
@@ -276,28 +283,28 @@ public class EnrolledUser implements Serializable {
         this.roleList = roleList;
     }
 
-    public List<Service> getServiceList() {
-        return serviceList;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
-    public ImageUrl getImageUrlId() {
+    public List<Ordering> getOrderingList() {
+        return orderingList;
+    }
+
+    public void setOrderingList(List<Ordering> orderingList) {
+        this.orderingList = orderingList;
+    }
+
+    public ImageUrl getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrl) {
+    public void setImageUrl(ImageUrl imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
     }
 
     @Override
@@ -322,7 +329,7 @@ public class EnrolledUser implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.EnrolledUser[ id=" + id + " ]";
+        return "mapp.entity.EnrolledUser[ id=" + id + " ]";
     }
     
 }

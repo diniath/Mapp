@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "subcategory", catalog = "mydb", schema = "")
+@Table(name = "subcategory", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Subcategory.findAll", query = "SELECT s FROM Subcategory s")
     , @NamedQuery(name = "Subcategory.findById", query = "SELECT s FROM Subcategory s WHERE s.id = :id")
@@ -45,7 +45,7 @@ public class Subcategory implements Serializable {
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategory")
-    private List<Service> serviceList;
+    private List<Product> productList;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Category category;
@@ -81,27 +81,27 @@ public class Subcategory implements Serializable {
         this.description = description;
     }
 
-    public List<Service> getServiceList() {
-        return serviceList;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
-    public Category getCategoryId() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategoryId(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public ImageUrl getImageUrlId() {
+    public ImageUrl getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrl) {
+    public void setImageUrl(ImageUrl imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -127,7 +127,7 @@ public class Subcategory implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Subcategory[ id=" + id + " ]";
+        return "mapp.entity.Subcategory[ id=" + id + " ]";
     }
     
 }

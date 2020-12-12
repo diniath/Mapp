@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,7 +26,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "image_url", catalog = "mydb", schema = "")
+@Table(name = "image_url", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "ImageUrl.findAll", query = "SELECT i FROM ImageUrl i")
     , @NamedQuery(name = "ImageUrl.findById", query = "SELECT i FROM ImageUrl i WHERE i.id = :id")
@@ -44,20 +42,17 @@ public class ImageUrl implements Serializable {
     @Size(max = 2083)
     @Column(name = "url")
     private String url;
-    @JoinTable(name = "service_image", joinColumns = {
-        @JoinColumn(name = "image_url_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "service_id", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Service> serviceList;
+    @ManyToMany(mappedBy = "imageUrlList")
+    private List<Product> productList;
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Company> companyList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrlId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Company> companyList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrlId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<EnrolledUser> enrolledUserList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrlId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Category> categoryList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrlId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Subcategory> subcategoryList;
 
     public ImageUrl() {
@@ -83,12 +78,12 @@ public class ImageUrl implements Serializable {
         this.url = url;
     }
 
-    public List<Service> getServiceList() {
-        return serviceList;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     public List<Company> getCompanyList() {
@@ -153,7 +148,7 @@ public class ImageUrl implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.ImageUrl[ id=" + id + " ]";
+        return "mapp.entity.ImageUrl[ id=" + id + " ]";
     }
     
 }

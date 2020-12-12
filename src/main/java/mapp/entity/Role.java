@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "role", catalog = "mydb", schema = "")
+@Table(name = "role", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
     , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
@@ -104,7 +104,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Role[ id=" + id + " ]";
+        return "mapp.entity.Role[ id=" + id + " ]";
     }
     
 }

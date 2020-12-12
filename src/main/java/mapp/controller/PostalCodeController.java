@@ -61,8 +61,9 @@ public class PostalCodeController {
         Optional<PostalCode> optionalPostalCode = service.findById(postalCodeId);
         PostalCode postalCodeToUpdate = optionalPostalCode.orElseThrow(() -> new Exception("PostalCode not exists with id:" + postalCodeId));
         
-        postalCodeToUpdate.setPostalCode(newPostalCodeDetails.getPostalCode());
-        service.edit(postalCodeToUpdate);
+//        postalCodeToUpdate.setPostalCode(newPostalCodeDetails.getPostalCode());
+        newPostalCodeDetails.setId(postalCodeId);
+        service.edit(newPostalCodeDetails);
     }
     
 //    @GetMapping("/search/{address}")

@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "category", catalog = "mydb", schema = "")
+@Table(name = "category", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
     , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")
@@ -47,7 +47,7 @@ public class Category implements Serializable {
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ImageUrl imageUrl;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Subcategory> subcategoryList;
 
     public Category() {
@@ -78,11 +78,11 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public ImageUrl getImageUrlId() {
+    public ImageUrl getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrlId(ImageUrl imageUrl) {
+    public void setImageUrl(ImageUrl imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -116,7 +116,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Category[ id=" + id + " ]";
+        return "mapp.entity.Category[ id=" + id + " ]";
     }
     
 }

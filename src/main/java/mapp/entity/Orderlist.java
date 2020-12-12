@@ -27,7 +27,7 @@ import javax.persistence.Table;
  * @author Hello Java !
  */
 @Entity
-@Table(name = "orderlist", catalog = "mydb", schema = "")
+@Table(name = "orderlist", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
     , @NamedQuery(name = "Orderlist.findById", query = "SELECT o FROM Orderlist o WHERE o.id = :id")})
@@ -41,16 +41,16 @@ public class Orderlist implements Serializable {
     private Integer id;
     @ManyToMany(mappedBy = "orderlistList")
     private List<Company> companyList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlistId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlist")
     private List<Appointment> appointmentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlistId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlist")
     private List<Review> reviewList;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "ordering_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Order order;
-    @JoinColumn(name = "service_id", referencedColumnName = "id")
+    private Ordering ordering;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Service service;
+    private Product product;
 
     public Orderlist() {
     }
@@ -91,20 +91,20 @@ public class Orderlist implements Serializable {
         this.reviewList = reviewList;
     }
 
-    public Order getOrderId() {
-        return order;
+    public Ordering getOrdering() {
+        return ordering;
     }
 
-    public void setOrderId(Order order) {
-        this.order = order;
+    public void setOrdering(Ordering ordering) {
+        this.ordering = ordering;
     }
 
-    public Service getServiceId() {
-        return service;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setServiceId(Service service) {
-        this.service = service;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class Orderlist implements Serializable {
 
     @Override
     public String toString() {
-        return "mapp.Orderlist[ id=" + id + " ]";
+        return "mapp.entity.Orderlist[ id=" + id + " ]";
     }
     
 }

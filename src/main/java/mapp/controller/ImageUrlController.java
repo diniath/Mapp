@@ -37,8 +37,8 @@ public class ImageUrlController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public ImageUrl getImageUrlById(@PathVariable(value = "myvariable") Integer imageUrlId) throws Exception {
+    @GetMapping("/{id}")
+    public ImageUrl getImageUrlById(@PathVariable(value = "id") Integer imageUrlId) throws Exception {
         Optional<ImageUrl> optionalImageUrl = service.findById(imageUrlId);
         return optionalImageUrl.orElseThrow(() -> new Exception("ImageUrl not exists with id:" + imageUrlId));
         //return optionalImageUrl.get();
@@ -60,7 +60,7 @@ public class ImageUrlController {
             @RequestBody ImageUrl newImageUrlDetails) throws Exception {
         Optional<ImageUrl> optionalImageUrl = service.findById(imageUrlId);
         ImageUrl imageUrlToUpdate = optionalImageUrl.orElseThrow(() -> new Exception("ImageUrl not exists with id:" + imageUrlId));
-        
+        newImageUrlDetails.setId(imageUrlId);
 //        imageUrlToUpdate.setDay(newImageUrlDetails.getDay());
         service.edit(newImageUrlDetails);
     }
