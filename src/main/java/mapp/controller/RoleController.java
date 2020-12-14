@@ -37,8 +37,8 @@ public class RoleController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Role getRoleById(@PathVariable(value = "myvariable") Integer roleId) throws Exception {
+    @GetMapping("/{id}")
+    public Role getRoleById(@PathVariable(value = "id") Integer roleId) throws Exception {
         Optional<Role> optionalRole = service.findById(roleId);
         return optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
         //return optionalRole.get();
@@ -62,6 +62,7 @@ public class RoleController {
         Role roleToUpdate = optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
         
 //        roleToUpdate.setDay(newRoleDetails.getDay());
+        newRoleDetails.setId(roleId);
         service.edit(newRoleDetails);
     }
     

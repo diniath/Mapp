@@ -37,8 +37,8 @@ public class CategoryController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Category getCategoryById(@PathVariable(value = "myvariable") Integer categoryId) throws Exception {
+    @GetMapping("/{id}")
+    public Category getCategoryById(@PathVariable(value = "id") Integer categoryId) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
         return optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
         //return optionalCategory.get();
@@ -60,7 +60,7 @@ public class CategoryController {
             @RequestBody Category newCategoryDetails) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
         Category categoryToUpdate = optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
-        
+        newCategoryDetails.setId(categoryId);
 //        categoryToUpdate.setDay(newCategoryDetails.getDay());
         service.edit(newCategoryDetails);
     }

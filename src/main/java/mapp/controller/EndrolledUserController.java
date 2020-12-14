@@ -37,8 +37,8 @@ public class EndrolledUserController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public EnrolledUser getEnrolledUserById(@PathVariable(value = "myvariable") Integer enrolledUserId) throws Exception {
+    @GetMapping("/{id}")
+    public EnrolledUser getEnrolledUserById(@PathVariable(value = "id") Integer enrolledUserId) throws Exception {
         Optional<EnrolledUser> optionalEnrolledUser = service.findById(enrolledUserId);
         return optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
         //return optionalEnrolledUser.get();
@@ -62,6 +62,7 @@ public class EndrolledUserController {
         EnrolledUser enrolledUserToUpdate = optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
         
 //        enrolledUserToUpdate.setDay(newEnrolledUserDetails.getDay());
+        newEnrolledUserDetails.setId(enrolledUserId);
         service.edit(newEnrolledUserDetails);
     }
     

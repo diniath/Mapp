@@ -37,8 +37,8 @@ public class ProductController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Product getProductById(@PathVariable(value = "myvariable") Integer productId) throws Exception {
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable(value = "id") Integer productId) throws Exception {
         Optional<Product> optionalProduct = service.findById(productId);
         return optionalProduct.orElseThrow(() -> new Exception("Product not exists with id:" + productId));
         //return optionalProduct.get();
@@ -60,7 +60,7 @@ public class ProductController {
             @RequestBody Product newProductDetails) throws Exception {
         Optional<Product> optionalProduct = service.findById(productId);
         Product productToUpdate = optionalProduct.orElseThrow(() -> new Exception("Product not exists with id:" + productId));
-        
+        newProductDetails.setId(productId);
 //        productToUpdate.setDay(newProductDetails.getDay());
         service.edit(newProductDetails);
     }

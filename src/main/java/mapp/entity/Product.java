@@ -68,7 +68,7 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "status")
     private boolean status;
-    @JoinTable(name = "service_image", joinColumns = {
+    @JoinTable(name = "product_image", joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @ManyToMany

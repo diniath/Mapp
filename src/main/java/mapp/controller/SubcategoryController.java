@@ -37,8 +37,8 @@ public class SubcategoryController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Subcategory getSubcategoryById(@PathVariable(value = "myvariable") Integer subcategoryId) throws Exception {
+    @GetMapping("/{id}")
+    public Subcategory getSubcategoryById(@PathVariable(value = "id") Integer subcategoryId) throws Exception {
         Optional<Subcategory> optionalSubcategory = service.findById(subcategoryId);
         return optionalSubcategory.orElseThrow(() -> new Exception("Subcategory not exists with id:" + subcategoryId));
         //return optionalSubcategory.get();
@@ -60,7 +60,7 @@ public class SubcategoryController {
             @RequestBody Subcategory newSubcategoryDetails) throws Exception {
         Optional<Subcategory> optionalSubcategory = service.findById(subcategoryId);
         Subcategory subcategoryToUpdate = optionalSubcategory.orElseThrow(() -> new Exception("Subcategory not exists with id:" + subcategoryId));
-        
+        newSubcategoryDetails.setId(subcategoryId);
 //        subcategoryToUpdate.setDay(newSubcategoryDetails.getDay());
         service.edit(newSubcategoryDetails);
     }

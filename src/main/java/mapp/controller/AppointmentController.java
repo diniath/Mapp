@@ -37,8 +37,8 @@ public class AppointmentController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Appointment getAppointmentById(@PathVariable(value = "myvariable") Integer appointmentId) throws Exception {
+    @GetMapping("/{id}")
+    public Appointment getAppointmentById(@PathVariable(value = "id") Integer appointmentId) throws Exception {
         Optional<Appointment> optionalAppointment = service.findById(appointmentId);
         return optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
         //return optionalAppointment.get();
