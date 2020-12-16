@@ -30,7 +30,6 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentServiceImpl service;
-
     
     @GetMapping
     public List<Appointment> getAppointments() {

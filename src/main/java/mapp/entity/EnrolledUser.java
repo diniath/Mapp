@@ -23,8 +23,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
@@ -88,7 +86,6 @@ public class EnrolledUser implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "dateofbirth")
-//    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateofbirth;
     @Basic(optional = false)
@@ -118,7 +115,6 @@ public class EnrolledUser implements Serializable {
     @NotNull
     @Column(name = "mobile")
     private int mobile;
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToMany(mappedBy = "enrolledUserList")
     private List<Appointment> appointmentList;
     @JoinTable(name = "user_role", joinColumns = {

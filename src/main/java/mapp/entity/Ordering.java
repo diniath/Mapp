@@ -6,7 +6,7 @@
 package mapp.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,10 +21,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -48,8 +47,8 @@ public class Ordering implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "orderdate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date orderdate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate orderdate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -68,7 +67,7 @@ public class Ordering implements Serializable {
         this.id = id;
     }
 
-    public Ordering(Integer id, Date orderdate, String paymentMethod) {
+    public Ordering(Integer id, LocalDate orderdate, String paymentMethod) {
         this.id = id;
         this.orderdate = orderdate;
         this.paymentMethod = paymentMethod;
@@ -82,11 +81,11 @@ public class Ordering implements Serializable {
         this.id = id;
     }
 
-    public Date getOrderdate() {
+    public LocalDate getOrderdate() {
         return orderdate;
     }
 
-    public void setOrderdate(Date orderdate) {
+    public void setOrderdate(LocalDate orderdate) {
         this.orderdate = orderdate;
     }
 

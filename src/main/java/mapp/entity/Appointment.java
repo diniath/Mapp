@@ -6,10 +6,13 @@
 package mapp.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,6 +22,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -31,29 +37,32 @@ import javax.validation.constraints.NotNull;
     , @NamedQuery(name = "Appointment.findById", query = "SELECT a FROM Appointment a WHERE a.id = :id")
     , @NamedQuery(name = "Appointment.findByEnddate", query = "SELECT a FROM Appointment a WHERE a.enddate = :enddate")
     , @NamedQuery(name = "Appointment.findByStartdate", query = "SELECT a FROM Appointment a WHERE a.startdate = :startdate")
-    , @NamedQuery(name = "Appointment.findByDay", query = "SELECT a FROM Appointment a WHERE a.day = :day")})
+    , @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate")})
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Column(name = "enddate")
     private Short enddate;
     @Column(name = "startdate")
     private Short startdate;
-    @Column(name = "day")
-    private Short day;
-    @JoinTable(name = "client_appointment", joinColumns = {
+    @Column(name = "appointment_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate appointmentDate;
+    @JoinTable(name = "enrolled_user_appointment", joinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")})
     @ManyToMany
+    @Cascade(CascadeType.SAVE_UPDATE)    
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company company;
+    @Cascade(CascadeType.MERGE)
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Orderlist orderlist;
@@ -89,12 +98,12 @@ public class Appointment implements Serializable {
         this.startdate = startdate;
     }
 
-    public Short getDay() {
-        return day;
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setDay(Short day) {
-        this.day = day;
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
     public List<EnrolledUser> getEnrolledUserList() {

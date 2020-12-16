@@ -49,6 +49,14 @@ public class CategoryController {
         return service.create(category);
     }
 
+//        public List<Category> createCategory(@RequestBody List<Category> categories) {
+//        List<Category> temp = new ArrayList();
+//        for (Category category : categories) {
+//            temp.add(service.create(category));
+//        }
+//        return temp;
+//    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategoryById(@PathVariable(value = "id") Integer categoryId) {
         service.delete(categoryId);

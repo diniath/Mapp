@@ -37,8 +37,8 @@ public class OrderingController {
         return service.findAll();
     }
 
-    @GetMapping("/{myvariable}")
-    public Ordering getOrderingById(@PathVariable(value = "myvariable") Integer orderingId) throws Exception {
+    @GetMapping("/{id}")
+    public Ordering getOrderingById(@PathVariable(value = "id") Integer orderingId) throws Exception {
         Optional<Ordering> optionalOrdering = service.findById(orderingId);
         return optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
         //return optionalOrdering.get();
