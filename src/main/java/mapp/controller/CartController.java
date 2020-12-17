@@ -18,7 +18,6 @@ import mapp.service.EnrolledUserServiceImpl;
 import mapp.service.OrderingServiceImpl;
 import mapp.service.OrderlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,11 +40,11 @@ public class CartController {
     @Autowired
     private EnrolledUserServiceImpl enrolledUserService;
 
-        @Autowired
+    @Autowired
     private OrderingServiceImpl orderingService;
-    
+
     @PostMapping
-    public Cart manageCart(@RequestBody Cart cart ) throws Exception {
+    public Cart manageCart(@RequestBody Cart cart) throws Exception {
         Ordering ordering = orderingService.create(cart.getOrdering());
         Orderlist orderlist = new Orderlist();
         orderlist.setOrdering(ordering);
@@ -59,25 +58,12 @@ public class CartController {
         appointment.setStartdate(cart.getStartDate());
         appointment.setAppointmentDate(cart.getAppointmentDate());
         List<EnrolledUser> enrolledUsers = new ArrayList();
+        enrolledUsers.add(cart.getOrdering().getEnrolledUser());
 
         appointment.setEnrolledUserList(enrolledUsers);
-
-//        List<Appointment> appointments = new ArrayList();
-        
         appointment = appointmentService.create(appointment);
-        
-//        appointments.add(appointmentService.create(appointment));
-        
-        
-        
-//        Optional<EnrolledUser> optionalEnrolledUser = enrolledUserService.findById(cart.getOrdering().getEnrolledUser().getId());
-//        EnrolledUser enrolledUser = optionalEnrolledUser.orElseThrow(() -> new Exception("OYAAA not exists with id:"));
-        
-//        enrolledUser.setAppointmentList(appointments);
-//        enrolledUserService.create(enrolledUser);
-        
-    return cart;}    
-    
-    
-    
+
+        return cart;
+    }
+
 }

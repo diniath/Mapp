@@ -120,7 +120,7 @@ public class EnrolledUser implements Serializable {
     @JoinTable(name = "user_role", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_id", referencedColumnName = "id")})
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<Role> roleList;
     @JoinTable(name = "favorite", joinColumns = {

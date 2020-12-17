@@ -52,6 +52,7 @@ public class Appointment implements Serializable {
     private Short startdate;
     @Column(name = "appointment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private LocalDate appointmentDate;
     @JoinTable(name = "enrolled_user_appointment", joinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {

@@ -31,7 +31,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
     , @NamedQuery(name = "Orderlist.findById", query = "SELECT o FROM Orderlist o WHERE o.id = :id")})
-public class Orderlist implements Serializable {
+    public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
