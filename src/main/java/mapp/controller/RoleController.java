@@ -7,6 +7,7 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import mapp.entity.Role;
 import mapp.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public Role createRole(@RequestBody Role role) {
+    public Role createRole(@Valid @RequestBody Role role) {
         return service.create(role);
     }
 

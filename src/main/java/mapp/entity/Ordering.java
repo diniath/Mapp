@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -56,6 +57,7 @@ public class Ordering implements Serializable {
     private String paymentMethod;
     @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
     private EnrolledUser enrolledUser;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordering")
     private List<Orderlist> orderlistList;

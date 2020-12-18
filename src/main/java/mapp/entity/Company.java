@@ -135,18 +135,18 @@ public class Company implements Serializable {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "postal_code_id", referencedColumnName = "id")})
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<PostalCode> postalCodeList;
     @JoinTable(name = "company_image", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<ImageUrl> imageUrlList;
     @JoinTable(name = "paid", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "orderlist_id", referencedColumnName = "id")})
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<Orderlist> orderlistList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")

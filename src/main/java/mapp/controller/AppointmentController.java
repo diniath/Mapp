@@ -7,10 +7,12 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import mapp.entity.Appointment;
 import mapp.service.AppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @appointment Hello Java !
  */
+@Validated
 @RestController//@RestController = @Controller + @ResponseBody
 @RequestMapping("/appointment")
 public class AppointmentController {
@@ -44,7 +47,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
+    public Appointment createAppointment(@Valid @RequestBody Appointment appointment) {
         return service.create(appointment);
     }
 

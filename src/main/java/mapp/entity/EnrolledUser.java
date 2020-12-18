@@ -126,7 +126,7 @@ public class EnrolledUser implements Serializable {
     @JoinTable(name = "favorite", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)    
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)    
     @ManyToMany
     private List<Product> productList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "enrolledUser")

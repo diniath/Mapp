@@ -46,22 +46,25 @@ public class Appointment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @NotNull(message = "Please *********** enter a ********** value")
     @Column(name = "enddate")
     private Short enddate;
+    @NotNull(message = "{NotNull.appointment.startdate}")
     @Column(name = "startdate")
     private Short startdate;
+    @NotNull(message = "{NotNull.appointment.appointmentDate}")    
     @Column(name = "appointment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Cascade(CascadeType.SAVE_UPDATE)
     private LocalDate appointmentDate;
     @JoinTable(name = "enrolled_user_appointment", joinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")})
     @ManyToMany
-    @Cascade(CascadeType.SAVE_UPDATE)    
+    @Cascade(CascadeType.SAVE_UPDATE)
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
     @Cascade(CascadeType.MERGE)
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
@@ -155,5 +158,5 @@ public class Appointment implements Serializable {
     public String toString() {
         return "mapp.entity.Appointment[ id=" + id + " ]";
     }
-    
+
 }

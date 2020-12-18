@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -72,14 +73,17 @@ public class Product implements Serializable {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)    
     private List<ImageUrl> imageUrlList;
     @ManyToMany(mappedBy = "productList")
     private List<EnrolledUser> enrolledUserList;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Subcategory subcategory;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Orderlist> orderlistList;

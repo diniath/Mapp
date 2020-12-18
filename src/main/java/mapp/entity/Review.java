@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -33,8 +34,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r")
     , @NamedQuery(name = "Review.findById", query = "SELECT r FROM Review r WHERE r.id = :id")
     , @NamedQuery(name = "Review.findByRatingDate", query = "SELECT r FROM Review r WHERE r.ratingDate = :ratingDate")
-    , @NamedQuery(name = "Review.findByServiceComment", query = "SELECT r FROM Review r WHERE r.serviceComment = :serviceComment")
-    , @NamedQuery(name = "Review.findByServiceRating", query = "SELECT r FROM Review r WHERE r.serviceRating = :serviceRating")
+    , @NamedQuery(name = "Review.findByProductComment", query = "SELECT r FROM Review r WHERE r.productComment = :productComment")
+    , @NamedQuery(name = "Review.findByProductRating", query = "SELECT r FROM Review r WHERE r.productRating = :productRating")
     , @NamedQuery(name = "Review.findByCompanyRating", query = "SELECT r FROM Review r WHERE r.companyRating = :companyRating")
     , @NamedQuery(name = "Review.findByCommentCompany", query = "SELECT r FROM Review r WHERE r.commentCompany = :commentCompany")})
 public class Review implements Serializable {
@@ -49,12 +50,12 @@ public class Review implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ratingDate;
     @Size(max = 45)
-    @Column(name = "service_comment")
-    private String serviceComment;
+    @Column(name = "product_comment")
+    private String productComment;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "service_rating")
-    private short serviceRating;
+    @Column(name = "product_rating")
+    private short productRating;
     @Column(name = "company_rating")
     private Short companyRating;
     @Size(max = 45)
@@ -62,9 +63,11 @@ public class Review implements Serializable {
     private String commentCompany;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
     private Company company;
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
     private Orderlist orderlist;
 
     public Review() {
@@ -74,9 +77,9 @@ public class Review implements Serializable {
         this.id = id;
     }
 
-    public Review(Integer id, short serviceRating) {
+    public Review(Integer id, short productRating) {
         this.id = id;
-        this.serviceRating = serviceRating;
+        this.productRating = productRating;
     }
 
     public Integer getId() {
@@ -95,20 +98,20 @@ public class Review implements Serializable {
         this.ratingDate = ratingDate;
     }
 
-    public String getServiceComment() {
-        return serviceComment;
+    public String getProductComment() {
+        return productComment;
     }
 
-    public void setServiceComment(String serviceComment) {
-        this.serviceComment = serviceComment;
+    public void setProductComment(String productComment) {
+        this.productComment = productComment;
     }
 
-    public short getServiceRating() {
-        return serviceRating;
+    public short getProductRating() {
+        return productRating;
     }
 
-    public void setServiceRating(short serviceRating) {
-        this.serviceRating = serviceRating;
+    public void setProductRating(short productRating) {
+        this.productRating = productRating;
     }
 
     public Short getCompanyRating() {

@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -59,6 +60,7 @@ public class Schedule implements Serializable {
     private Short reclosetime;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 
     public Schedule() {

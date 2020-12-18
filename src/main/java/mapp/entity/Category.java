@@ -47,6 +47,7 @@ public class Category implements Serializable {
     private String description;
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Subcategory> subcategoryList;
