@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.entity;
 
 import java.io.Serializable;
@@ -18,13 +13,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Builder;
 
 /**
  *
  * @author Hello Java !
  */
+
+@Builder
+
 @Entity
 @Table(name = "role", catalog = "mapp", schema = "")
 @NamedQueries({
@@ -53,10 +51,20 @@ public class Role implements Serializable {
     public Role(Integer id) {
         this.id = id;
     }
-
+    
+    public Role(String admission) {
+        this.admission = admission;
+    }
+    
     public Role(Integer id, String admission) {
         this.id = id;
         this.admission = admission;
+    }
+
+    public Role(Integer id, String admission, List<EnrolledUser> enrolledUserList) {
+        this.id = id;
+        this.admission = admission;
+        this.enrolledUserList = enrolledUserList;
     }
 
     public Integer getId() {

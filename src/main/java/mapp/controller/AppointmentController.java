@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @appointment Hello Java !
  */
-@Validated
+
 @RestController//@RestController = @Controller + @ResponseBody
 @RequestMapping("/appointment")
 public class AppointmentController {

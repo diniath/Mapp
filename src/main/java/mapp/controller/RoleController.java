@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import mapp.entity.Role;
+import mapp.exceptions.ResourceNotFoundException;
 import mapp.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,22 +30,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/role")
 public class RoleController {
 
+    
     @Autowired
     private RoleServiceImpl service;
 
-    
     @GetMapping
     public List<Role> getRoles() {
         return service.findAll();
     }
 
+
     @GetMapping("/{id}")
     public Role getRoleById(@PathVariable(value = "id") Integer roleId) throws Exception {
         Optional<Role> optionalRole = service.findById(roleId);
-        return optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
+        return optionalRole.orElseThrow(() -> new ResourceNotFoundException("Role not exists with id:" + roleId));
         //return optionalRole.get();
     }
-
+    
+    
     @PostMapping
     public Role createRole(@Valid @RequestBody Role role) {
         return service.create(role);
@@ -61,15 +64,14 @@ public class RoleController {
             @RequestBody Role newRoleDetails) throws Exception {
         Optional<Role> optionalRole = service.findById(roleId);
         Role roleToUpdate = optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
-        
+
 //        roleToUpdate.setDay(newRoleDetails.getDay());
         newRoleDetails.setId(roleId);
         service.edit(newRoleDetails);
     }
-    
+
 //    @GetMapping("/search/{address}")
 //    public Role getRoleByAddress(@PathVariable(value = "address") String address){
 //        return service.findRoleByAddress(address);
 //    }
-
 }
