@@ -1,10 +1,12 @@
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
 
@@ -21,7 +24,7 @@ import lombok.Builder;
  * @author Hello Java !
  */
 
-@Builder
+//@Builder
 
 @Entity
 @Table(name = "role", catalog = "mapp", schema = "")
@@ -31,18 +34,23 @@ import lombok.Builder;
     , @NamedQuery(name = "Role.findByAdmission", query = "SELECT r FROM Role r WHERE r.admission = :admission")})
 public class Role implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "admission")
+    private String admission;
+    @ManyToMany(mappedBy = "roleList")
+    @JsonIgnore
+    private List<Company> companyList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotBlank(message = "Please *********** enter a ********** value")
-    @Size(min = 1, max = 45)
-    @Column(name = "admission")
-    private String admission;
     @ManyToMany(mappedBy = "roleList")
+    @JsonIgnore // ignores the list of enrolled users to avoid the infinite loop created when try to access role with specific id  (stack: stackoverflow)
     private List<EnrolledUser> enrolledUserList;
 
     public Role() {
@@ -75,13 +83,6 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getAdmission() {
-        return admission;
-    }
-
-    public void setAdmission(String admission) {
-        this.admission = admission;
-    }
 
     public List<EnrolledUser> getEnrolledUserList() {
         return enrolledUserList;
@@ -114,6 +115,22 @@ public class Role implements Serializable {
     @Override
     public String toString() {
         return "mapp.entity.Role[ id=" + id + " ]";
+    }
+
+    public String getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(String admission) {
+        this.admission = admission;
+    }
+
+    public List<Company> getCompanyList() {
+        return companyList;
+    }
+
+    public void setCompanyList(List<Company> companyList) {
+        this.companyList = companyList;
     }
     
 }

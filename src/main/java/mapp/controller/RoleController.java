@@ -13,6 +13,7 @@ import mapp.exceptions.ResourceNotFoundException;
 import mapp.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +39,6 @@ public class RoleController {
     public List<Role> getRoles() {
         return service.findAll();
     }
-
 
     @GetMapping("/{id}")
     public Role getRoleById(@PathVariable(value = "id") Integer roleId) throws Exception {

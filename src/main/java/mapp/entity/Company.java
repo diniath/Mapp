@@ -53,19 +53,13 @@ import org.hibernate.annotations.Cascade;
     , @NamedQuery(name = "Company.findByIban", query = "SELECT c FROM Company c WHERE c.iban = :iban")})
 public class Company implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
@@ -84,6 +78,7 @@ public class Company implements Serializable {
     @NotNull
     @Column(name = "postalcode")
     private int postalcode;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -126,11 +121,21 @@ public class Company implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "representative")
     private String representative;
-    @Column(name = "rating")
-    private Integer rating;
     @Size(max = 45)
     @Column(name = "iban")
     private String iban;
+    @JoinTable(name = "company_role", joinColumns = {@JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<Role> roleList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "rating")
+    private Integer rating;
     @JoinTable(name = "area_of_service", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "postal_code_id", referencedColumnName = "id")})
@@ -193,6 +198,105 @@ public class Company implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+
+    public List<PostalCode> getPostalCodeList() {
+        return postalCodeList;
+    }
+
+    public void setPostalCodeList(List<PostalCode> postalCodeList) {
+        this.postalCodeList = postalCodeList;
+    }
+
+    public List<ImageUrl> getImageUrlList() {
+        return imageUrlList;
+    }
+
+    public void setImageUrlList(List<ImageUrl> imageUrlList) {
+        this.imageUrlList = imageUrlList;
+    }
+
+    public List<Orderlist> getOrderlistList() {
+        return orderlistList;
+    }
+
+    public void setOrderlistList(List<Orderlist> orderlistList) {
+        this.orderlistList = orderlistList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
+    public ImageUrl getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(ImageUrl imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Company)) {
+            return false;
+        }
+        Company other = (Company) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mapp.entity.Company[ id=" + id + " ]";
     }
 
     public String getUsername() {
@@ -307,14 +411,6 @@ public class Company implements Serializable {
         this.representative = representative;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
     public String getIban() {
         return iban;
     }
@@ -323,93 +419,12 @@ public class Company implements Serializable {
         this.iban = iban;
     }
 
-    public List<PostalCode> getPostalCodeList() {
-        return postalCodeList;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setPostalCodeList(List<PostalCode> postalCodeList) {
-        this.postalCodeList = postalCodeList;
-    }
-
-    public List<ImageUrl> getImageUrlList() {
-        return imageUrlList;
-    }
-
-    public void setImageUrlList(List<ImageUrl> imageUrlList) {
-        this.imageUrlList = imageUrlList;
-    }
-
-    public List<Orderlist> getOrderlistList() {
-        return orderlistList;
-    }
-
-    public void setOrderlistList(List<Orderlist> orderlistList) {
-        this.orderlistList = orderlistList;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
-    }
-
-    public List<Schedule> getScheduleList() {
-        return scheduleList;
-    }
-
-    public void setScheduleList(List<Schedule> scheduleList) {
-        this.scheduleList = scheduleList;
-    }
-
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
-    }
-
-    public ImageUrl getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(ImageUrl imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Company)) {
-            return false;
-        }
-        Company other = (Company) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mapp.entity.Company[ id=" + id + " ]";
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
     
 }

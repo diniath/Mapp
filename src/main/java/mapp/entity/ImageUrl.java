@@ -70,13 +70,6 @@ public class ImageUrl implements Serializable {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public List<Product> getProductList() {
         return productList;
@@ -149,6 +142,14 @@ public class ImageUrl implements Serializable {
     @Override
     public String toString() {
         return "mapp.entity.ImageUrl[ id=" + id + " ]";
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
     
 }
