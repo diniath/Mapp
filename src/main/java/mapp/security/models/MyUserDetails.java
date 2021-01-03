@@ -5,10 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.List;
-import java.util.stream.Collectors;
 import mapp.dao.RoleDao;
 import mapp.entity.EnrolledUser;
 import mapp.entity.Role;
@@ -21,15 +19,14 @@ public class MyUserDetails implements UserDetails {
     @Autowired
     RoleDao roleDao;
     
-    
-    private String userName;
+    private String username;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
        
     public MyUserDetails(EnrolledUser user) {
-        this.userName = user.getUsername();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.active = true;
         this.authorities = getAuthorities(user);
@@ -44,7 +41,6 @@ public class MyUserDetails implements UserDetails {
         return authorities;
     }
     
-    
     @Override
     public List<GrantedAuthority> getAuthorities() {
         return authorities;
@@ -57,7 +53,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
