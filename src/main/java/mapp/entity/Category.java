@@ -5,12 +5,15 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,15 +43,18 @@ public class Category implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
+
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Subcategory> subcategoryList;
 
@@ -80,6 +86,7 @@ public class Category implements Serializable {
         this.description = description;
     }
 
+    @JsonBackReference(value="category_imageUrl")
     public ImageUrl getImageUrl() {
         return imageUrl;
     }
@@ -88,6 +95,7 @@ public class Category implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    @JsonManagedReference(value="category_subcategory")
     public List<Subcategory> getSubcategoryList() {
         return subcategoryList;
     }
@@ -120,5 +128,5 @@ public class Category implements Serializable {
     public String toString() {
         return "mapp.entity.Category[ id=" + id + " ]";
     }
-    
+
 }

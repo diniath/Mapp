@@ -7,7 +7,9 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+//import mapp.converter.EnrolledUserConverter;
 import mapp.entity.EnrolledUser;
+import mapp.dto.EnrolledUserDto;
 import mapp.service.EnrolledUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +33,18 @@ public class EndrolledUserController {
     @Autowired
     private EnrolledUserServiceImpl service;
 
+//    @Autowired
+//    private EnrolledUserConverter converter;
     
-    @GetMapping
-    public List<EnrolledUser> getEnrolledUsers() {
-        return service.findAll();
+    @GetMapping("fck/{username}")
+//    public List<EnrolledUser> getEnrolledUsers() {
+            public List<EnrolledUserDto> getEnrolledUsers(@PathVariable(value = "username") String username)  {
+//        List<EnrolledUser> findAll = service.findAll();
+//	return converter.entityToDto(findAll);
+
+        return service.retrieveAll(username);
+
+//        return service.findAll();
     }
 
     @GetMapping("/{id}")

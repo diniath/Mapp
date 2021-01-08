@@ -60,7 +60,7 @@ public class CartController {
         List<EnrolledUser> enrolledUsers = new ArrayList();
         enrolledUsers.add(cart.getOrdering().getEnrolledUser());
 
-        appointment.setEnrolledUserList(enrolledUsers);
+//        appointment.setEnrolledUserList(enrolledUsers);
         appointment = appointmentService.create(appointment);
 
         return cart;

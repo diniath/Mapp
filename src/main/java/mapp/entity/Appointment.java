@@ -5,12 +5,17 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,29 +51,35 @@ public class Appointment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @NotNull(message = "Please *********** enter a ********** value")
     @Column(name = "enddate")
     private Short enddate;
+    
     @NotNull(message = "{NotNull.appointment.startdate}")
     @Column(name = "startdate")
     private Short startdate;
-    @NotNull(message = "{NotNull.appointment.appointmentDate}")    
+    
+    @NotNull(message = "{NotNull.appointment.appointmentDate}")
     @Column(name = "appointment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
-    @JoinTable(name = "enrolled_user_appointment", joinColumns = {
-        @JoinColumn(name = "appointment_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")})
-    @ManyToMany
+
+    @JsonBackReference(value="enrolledUserMany_appointment")     
+//    @JsonManagedReference(value="enrolledUserMany_appointment")     
+//    @JsonIgnore
+    @ManyToMany(mappedBy = "appointmentList", fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
     private List<EnrolledUser> enrolledUserList;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
+
     @Cascade(CascadeType.MERGE)
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orderlist orderlist;
 
     public Appointment() {
@@ -118,6 +129,7 @@ public class Appointment implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
+    @JsonBackReference(value="company_appointment")
     public Company getCompany() {
         return company;
     }
@@ -126,6 +138,7 @@ public class Appointment implements Serializable {
         this.company = company;
     }
 
+    @JsonBackReference(value="orderlist_appointment")
     public Orderlist getOrderlist() {
         return orderlist;
     }

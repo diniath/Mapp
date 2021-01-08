@@ -5,12 +5,17 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +32,7 @@ import org.hibernate.annotations.Cascade;
  * @author Hello Java !
  */
 @Entity
-    @Table(name = "subcategory", catalog = "mapp", schema = "")
+@Table(name = "subcategory", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Subcategory.findAll", query = "SELECT s FROM Subcategory s")
     , @NamedQuery(name = "Subcategory.findById", query = "SELECT s FROM Subcategory s WHERE s.id = :id")
@@ -45,14 +50,17 @@ public class Subcategory implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategory")
     private List<Product> productList;
+
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Category category;
+
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
 
@@ -84,6 +92,7 @@ public class Subcategory implements Serializable {
         this.description = description;
     }
 
+    @JsonManagedReference(value="product_subcategory")
     public List<Product> getProductList() {
         return productList;
     }
@@ -92,6 +101,7 @@ public class Subcategory implements Serializable {
         this.productList = productList;
     }
 
+    @JsonBackReference(value="category_subcategory")
     public Category getCategory() {
         return category;
     }
@@ -100,6 +110,7 @@ public class Subcategory implements Serializable {
         this.category = category;
     }
 
+    @JsonBackReference(value="subcategory_imageUrl")
     public ImageUrl getImageUrl() {
         return imageUrl;
     }
@@ -132,5 +143,5 @@ public class Subcategory implements Serializable {
     public String toString() {
         return "mapp.entity.Subcategory[ id=" + id + " ]";
     }
-    
+
 }

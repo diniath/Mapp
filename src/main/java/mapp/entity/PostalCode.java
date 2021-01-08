@@ -5,6 +5,7 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -47,6 +48,8 @@ public class PostalCode implements Serializable {
     @Size(max = 45)
     @Column(name = "municipality")
     private String municipality;
+
+//    @JsonBackReference(value = "companyMany_postalCode")
     @ManyToMany(mappedBy = "postalCodeList")
     private List<Company> companyList;
 
@@ -118,5 +121,5 @@ public class PostalCode implements Serializable {
     public String toString() {
         return "mapp.entity.PostalCode[ id=" + id + " ]";
     }
-    
+
 }

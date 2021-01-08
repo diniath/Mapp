@@ -65,9 +65,9 @@ public class OrderingController {
         service.edit(newOrderingDetails);
     }
     
-//    @GetMapping("/search/{address}")
-//    public Ordering getOrderingByAddress(@PathVariable(value = "address") String address){
-//        return service.findOrderingByAddress(address);
-//    }
+    @GetMapping("/search/{id}")
+    public List<Ordering> getOrderingByAddress(@PathVariable(value = "id") Integer id){
+        return service.findAllOrderingByEnrolledUserId(id);
+    }
 
 }

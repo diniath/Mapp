@@ -67,57 +67,25 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-        <!--         https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind 
-                <dependency>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                    <version>2.11.3</version>
-                </dependency>
-        -->        
+     
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency><!--
-                 
-         https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
         </dependency>
-         https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core 
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.12.1</version>
-        </dependency>-->
-        <!--        <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-jersey</artifactId>
-</dependency>
-        -->
 
-        <!--AUX TOOLS-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
         </dependency>
         
-        <!--              <dependency>
-            <groupId>org.springframework.security.oauth.boot</groupId>
-            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.0.RELEASE</version>
-        </dependency>-->
-        <dependency>
+
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!--       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>-->
+    
         
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -129,6 +97,17 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
         </dependency>
+        
+        <!--ModelMapper is a framework that aims to simplify object mapping, 
+        by determining how objects map to each other based on conventions. 
+        It provides type-safe and refactoring-safe API.  -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.7</version>
+            <type>jar</type>
+        </dependency>
+        
     </dependencies>
 
 

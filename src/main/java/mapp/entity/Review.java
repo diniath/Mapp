@@ -5,11 +5,13 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,13 +63,15 @@ public class Review implements Serializable {
     @Size(max = 45)
     @Column(name = "comment_company")
     private String commentCompany;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
+
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Orderlist orderlist;
 
     public Review() {
@@ -130,6 +134,7 @@ public class Review implements Serializable {
         this.commentCompany = commentCompany;
     }
 
+    @JsonBackReference(value="company_review")
     public Company getCompany() {
         return company;
     }
@@ -138,6 +143,7 @@ public class Review implements Serializable {
         this.company = company;
     }
 
+    @JsonBackReference(value="orderlist_review")
     public Orderlist getOrderlist() {
         return orderlist;
     }
@@ -170,5 +176,5 @@ public class Review implements Serializable {
     public String toString() {
         return "mapp.entity.Review[ id=" + id + " ]";
     }
-    
+
 }

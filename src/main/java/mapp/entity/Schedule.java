@@ -5,10 +5,12 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,8 +60,9 @@ public class Schedule implements Serializable {
     private Short reopentime;
     @Column(name = "reclosetime")
     private Short reclosetime;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 
@@ -125,6 +128,7 @@ public class Schedule implements Serializable {
         this.reclosetime = reclosetime;
     }
 
+    @JsonBackReference(value="company_schedule")
     public Company getCompany() {
         return company;
     }
@@ -157,5 +161,5 @@ public class Schedule implements Serializable {
     public String toString() {
         return "mapp.entity.Schedule[ id=" + id + " ]";
     }
-    
+
 }

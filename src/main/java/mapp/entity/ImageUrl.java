@@ -5,6 +5,9 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -31,6 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ImageUrl.findAll", query = "SELECT i FROM ImageUrl i")
     , @NamedQuery(name = "ImageUrl.findById", query = "SELECT i FROM ImageUrl i WHERE i.id = :id")
     , @NamedQuery(name = "ImageUrl.findByUrl", query = "SELECT i FROM ImageUrl i WHERE i.url = :url")})
+
 public class ImageUrl implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,16 +46,24 @@ public class ImageUrl implements Serializable {
     @Size(max = 2083)
     @Column(name = "url")
     private String url;
+
+//    @JsonBackReference(value = "productMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Product> productList;
+
+//    @JsonBackReference(value = "companyMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Company> companyList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Company> companyList1;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<EnrolledUser> enrolledUserList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Category> categoryList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Subcategory> subcategoryList;
 
@@ -70,7 +82,6 @@ public class ImageUrl implements Serializable {
         this.id = id;
     }
 
-
     public List<Product> getProductList() {
         return productList;
     }
@@ -87,6 +98,7 @@ public class ImageUrl implements Serializable {
         this.companyList = companyList;
     }
 
+    @JsonManagedReference(value = "company_imageUrl")
     public List<Company> getCompanyList1() {
         return companyList1;
     }
@@ -95,6 +107,7 @@ public class ImageUrl implements Serializable {
         this.companyList1 = companyList1;
     }
 
+    @JsonManagedReference(value = "enrolledUser_imageUrl")
     public List<EnrolledUser> getEnrolledUserList() {
         return enrolledUserList;
     }
@@ -103,6 +116,7 @@ public class ImageUrl implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
+    @JsonManagedReference(value = "category_imageUrl")
     public List<Category> getCategoryList() {
         return categoryList;
     }
@@ -111,12 +125,21 @@ public class ImageUrl implements Serializable {
         this.categoryList = categoryList;
     }
 
+    @JsonManagedReference(value = "subcategory_imageUrl")
     public List<Subcategory> getSubcategoryList() {
         return subcategoryList;
     }
 
     public void setSubcategoryList(List<Subcategory> subcategoryList) {
         this.subcategoryList = subcategoryList;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -144,12 +167,4 @@ public class ImageUrl implements Serializable {
         return "mapp.entity.ImageUrl[ id=" + id + " ]";
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    
 }

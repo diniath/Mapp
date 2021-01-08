@@ -5,12 +5,16 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,117 +57,154 @@ import org.hibernate.annotations.Cascade;
     , @NamedQuery(name = "Company.findByIban", query = "SELECT c FROM Company c WHERE c.iban = :iban")})
 public class Company implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "username")
-    private String username;
-    @Basic(optional = false)
-    @NotNull()
-    @Size(min = 1, max = 45)
-    @Column(name = "password")
-    private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "cname")
-    private String cname;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "email")
-    private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "postalcode")
-    private int postalcode;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "address")
-    private String address;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "city")
-    private String city;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "municipality")
-    private String municipality;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "telephone")
-    private int telephone;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "mobile")
-    private int mobile;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "vatnumber")
-    private int vatnumber;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "vatservice")
-    private String vatservice;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "description")
-    private String description;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "representative")
-    private String representative;
-    @Size(max = 45)
-    @Column(name = "iban")
-    private String iban;
-    @JoinTable(name = "company_role", joinColumns = {@JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Role> roleList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "username")
+    private String username;
+
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 45)
+    @Column(name = "password")
+    private String password;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "cname")
+    private String cname;
+
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "email")
+    private String email;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "postalcode")
+    private int postalcode;
+
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "address")
+    private String address;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "city")
+    private String city;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "municipality")
+    private String municipality;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "telephone")
+    private String telephone;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "vatnumber")
+    private String vatnumber;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "vatservice")
+    private String vatservice;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "description")
+    private String description;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "representative")
+    private String representative;
+
+    @Size(max = 45)
+    @Column(name = "iban")
+    private String iban;
+
     @Column(name = "rating")
     private Integer rating;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "profile")
+    private String profile;
+
+//    @JsonManagedReference(value = "companyMany_roleList")
+    @JoinTable(name = "company_role", joinColumns = {
+        @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<Role> roleList;
+
+//    @JsonManagedReference(value = "companyMany_postalCode")
     @JoinTable(name = "area_of_service", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "postal_code_id", referencedColumnName = "id")})
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<PostalCode> postalCodeList;
+
+//    @JsonManagedReference(value = "companyMany_imageUrl")
     @JoinTable(name = "company_image", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<ImageUrl> imageUrlList;
+
+//    @JsonManagedReference(value = "companyMany_orderlist")
     @JoinTable(name = "paid", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "orderlist_id", referencedColumnName = "id")})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<Orderlist> orderlistList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Product> productList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Appointment> appointmentList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Schedule> scheduleList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<Review> reviewList;
+
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
 
@@ -174,7 +215,7 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-    public Company(Integer id, String username, String password, String cname, String email, int postalcode, String address, String city, String municipality, int telephone, int mobile, int vatnumber, String vatservice, String description, String representative) {
+    public Company(Integer id, String username, String password, String cname, String email, int postalcode, String address, String city, String municipality, String telephone, String mobile, String vatnumber, String vatservice, String description, String representative, String iban, Integer rating, String profile) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -190,6 +231,9 @@ public class Company implements Serializable {
         this.vatservice = vatservice;
         this.description = description;
         this.representative = representative;
+        this.iban = iban;
+        this.rating = rating;
+        this.profile = profile;
     }
 
     public Integer getId() {
@@ -200,7 +244,6 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-
     public Integer getRating() {
         return rating;
     }
@@ -208,7 +251,6 @@ public class Company implements Serializable {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-
 
     public List<PostalCode> getPostalCodeList() {
         return postalCodeList;
@@ -234,6 +276,7 @@ public class Company implements Serializable {
         this.orderlistList = orderlistList;
     }
 
+    @JsonManagedReference(value = "company_product")
     public List<Product> getProductList() {
         return productList;
     }
@@ -242,6 +285,7 @@ public class Company implements Serializable {
         this.productList = productList;
     }
 
+    @JsonManagedReference(value = "company_appointment")
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
@@ -250,6 +294,7 @@ public class Company implements Serializable {
         this.appointmentList = appointmentList;
     }
 
+    @JsonManagedReference(value = "company_schedule")
     public List<Schedule> getScheduleList() {
         return scheduleList;
     }
@@ -258,6 +303,7 @@ public class Company implements Serializable {
         this.scheduleList = scheduleList;
     }
 
+    @JsonManagedReference(value = "company_review")
     public List<Review> getReviewList() {
         return reviewList;
     }
@@ -266,6 +312,7 @@ public class Company implements Serializable {
         this.reviewList = reviewList;
     }
 
+    @JsonBackReference(value = "company_imageUrl")
     public ImageUrl getImageUrl() {
         return imageUrl;
     }
@@ -274,29 +321,12 @@ public class Company implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getProfile() {
+        return profile;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Company)) {
-            return false;
-        }
-        Company other = (Company) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mapp.entity.Company[ id=" + id + " ]";
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getUsername() {
@@ -363,27 +393,27 @@ public class Company implements Serializable {
         this.municipality = municipality;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
-    public int getVatnumber() {
+    public String getVatnumber() {
         return vatnumber;
     }
 
-    public void setVatnumber(int vatnumber) {
+    public void setVatnumber(String vatnumber) {
         this.vatnumber = vatnumber;
     }
 
@@ -426,5 +456,30 @@ public class Company implements Serializable {
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Company)) {
+            return false;
+        }
+        Company other = (Company) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mapp.entity.Company[ id=" + id + " ]";
+    }
+
 }

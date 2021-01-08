@@ -5,6 +5,10 @@
  */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +16,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -69,22 +74,30 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "status")
     private boolean status;
+
+//    @JsonManagedReference(value = "productMany_imageUrl")
     @JoinTable(name = "product_image", joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)    
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<ImageUrl> imageUrlList;
+
+//    @JsonBackReference(value = "enrolledUserMany_productList")
+//    @JsonIgnore
     @ManyToMany(mappedBy = "productList")
     private List<EnrolledUser> enrolledUserList;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
+
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Subcategory subcategory;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Orderlist> orderlistList;
 
@@ -167,6 +180,7 @@ public class Product implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
+    @JsonBackReference(value = "company_product")
     public Company getCompany() {
         return company;
     }
@@ -175,6 +189,7 @@ public class Product implements Serializable {
         this.company = company;
     }
 
+    @JsonBackReference(value = "product_subcategory")
     public Subcategory getSubcategory() {
         return subcategory;
     }
@@ -183,6 +198,7 @@ public class Product implements Serializable {
         this.subcategory = subcategory;
     }
 
+    @JsonManagedReference(value = "product_orderlist")
     public List<Orderlist> getOrderlistList() {
         return orderlistList;
     }
@@ -215,5 +231,5 @@ public class Product implements Serializable {
     public String toString() {
         return "mapp.entity.Product[ id=" + id + " ]";
     }
-    
+
 }

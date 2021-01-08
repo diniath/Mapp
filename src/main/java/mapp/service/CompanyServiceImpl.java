@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import mapp.dao.CompanyDao;
 import mapp.entity.Company;
+import mapp.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +22,24 @@ public class CompanyServiceImpl{
         return dao.findAll();
     }
     
+//    public Company create(Company company) {
+//        Company comp = dao.save(company);
+//        return comp;
+//    }
+
+    // This method prevents an enrolledUser to be saved as ADMIN (or Company)
     public Company create(Company company) {
-        Company comp = dao.save(company);
-        return comp;
+        Company createdCompany = null;
+        if (company.getRoleList().size() == 1) {
+            Role role = company.getRoleList().get(1);
+//            System.out.println(role);
+            if (role.getId() == 2) {
+                createdCompany = dao.save(company);
+            }
+        }
+        return createdCompany;
     }
+
     
     public void edit(Company company) {
         dao.saveAndFlush(company);
