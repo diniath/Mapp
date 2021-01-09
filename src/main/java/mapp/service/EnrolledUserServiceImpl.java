@@ -1,10 +1,14 @@
 package mapp.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import mapp.dao.EnrolledUserDao;
 import mapp.dto.EnrolledUserDto;
+import mapp.entity.Appointment;
 import mapp.entity.EnrolledUser;
+import mapp.entity.ImageUrl;
+import mapp.entity.Ordering;
 import mapp.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +40,29 @@ public class EnrolledUserServiceImpl {
         return createdUser;
     }
 
+    // supports update operation 
+    // to prevent list of entities from being deleted
     public void edit(EnrolledUser enrolledUser) {
-        dao.saveAndFlush(enrolledUser);
+        String username = enrolledUser.getUsername();
+        String password = enrolledUser.getPassword();
+        String fname = enrolledUser.getFname();
+        String lname = enrolledUser.getLname();
+        String email = enrolledUser.getEmail();
+        LocalDate dateofbirth = enrolledUser.getDateofbirth();
+        Integer postalcode = enrolledUser.getPostalcode();
+        String address = enrolledUser.getAddress();
+        String city = enrolledUser.getCity();
+        String municipality = enrolledUser.getMunicipality();
+        String telephone = enrolledUser.getTelephone();
+        String mobile = enrolledUser.getMobile();
+        Integer id = enrolledUser.getId();
+
+        dao.setEnrolledUserInfoById(
+                username, password, fname, lname,
+                email, dateofbirth, postalcode, address,
+                city, municipality, telephone, mobile,
+                id
+        );
     }
 
     public void delete(int id) {

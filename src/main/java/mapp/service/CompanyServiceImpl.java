@@ -27,11 +27,11 @@ public class CompanyServiceImpl{
 //        return comp;
 //    }
 
-    // This method prevents an enrolledUser to be saved as ADMIN (or Company)
+    // This method prevents an company to be saved as ADMIN (or Company)
     public Company create(Company company) {
         Company createdCompany = null;
         if (company.getRoleList().size() == 1) {
-            Role role = company.getRoleList().get(1);
+            Role role = company.getRoleList().get(0);
 //            System.out.println(role);
             if (role.getId() == 2) {
                 createdCompany = dao.save(company);
@@ -40,9 +40,36 @@ public class CompanyServiceImpl{
         return createdCompany;
     }
 
-    
+    // supports update operation 
+    // to prevent list of entities from being deleted
     public void edit(Company company) {
-        dao.saveAndFlush(company);
+        String username = company.getUsername();
+        String password = company.getPassword();
+        String cname = company.getCname();
+        String email = company.getEmail();
+        Integer postalcode = company.getPostalcode();
+        String address = company.getAddress();
+        String city = company.getCity();
+        String municipality = company.getMunicipality();
+        String telephone = company.getTelephone();
+        String mobile = company.getMobile();
+        String vatnumber = company.getVatnumber();
+        String vatservice = company.getVatservice();        
+        String description = company.getDescription();
+        String representative = company.getRepresentative();         
+        String iban = company.getIban();         
+        Integer rating = company.getRating();
+        String profile = company.getProfile();         
+        Integer id = company.getId();
+
+        dao.setCompanyInfoById(
+             username,  password,  cname,  email,
+             postalcode,  address,  city,  municipality, 
+             telephone,  mobile,  vatnumber,  vatservice,
+             description,  representative,  iban,  rating,
+             profile, 
+             id
+        );
     }
 
     public void delete(int id) {
