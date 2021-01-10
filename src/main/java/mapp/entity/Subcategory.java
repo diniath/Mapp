@@ -51,18 +51,14 @@ public class Subcategory implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @JsonBackReference(value = "subcategory_productList")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategory")
     private List<Product> productList;
 
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Category category;
-
-    @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
-    private ImageUrl imageUrl;
 
     public Subcategory() {
     }
@@ -92,7 +88,7 @@ public class Subcategory implements Serializable {
         this.description = description;
     }
 
-    @JsonManagedReference(value="product_subcategory")
+//    @JsonManagedReference(value="product_subcategory")
     public List<Product> getProductList() {
         return productList;
     }
@@ -101,22 +97,13 @@ public class Subcategory implements Serializable {
         this.productList = productList;
     }
 
-    @JsonBackReference(value="category_subcategory")
+    @JsonBackReference(value = "category_subcategory")
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    @JsonBackReference(value="subcategory_imageUrl")
-    public ImageUrl getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(ImageUrl imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     @Override

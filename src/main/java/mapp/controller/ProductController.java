@@ -7,8 +7,13 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.ProductConverter;
+import mapp.entity.Company;
 import mapp.entity.Product;
+import mapp.entity.Subcategory;
+import mapp.service.CompanyServiceImpl;
 import mapp.service.ProductServiceImpl;
+import mapp.service.SubcategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import mapp.dto.ProductDto;
 
 /**
  *
@@ -31,12 +37,26 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl service;
 
+    @Autowired
+    private CompanyServiceImpl compservice;
+
+    @Autowired
+    private SubcategoryServiceImpl subcservice;
+
+    @Autowired
+    private ProductConverter converter;    
     
     @GetMapping
     public List<Product> getProducts() {
         return service.findAll();
     }
 
+    @GetMapping("/dto")
+    public List<ProductDto> getCompaniesDto() {
+        List<Product> findAll = service.findAll();
+        return converter.entityToDto(findAll);
+    }
+    
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable(value = "id") Integer productId) throws Exception {
         Optional<Product> optionalProduct = service.findById(productId);
@@ -59,15 +79,19 @@ public class ProductController {
     public void updateProduct(@PathVariable(value = "id") Integer productId,
             @RequestBody Product newProductDetails) throws Exception {
         Optional<Product> optionalProduct = service.findById(productId);
+        Optional<Company> optionalCompany = compservice.findById(optionalProduct.get().getCompany().getId());
+        Optional<Subcategory> optionalSubcategory = subcservice.findById(optionalProduct.get().getSubcategory().getId());
         Product productToUpdate = optionalProduct.orElseThrow(() -> new Exception("Product not exists with id:" + productId));
+        Company companyToSet = optionalCompany.orElseThrow(() -> new Exception("Company not exists with id:" + productId));
+        newProductDetails.setCompany(companyToSet);
+        newProductDetails.setSubcategory(optionalSubcategory.get());
         newProductDetails.setId(productId);
 //        productToUpdate.setDay(newProductDetails.getDay());
         service.edit(newProductDetails);
     }
-    
+
 //    @GetMapping("/search/{address}")
 //    public Product getProductByAddress(@PathVariable(value = "address") String address){
 //        return service.findProductByAddress(address);
 //    }
-
 }

@@ -4,6 +4,7 @@ package mapp.service;
 import java.util.List;
 import java.util.Optional;
 import mapp.dao.ProductDao;
+import mapp.entity.ImageUrl;
 import mapp.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,7 @@ public class ProductServiceImpl{
     }
     
     public Product create(Product product) {
-        Product comp = dao.save(product);
-        return comp;
+        return dao.save(product);
     }
     
     public void edit(Product product) {

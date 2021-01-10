@@ -14,10 +14,12 @@ import mapp.entity.Ordering;
 import mapp.entity.Orderlist;
 import mapp.entity.wrapper.Cart;
 import mapp.service.AppointmentServiceImpl;
+import mapp.service.CartServiceImpl;
 import mapp.service.EnrolledUserServiceImpl;
 import mapp.service.OrderingServiceImpl;
 import mapp.service.OrderlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,38 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
 
     @Autowired
-    private AppointmentServiceImpl appointmentService;
-
-    @Autowired
-    private OrderlistServiceImpl orderlistService;
-
-    @Autowired
-    private EnrolledUserServiceImpl enrolledUserService;
-
-    @Autowired
-    private OrderingServiceImpl orderingService;
-
+    private CartServiceImpl service;
+    
     @PostMapping
-    public Cart manageCart(@RequestBody Cart cart) throws Exception {
-        Ordering ordering = orderingService.create(cart.getOrdering());
-        Orderlist orderlist = new Orderlist();
-        orderlist.setOrdering(ordering);
-        orderlist.setProduct(cart.getProduct());
+    public ResponseEntity manageCart(@RequestBody List<Cart> carts) throws Exception {
+        service.saveCarts(carts);
 
-        orderlist = orderlistService.create(orderlist);
-        Appointment appointment = new Appointment();
-        appointment.setOrderlist(orderlist);
-        appointment.setCompany(cart.getCompany());
-        appointment.setEnddate(cart.getEndDate());
-        appointment.setStartdate(cart.getStartDate());
-        appointment.setAppointmentDate(cart.getAppointmentDate());
-        List<EnrolledUser> enrolledUsers = new ArrayList();
-        enrolledUsers.add(cart.getOrdering().getEnrolledUser());
-
-//        appointment.setEnrolledUserList(enrolledUsers);
-        appointment = appointmentService.create(appointment);
-
-        return cart;
+        return ResponseEntity.ok("Cart saved successfully!");
     }
-
 }

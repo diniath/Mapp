@@ -7,6 +7,8 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.CompanyConverter;
+import mapp.dto.CompanyDto;
 import mapp.entity.Company;
 import mapp.service.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,15 @@ public class CompanyController {
     @Autowired
     private CompanyServiceImpl service;
 
+    @Autowired 
+    private CompanyConverter converter;
+
+    
+    @GetMapping("/dto")
+    public List<CompanyDto> getCompaniesDto() {
+        List<Company> findAll = service.findAll();
+        return converter.entityToDto(findAll);
+    }
     
     @GetMapping
     public List<Company> getCompanies() {

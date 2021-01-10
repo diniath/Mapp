@@ -54,9 +54,10 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 200)
     @Column(name = "description")
     private String description;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -83,13 +84,12 @@ public class Product implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<ImageUrl> imageUrlList;
 
-//    @JsonBackReference(value = "enrolledUserMany_productList")
-//    @JsonIgnore
+    @JsonBackReference(value = "product_enrolledUserList")
     @ManyToMany(mappedBy = "productList")
     private List<EnrolledUser> enrolledUserList;
 
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false) //, fetch = FetchType.LAZY
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 
@@ -98,6 +98,7 @@ public class Product implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Subcategory subcategory;
 
+    @JsonBackReference(value = "product_orderlist")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Orderlist> orderlistList;
 
@@ -198,7 +199,6 @@ public class Product implements Serializable {
         this.subcategory = subcategory;
     }
 
-    @JsonManagedReference(value = "product_orderlist")
     public List<Orderlist> getOrderlistList() {
         return orderlistList;
     }

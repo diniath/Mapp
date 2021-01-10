@@ -50,11 +50,6 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
-    private ImageUrl imageUrl;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Subcategory> subcategoryList;
 
@@ -84,15 +79,6 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @JsonBackReference(value="category_imageUrl")
-    public ImageUrl getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(ImageUrl imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     @JsonManagedReference(value="category_subcategory")

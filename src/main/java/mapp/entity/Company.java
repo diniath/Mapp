@@ -80,7 +80,7 @@ public class Company implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "cname")
-    private String cname;
+    private String cname;       
 
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
@@ -138,7 +138,7 @@ public class Company implements Serializable {
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "description")
-    private String description;
+    private String description; 
 
     @Basic(optional = false)
     @NotNull

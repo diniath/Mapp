@@ -47,7 +47,7 @@ public class ImageUrl implements Serializable {
     @Column(name = "url")
     private String url;
 
-//    @JsonBackReference(value = "productMany_imageUrl")
+    @JsonBackReference(value = "productMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Product> productList;
 
@@ -60,12 +60,6 @@ public class ImageUrl implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<EnrolledUser> enrolledUserList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
-    private List<Category> categoryList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
-    private List<Subcategory> subcategoryList;
 
     public ImageUrl() {
     }
@@ -114,24 +108,6 @@ public class ImageUrl implements Serializable {
 
     public void setEnrolledUserList(List<EnrolledUser> enrolledUserList) {
         this.enrolledUserList = enrolledUserList;
-    }
-
-    @JsonManagedReference(value = "category_imageUrl")
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
-
-    @JsonManagedReference(value = "subcategory_imageUrl")
-    public List<Subcategory> getSubcategoryList() {
-        return subcategoryList;
-    }
-
-    public void setSubcategoryList(List<Subcategory> subcategoryList) {
-        this.subcategoryList = subcategoryList;
     }
 
     public String getUrl() {
