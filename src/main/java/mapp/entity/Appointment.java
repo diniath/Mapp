@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -31,10 +27,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author Hello Java !
- */
 @Entity
 @Table(name = "appointment", catalog = "mapp", schema = "")
 @NamedQueries({
@@ -77,6 +69,11 @@ public class Appointment implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    private Product product;
+    
     @Cascade(CascadeType.MERGE)
     @JoinColumn(name = "orderlist_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -147,6 +144,17 @@ public class Appointment implements Serializable {
         this.orderlist = orderlist;
     }
 
+    @JsonBackReference(value="product_appointment")
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

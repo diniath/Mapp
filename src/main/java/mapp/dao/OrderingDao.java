@@ -9,11 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OrderingDao extends JpaRepository<Ordering, Integer>{
-
-//    @Query("Select c FROM Order c WHERE c.address LIKE CONCAT('%',:address,'%')")
-//    public Order findByAddress(@Param("address") String address);
-    
+  
    public List<Ordering> findByEnrolledUserId(Integer id);
 
-    
 }

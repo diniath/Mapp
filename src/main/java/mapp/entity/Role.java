@@ -1,3 +1,4 @@
+
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,11 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
 
-/**
- *
- * @author Hello Java !
- */
-//@Builder
+
 @Entity
 @Table(name = "role", catalog = "mapp", schema = "")
 @NamedQueries({

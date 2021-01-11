@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package mapp.service;
 
 import java.util.ArrayList;
@@ -18,10 +15,8 @@ import mapp.entity.Orderlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-/**
- *
- * @author Hello Java !
- */
+
+
 @Service
 @Transactional
 public class CartServiceImpl {
@@ -41,7 +36,7 @@ public class CartServiceImpl {
         Cart cart = null;
         for (byte i = 0; i < length; i++) {
             cart = carts.get(i);
-            
+
             Ordering ordering = orderingService.create(cart.getOrdering());
 
             Orderlist orderlist = new Orderlist();
@@ -55,10 +50,12 @@ public class CartServiceImpl {
             appointment.setEnddate(cart.getEndDate());
             appointment.setStartdate(cart.getStartDate());
             appointment.setAppointmentDate(cart.getAppointmentDate());
+            appointment.setProduct(cart.getProduct());
             appointment = appointmentService.create(appointment);
-            
+
             List<EnrolledUser> enrolledUsers = new ArrayList();
             enrolledUsers.add(cart.getOrdering().getEnrolledUser());
+
         }
     }
 

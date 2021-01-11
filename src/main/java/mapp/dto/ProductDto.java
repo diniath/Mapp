@@ -10,4 +10,6 @@ public class ProductDto {
     private Integer id;
 
     private String description;
+    
+    
 }

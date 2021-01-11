@@ -15,7 +15,7 @@ public interface CompanyDao extends JpaRepository<Company, Integer>{
     @Query("Select c FROM Company c WHERE c.address LIKE CONCAT('%',:address,'%')")
     public Company findByAddress(@Param("address") String address);
     
-        // supports update operation 
+    // supports update operation 
     @Modifying
     @Query("update Company c set c.username = ?1, c.password = ?2, c.cname = ?3, "
             + "c.email = ?4, c.postalcode = ?5, c.address = ?6, c.city = ?7, "

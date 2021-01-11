@@ -1,22 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.dto;
 
-/**
- *
- * @author Hello Java !
- */
+
 import java.time.LocalDate;
-import java.util.List;
-import lombok.Data;
-import mapp.entity.Appointment;
 import mapp.entity.ImageUrl;
-import mapp.entity.Ordering;
-import mapp.entity.Product;
-import mapp.entity.Role;
+
 
 
 //@Data
@@ -32,32 +20,40 @@ public class EnrolledUserDto {
     
     private String lname;
 
-//    private String email;
-// 
-//    private LocalDate dateofbirth;
-// 
-//    private int postalcode;
-//
-//    private String address;
-//
-//    private String city;
-//
-//    private String municipality;
-//   
-//    private int telephone;
-//
-//    private int mobile;
+    private String email;
+ 
+    private LocalDate dateofbirth;
+ 
+    private int postalcode;
+
+    private String address;
+
+    private String city;
+
+    private String municipality;
+   
+    private String telephone;
+
+    private String mobile;
 
     private ImageUrl imageUrl;
 
     public EnrolledUserDto() {
     }
 
-    public EnrolledUserDto(Integer id, String username, String fname, String lname, ImageUrl imageUrl) {
+    public EnrolledUserDto(Integer id, String username, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, String telephone, String mobile, ImageUrl imageUrl) {
         this.id = id;
         this.username = username;
         this.fname = fname;
         this.lname = lname;
+        this.email = email;
+        this.dateofbirth = dateofbirth;
+        this.postalcode = postalcode;
+        this.address = address;
+        this.city = city;
+        this.municipality = municipality;
+        this.telephone = telephone;
+        this.mobile = mobile;
         this.imageUrl = imageUrl;
     }
 
@@ -93,6 +89,70 @@ public class EnrolledUserDto {
         this.lname = lname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getDateofbirth() {
+        return dateofbirth;
+    }
+
+    public void setDateofbirth(LocalDate dateofbirth) {
+        this.dateofbirth = dateofbirth;
+    }
+
+    public int getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(int postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public ImageUrl getImageUrl() {
         return imageUrl;
     }
@@ -101,8 +161,7 @@ public class EnrolledUserDto {
         this.imageUrl = imageUrl;
     }
 
-    
-   
+
 
     
     

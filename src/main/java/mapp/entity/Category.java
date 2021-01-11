@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -25,10 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "category", catalog = "mapp", schema = "")
 @NamedQueries({

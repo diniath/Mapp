@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.controller;
 
 import java.util.List;
@@ -20,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @review Hello Java !
- */
+
 @RestController//@RestController = @Controller + @ResponseBody
 @RequestMapping("/review")
 public class ReviewController {
@@ -31,7 +24,6 @@ public class ReviewController {
     @Autowired
     private ReviewServiceImpl service;
 
-    
     @GetMapping
     public List<Review> getReviews() {
         return service.findAll();
@@ -60,14 +52,23 @@ public class ReviewController {
             @RequestBody Review newReviewDetails) throws Exception {
         Optional<Review> optionalReview = service.findById(reviewId);
         Review reviewToUpdate = optionalReview.orElseThrow(() -> new Exception("Review not exists with id:" + reviewId));
-        
+
 //        reviewToUpdate.setDay(newReviewDetails.getDay());
         service.edit(newReviewDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public Review getReviewByAddress(@PathVariable(value = "address") String address){
-//        return service.findReviewByAddress(address);
-//    }
 
+    @GetMapping("/search/product/{id}")
+    public List<Review> findByProductId(@PathVariable(value = "id") Integer id) {
+        return service.findByProductId(id);
+    }
+
+    @GetMapping("/search/company/{id}")
+    public List<Review> findByCompanyId(@PathVariable(value = "id") Integer id) {
+        return service.findByCompanyId(id);
+    }
+
+    @GetMapping("/search/enrolledUser/{id}")
+    public List<Review> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
+        return service.findByEnrolledUserId(id);
+    }
 }

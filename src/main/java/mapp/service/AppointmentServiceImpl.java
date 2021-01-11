@@ -1,30 +1,35 @@
-
 package mapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import mapp.dao.AppointmentDao;
+import mapp.dao.ProductDao;
 import mapp.entity.Appointment;
+import mapp.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AppointmentServiceImpl{
-    
+public class AppointmentServiceImpl {
+
     @Autowired
     private AppointmentDao dao;
-    
+
+    @Autowired
+    private ProductDao pdao;
+
     public List<Appointment> findAll() {
         return dao.findAll();
     }
-    
+
     public Appointment create(Appointment appointment) {
         Appointment comp = dao.save(appointment);
         return comp;
     }
-    
+
     public void edit(Appointment appointment) {
         dao.saveAndFlush(appointment);
     }
@@ -37,8 +42,9 @@ public class AppointmentServiceImpl{
         Optional<Appointment> appointment = dao.findById(id);
         return appointment;
     }
-    
-//    public Appointment findAppointmentByAddress(@PathVariable(value = "address") String address){
-//        return dao.findByAddress(address);
-//    }
+
+    public List<Appointment> findByProductId(Integer id) {
+        return dao.findByProductId(id);
+    }
+
 }

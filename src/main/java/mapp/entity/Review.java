@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,10 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "review", catalog = "mapp", schema = "")
 @NamedQueries({
@@ -74,6 +67,16 @@ public class Review implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Orderlist orderlist;
 
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    private Product product;    
+
+    @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    private EnrolledUser enrolledUser;  
+    
     public Review() {
     }
 
@@ -151,7 +154,27 @@ public class Review implements Serializable {
     public void setOrderlist(Orderlist orderlist) {
         this.orderlist = orderlist;
     }
+    
+    @JsonBackReference(value="product_review")
+    public Product getProduct() {
+        return product;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @JsonBackReference(value="enrolledUser_review")
+    public EnrolledUser getEnrolledUser() {
+        return enrolledUser;
+    }
+
+    public void setEnrolledUser(EnrolledUser enrolledUser) {
+        this.enrolledUser = enrolledUser;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

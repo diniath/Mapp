@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -24,17 +21,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "image_url", catalog = "mapp", schema = "")
 @NamedQueries({
     @NamedQuery(name = "ImageUrl.findAll", query = "SELECT i FROM ImageUrl i")
     , @NamedQuery(name = "ImageUrl.findById", query = "SELECT i FROM ImageUrl i WHERE i.id = :id")
     , @NamedQuery(name = "ImageUrl.findByUrl", query = "SELECT i FROM ImageUrl i WHERE i.url = :url")})
-
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class ImageUrl implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,13 +45,15 @@ public class ImageUrl implements Serializable {
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Product> productList;
 
-//    @JsonBackReference(value = "companyMany_imageUrl")
+    @JsonBackReference(value = "companyMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Company> companyList;
 
+    @JsonBackReference(value = "companyList_imageUrl")    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Company> companyList1;
 
+    @JsonBackReference(value = "enrolledUser_imageUrl")    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<EnrolledUser> enrolledUserList;
 
@@ -92,7 +88,6 @@ public class ImageUrl implements Serializable {
         this.companyList = companyList;
     }
 
-    @JsonManagedReference(value = "company_imageUrl")
     public List<Company> getCompanyList1() {
         return companyList1;
     }
@@ -101,7 +96,6 @@ public class ImageUrl implements Serializable {
         this.companyList1 = companyList1;
     }
 
-    @JsonManagedReference(value = "enrolledUser_imageUrl")
     public List<EnrolledUser> getEnrolledUserList() {
         return enrolledUserList;
     }

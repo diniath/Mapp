@@ -1,3 +1,4 @@
+
 package mapp.service;
 
 import java.time.LocalDate;
@@ -22,11 +23,13 @@ public class EnrolledUserServiceImpl {
     private EnrolledUserDao dao;
 
     public List<EnrolledUserDto> retrieveAll(String username) {
-//    public List<EnrolledUser> findAll() {
-//        return dao.findAll();
         return dao.retrieveUsernameAsDTO(username);
     }
 
+    public List<EnrolledUser> findAll() {
+        return dao.findAll();
+    }
+    
     // This method prevents an enrolledUser to be saved as ADMIN (or Company)
     public EnrolledUser create(EnrolledUser enrolledUser) {
         EnrolledUser createdUser = null;
@@ -43,26 +46,30 @@ public class EnrolledUserServiceImpl {
     // supports update operation 
     // to prevent list of entities from being deleted
     public void edit(EnrolledUser enrolledUser) {
-        String username = enrolledUser.getUsername();
-        String password = enrolledUser.getPassword();
-        String fname = enrolledUser.getFname();
-        String lname = enrolledUser.getLname();
-        String email = enrolledUser.getEmail();
-        LocalDate dateofbirth = enrolledUser.getDateofbirth();
-        Integer postalcode = enrolledUser.getPostalcode();
-        String address = enrolledUser.getAddress();
-        String city = enrolledUser.getCity();
-        String municipality = enrolledUser.getMunicipality();
-        String telephone = enrolledUser.getTelephone();
-        String mobile = enrolledUser.getMobile();
-        Integer id = enrolledUser.getId();
-
-        dao.setEnrolledUserInfoById(
-                username, password, fname, lname,
-                email, dateofbirth, postalcode, address,
-                city, municipality, telephone, mobile,
-                id
-        );
+//        String username = enrolledUser.getUsername();
+//        String password = enrolledUser.getPassword();
+//        String fname = enrolledUser.getFname();
+//        String lname = enrolledUser.getLname();
+//        String email = enrolledUser.getEmail();
+//        LocalDate dateofbirth = enrolledUser.getDateofbirth();
+//        Integer postalcode = enrolledUser.getPostalcode();
+//        String address = enrolledUser.getAddress();
+//        String city = enrolledUser.getCity();
+//        String municipality = enrolledUser.getMunicipality();
+//        String telephone = enrolledUser.getTelephone();
+//        String mobile = enrolledUser.getMobile();
+//        Integer id = enrolledUser.getId();
+//
+//        dao.setEnrolledUserInfoById(
+//                username, password, fname, lname,
+//                email, dateofbirth, postalcode, address,
+//                city, municipality, telephone, mobile,
+//                id
+//        );
+        
+        // change imageUrl *** ***  
+        
+         dao.saveAndFlush(enrolledUser);
     }
 
     public void delete(int id) {

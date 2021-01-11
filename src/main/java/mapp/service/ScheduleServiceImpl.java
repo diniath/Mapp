@@ -38,7 +38,8 @@ public class ScheduleServiceImpl{
         return schedule;
     }
     
-//    public Schedule findScheduleByAddress(@PathVariable(value = "address") String address){
-//        return dao.findByAddress(address);
-//    }
+    public List<Schedule> findScheduleByCompanyId(Integer id){
+        return dao.findByCompanyId(id);
+    }
+    
 }

@@ -1,3 +1,4 @@
+
 package mapp.dao;
 
 import java.time.LocalDate;
@@ -9,10 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import mapp.entity.Appointment;
-import mapp.entity.ImageUrl;
-import mapp.entity.Ordering;
-import mapp.entity.Role;
 import org.springframework.data.jpa.repository.Modifying;
 
 @Repository
@@ -23,8 +20,11 @@ public interface EnrolledUserDao extends JpaRepository<EnrolledUser, Integer> {
 //    @Query("SELECT u FROM EnrolledUser u WHERE u.username = :username")
 //    public EnrolledUser getEnrolledUserByUsername(@Param("username") String email);
     public Optional<EnrolledUser> findByUsername(String username);
-
-    @Query("SELECT new mapp.dto.EnrolledUserDto(e.id, e.username, e.fname, e.lname, e.imageUrl) FROM EnrolledUser e WHERE e.username = :username")
+    
+    @Query("SELECT new mapp.dto.EnrolledUserDto(e.id, e.username, e.fname, e.lname, "
+            + "e.email, e.dateofbirth, e.postalcode, e.address, e.city, "
+            + "e.municipality, e.telephone, e.mobile, e.imageUrl) FROM EnrolledUser e "
+            + "WHERE e.username = :username")
     public List<EnrolledUserDto> retrieveUsernameAsDTO(@Param("username") String username);
 
     // supports update operation 
