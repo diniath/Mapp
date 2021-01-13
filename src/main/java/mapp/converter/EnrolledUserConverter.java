@@ -1,4 +1,3 @@
-
 package mapp.converter;
 
 import mapp.entity.EnrolledUser;
@@ -9,16 +8,14 @@ import mapp.entity.ImageUrl;
 import mapp.service.ImageUrlServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 @Component
 public class EnrolledUserConverter {
 
     @Autowired
     private ImageUrlServiceImpl service;
-    
+
     public EnrolledUserDto entityToDto(EnrolledUser enrolledUser) {
 
         EnrolledUserDto dto = new EnrolledUserDto();
@@ -34,7 +31,7 @@ public class EnrolledUserConverter {
         dto.setMunicipality(enrolledUser.getMunicipality());
         dto.setTelephone(enrolledUser.getTelephone());
         dto.setMobile(enrolledUser.getMobile());
-        
+
         Integer id = enrolledUser.getImageUrl().getId();
         ImageUrl img = service.findById(id).get();
         img.setEnrolledUserList(null);
@@ -50,14 +47,6 @@ public class EnrolledUserConverter {
     }
 
     public EnrolledUser dtoToEntity(EnrolledUserDto dto) {
-//		EnrolledUser st = new EnrolledUser();
-//		st.setId(dto.getId());
-//		st.setName(dto.getName());
-//		st.setPassword(dto.getPassword());
-//		st.setUsername(dto.getUsername());
-//		
-//		return st;
-
         ModelMapper mapper = new ModelMapper();
         EnrolledUser map = mapper.map(dto, EnrolledUser.class);
         return map;

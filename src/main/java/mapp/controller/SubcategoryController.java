@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -16,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/subcategory")
 public class SubcategoryController {
 
     @Autowired
     private SubcategoryServiceImpl service;
 
-    
     @GetMapping
     public List<Subcategory> getSubcategorys() {
         return service.findAll();
@@ -34,7 +31,6 @@ public class SubcategoryController {
     public Subcategory getSubcategoryById(@PathVariable(value = "id") Integer subcategoryId) throws Exception {
         Optional<Subcategory> optionalSubcategory = service.findById(subcategoryId);
         return optionalSubcategory.orElseThrow(() -> new Exception("Subcategory not exists with id:" + subcategoryId));
-        //return optionalSubcategory.get();
     }
 
     @PostMapping
@@ -52,15 +48,9 @@ public class SubcategoryController {
     public void updateSubcategory(@PathVariable(value = "id") Integer subcategoryId,
             @RequestBody Subcategory newSubcategoryDetails) throws Exception {
         Optional<Subcategory> optionalSubcategory = service.findById(subcategoryId);
-        Subcategory subcategoryToUpdate = optionalSubcategory.orElseThrow(() -> new Exception("Subcategory not exists with id:" + subcategoryId));
+        optionalSubcategory.orElseThrow(() -> new Exception("Subcategory not exists with id:" + subcategoryId));
         newSubcategoryDetails.setId(subcategoryId);
-//        subcategoryToUpdate.setDay(newSubcategoryDetails.getDay());
         service.edit(newSubcategoryDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public Subcategory getSubcategoryByAddress(@PathVariable(value = "address") String address){
-//        return service.findSubcategoryByAddress(address);
-//    }
 
 }

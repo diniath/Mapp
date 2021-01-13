@@ -2,10 +2,8 @@
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -31,11 +27,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "ordering", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Ordering.findAll", query = "SELECT o FROM Ordering o")
-    , @NamedQuery(name = "Ordering.findById", query = "SELECT o FROM Ordering o WHERE o.id = :id")
-    , @NamedQuery(name = "Ordering.findByOrderdate", query = "SELECT o FROM Ordering o WHERE o.orderdate = :orderdate")
-    , @NamedQuery(name = "Ordering.findByPaymentMethod", query = "SELECT o FROM Ordering o WHERE o.paymentMethod = :paymentMethod")})
 public class Ordering implements Serializable {
 
     private static final long serialVersionUID = 1L;

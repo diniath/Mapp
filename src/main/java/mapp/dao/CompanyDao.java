@@ -32,4 +32,5 @@ public interface CompanyDao extends JpaRepository<Company, Integer>{
             Integer id
     );
     
+    
 }

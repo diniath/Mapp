@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.websocket;
 
 import org.slf4j.Logger;
@@ -14,10 +10,6 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-/**
- *
- * @author Hello Java !
- */
 public class WebSocketEventListener {
     
 private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);

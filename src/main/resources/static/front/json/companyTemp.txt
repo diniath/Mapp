@@ -1,0 +1,350 @@
+
+http://localhost:8080/
+Content-Type
+application/JSON
+************************************************************
+*** *** Role JSON ******************************************
+************************************************************
+*** *** GET    --> http://localhost:8080/role
+*** *** POST    -> http://localhost:8080/role
+*** *** PUT     -> http://localhost:8080/role/3
+*** *** DELETE  -> http://localhost:8080/role/3
+{ 
+"admission": "user"
+}
+
+{ 
+"admission": "admin"
+}
+
+{ 
+"admission": "yolo"
+}
+
+************************************************************
+*** *** EnrolledUser JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/enrolledUser
+*** *** POST    -> http://localhost:8080/enrolledUser
+*** *** PUT     -> http://localhost:8080/enrolledUser/3
+*** *** DELETE  -> http://localhost:8080/enrolledUser/3
+
+{ 
+"username": "giouxou",
+"password": "1234",
+"fname": "Kukuruku AE",
+"lname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"dateofbirth": "2001-03-02",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"imageUrl": { "id": 2 },
+"roleList": [ {"id": 1} ]
+}
+
+{ 
+"username": "giouxou",
+"password": "1234",
+"fname": "Kukuruku AE",
+"lname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"dateofbirth": "2001-03-02",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"imageUrl": { "id": 2 },
+"roleList": [ {"id": 1}, {"id": 2} ]   // *** YOU SHALL NOT PASS *** 
+}
+
+PUT --> no rolelist --> rolelist  shall not pass
+    
+{ 
+"username": "yolo",
+"password": "1234",
+"fname": "YOLO AE",
+"lname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"dateofbirth": "2001-03-02",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"imageUrl": { "id": 2 }
+}
+
+	--> updates default imageUrl !
+{ 
+"username": "yolo",
+"password": "1234",
+"fname": "YOLO AE",
+"lname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"dateofbirth": "2001-03-02",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"imageUrl": { "url": "test" }
+}
+
+
+************************************************************
+*** *** Category JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/category
+*** *** POST    -> http://localhost:8080/category
+*** *** PUT     -> http://localhost:8080/category/3
+*** *** DELETE  -> http://localhost:8080/category/3
+
+POST *SOS* REMEMBER REMEMBER THE 5th of NOVEMBER 
+ids ARE UPON US 1, 2, 3, .. 
+{ 
+"id": 1,
+"description": "yolo",
+"imageUrl": { "id": 5 }
+}
+
+PUT 
+{ 
+"description": "LLLLLLL",
+"imageUrl": { "id": 2 }
+}
+
+*** *** *** *** *** *** ***
+[{ 
+"id": 8,
+"description": "alpha",
+"imageUrl": { "id": 5 }
+},
+{ 
+"id": 9,
+"description": "bhta",
+"imageUrl": { "id": 5 }
+} ]
+
+************************************************************
+*** *** Subcategory JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/subcategory
+*** *** POST    -> http://localhost:8080/subcategory
+*** *** PUT     -> http://localhost:8080/subcategory/3
+*** *** DELETE  -> http://localhost:8080/subcategory/3
+
+POST *SOS* REMEMBER REMEMBER THE 5th of NOVEMBER 
+ids ARE UPON US 10, 20, 30, .... 
+{ 
+"id": 10,
+"description": "kukuruku",
+"category": { "id": 1 },
+"imageUrl": { "id": 5 }
+}
+
+PUT
+{ 
+"description": "milfeig",
+"category": { "id": 1 },
+"imageUrl": { "id": 1 }
+}
+
+
+************************************************************
+*** *** Product JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/product
+*** *** POST    -> http://localhost:8080/product
+*** *** PUT     -> http://localhost:8080/product/3
+*** *** DELETE  -> http://localhost:8080/product/3
+
+POST 
+{ 
+"description": "Patisserie",
+"price": "99",
+"rating": 5,
+"duration": 2,
+"status": true,
+"company": { "id": 2 },
+"subcategory": { "id": 20 }
+}
+
+PUT
+{ 
+"description": "Boulangerieeeeeee",
+"price": "1999",
+"rating": 4,
+"duration": 1,
+"status": true,
+"company": { "id": 1 },
+"subcategory": { "id": 20 }
+}
+
+
+************************************************************
+*** *** Company JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/company
+*** *** POST    -> http://localhost:8080/company
+*** *** PUT     -> http://localhost:8080/company/3
+*** *** DELETE  -> http://localhost:8080/company/3
+*** *** valid POST COMPANY existing id for url*** *** 
+
+{ 
+"username": "kuku",
+"password": "1234",
+"cname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"vatnumber": 66666666,
+"vatservice": "palini",
+"description": "gkofretes",
+"representative": "petran",
+"rating": 5,
+"iban": "GR666",
+"imageUrl": { "id": 2 }
+}
+
+*** *** valid POST COMPANY no id for url *** ***
+{ 
+"username": "kukuKOYKOYKOY",
+"password": "1234",
+"cname": "Kukuruku AE",
+"email": "kuku@gmail.com",
+"postalcode": 15344,
+"address": "aetos",
+"city": "athens",
+"municipality": "chalkida",
+"telephone": 666,
+"mobile": 666666,
+"vatnumber": 66666666,
+"vatservice": "palini",
+"description": "gkofretes",
+"representative": "petran",
+"rating": 5,
+"iban": "GR666",
+"imageUrl": { "url": "Change" }
+}
+
+Attention --> !!! *** να υπάρχει default avatar *** !!!
+
+
+************************************************************
+*** *** PostalCode JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/postalCode
+*** *** POST    -> http://localhost:8080/postalCode
+*** *** PUT     -> http://localhost:8080/postalCode/3
+*** *** DELETE  -> http://localhost:8080/postalCode/3
+
+{
+"postalCode": 123456,
+"municipality": "kukuland"
+}
+
+
+
+
+
+
+
+
+************************************************************
+*** *** APPOINTMENT JSON **********************************
+************************************************************
+*** *** ***
+
+{
+"enddate": 6,
+"startdate": 10,
+"appointmentDate": "2022-02-22",
+"company": { "id": 1 },
+"orderlist": { "id": 1 }
+}
+
+
+
+************************************************************
+*** *** Order JSON **********************************
+************************************************************
+*** *** GET    --> http://localhost:8080/postalCode
+*** *** POST    -> http://localhost:8080/postalCode
+*** *** PUT     -> http://localhost:8080/postalCode/3
+*** *** DELETE  -> http://localhost:8080/postalCode/3
+
+
+[ 
+  ordering: { orderDate, payment_method, enrolledUser_id } returns Id ordering
+  orderlist: {  list products_id } with Id ordering create orderlist records
+  appointment: { enddate, startdate, day } for each record id create appointment 
+]
+
+*** *** *** *** *** *** *** *** *** *** ***
+
+[
+ 
+ { ordering:    { orderDate, payment_method, enrolledUser_id } 
+   orderlist:   { products_id } 
+   appointment: { enddate, startdate, appointment_date} 
+ }
+
+ { ordering:    { orderDate, payment_method, enrolledUser_id } 
+   orderlist:   { products_id } 
+   appointment: { enddate, startdate, appointment_date} 
+ }
+
+]
+
+
+??? ??? ??? ??? ??? ??? 
+CART CART 
+
+{ "ordering": { "orderdate": "2022-02-22", "paymentMethod": "cash", "enrolledUser": {"id": 2} },
+"product": {"id": 2},
+"company": {"id": 1},
+"endDate": 5,
+"startDate":6,
+"appointmentDate": "2022-02-22"
+}
+
+
+*** *** valid POST ImageUrl *** *** 
+{ 
+"url": "url1"
+}
+
+
+1. list convensions
+
+2. complex fetch
+
+
+3. validation
+	check solutions for rest API
+
+
+4. security
+
+5. service layer duplicates + +
+
+6. cascades 18/12 OK OK
+
+
+
+
+
+    @ManyToMany(mappedBy = "roleList")
+    private List<Company> companyList;

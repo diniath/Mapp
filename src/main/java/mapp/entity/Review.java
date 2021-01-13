@@ -3,7 +3,7 @@ package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,26 +13,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
 @Table(name = "review", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r")
-    , @NamedQuery(name = "Review.findById", query = "SELECT r FROM Review r WHERE r.id = :id")
-    , @NamedQuery(name = "Review.findByRatingDate", query = "SELECT r FROM Review r WHERE r.ratingDate = :ratingDate")
-    , @NamedQuery(name = "Review.findByProductComment", query = "SELECT r FROM Review r WHERE r.productComment = :productComment")
-    , @NamedQuery(name = "Review.findByProductRating", query = "SELECT r FROM Review r WHERE r.productRating = :productRating")
-    , @NamedQuery(name = "Review.findByCompanyRating", query = "SELECT r FROM Review r WHERE r.companyRating = :companyRating")
-    , @NamedQuery(name = "Review.findByCommentCompany", query = "SELECT r FROM Review r WHERE r.commentCompany = :commentCompany")})
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,18 +30,25 @@ public class Review implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "ratingDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ratingDate;
+    
+    @Basic(optional = false)
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "rating_date")
+    private LocalDate ratingDate;
+    
     @Size(max = 45)
     @Column(name = "product_comment")
     private String productComment;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "product_rating")
     private short productRating;
+    
     @Column(name = "company_rating")
     private Short companyRating;
+    
     @Size(max = 45)
     @Column(name = "comment_company")
     private String commentCompany;
@@ -97,11 +93,11 @@ public class Review implements Serializable {
         this.id = id;
     }
 
-    public Date getRatingDate() {
+    public LocalDate getRatingDate() {
         return ratingDate;
     }
 
-    public void setRatingDate(Date ratingDate) {
+    public void setRatingDate(LocalDate ratingDate) {
         this.ratingDate = ratingDate;
     }
 

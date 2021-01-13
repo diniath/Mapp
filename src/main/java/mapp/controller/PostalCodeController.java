@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -16,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/postalCode")
 public class PostalCodeController {
 
     @Autowired
     private PostalCodeServiceImpl service;
 
-    
     @GetMapping
     public List<PostalCode> getPostalCodes() {
         return service.findAll();
@@ -34,7 +31,6 @@ public class PostalCodeController {
     public PostalCode getPostalCodeById(@PathVariable(value = "myvariable") Integer postalCodeId) throws Exception {
         Optional<PostalCode> optionalPostalCode = service.findById(postalCodeId);
         return optionalPostalCode.orElseThrow(() -> new Exception("PostalCode not exists with id:" + postalCodeId));
-        //return optionalPostalCode.get();
     }
 
     @PostMapping
@@ -52,16 +48,9 @@ public class PostalCodeController {
     public void updatePostalCode(@PathVariable(value = "id") Integer postalCodeId,
             @RequestBody PostalCode newPostalCodeDetails) throws Exception {
         Optional<PostalCode> optionalPostalCode = service.findById(postalCodeId);
-        PostalCode postalCodeToUpdate = optionalPostalCode.orElseThrow(() -> new Exception("PostalCode not exists with id:" + postalCodeId));
-        
-//        postalCodeToUpdate.setPostalCode(newPostalCodeDetails.getPostalCode());
+        optionalPostalCode.orElseThrow(() -> new Exception("PostalCode not exists with id:" + postalCodeId));
         newPostalCodeDetails.setId(postalCodeId);
         service.edit(newPostalCodeDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public PostalCode getPostalCodeByAddress(@PathVariable(value = "address") String address){
-//        return service.findPostalCodeByAddress(address);
-//    }
 
 }

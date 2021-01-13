@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -16,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/ordering")
 public class OrderingController {
 
     @Autowired
     private OrderingServiceImpl service;
 
-    
     @GetMapping
     public List<Ordering> getOrderings() {
         return service.findAll();
@@ -33,7 +31,6 @@ public class OrderingController {
     public Ordering getOrderingById(@PathVariable(value = "id") Integer orderingId) throws Exception {
         Optional<Ordering> optionalOrdering = service.findById(orderingId);
         return optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
-        //return optionalOrdering.get();
     }
 
     @PostMapping
@@ -51,14 +48,12 @@ public class OrderingController {
     public void updateOrdering(@PathVariable(value = "id") Integer orderingId,
             @RequestBody Ordering newOrderingDetails) throws Exception {
         Optional<Ordering> optionalOrdering = service.findById(orderingId);
-        Ordering orderingToUpdate = optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
-        
-//        orderingToUpdate.setDay(newOrderingDetails.getDay());
+        optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
         service.edit(newOrderingDetails);
     }
-    
+
     @GetMapping("/search/{id}")
-    public List<Ordering> getOrderingByAddress(@PathVariable(value = "id") Integer id){
+    public List<Ordering> getOrderingByAddress(@PathVariable(value = "id") Integer id) {
         return service.findAllOrderingByEnrolledUserId(id);
     }
 

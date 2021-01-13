@@ -3,9 +3,6 @@
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -16,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,10 +22,6 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "subcategory", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Subcategory.findAll", query = "SELECT s FROM Subcategory s")
-    , @NamedQuery(name = "Subcategory.findById", query = "SELECT s FROM Subcategory s WHERE s.id = :id")
-    , @NamedQuery(name = "Subcategory.findByDescription", query = "SELECT s FROM Subcategory s WHERE s.description = :description")})
 public class Subcategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -82,7 +73,6 @@ public class Subcategory implements Serializable {
         this.description = description;
     }
 
-//    @JsonManagedReference(value="product_subcategory")
     public List<Product> getProductList() {
         return productList;
     }

@@ -1,4 +1,3 @@
-
 package mapp.dao;
 
 import java.time.LocalDate;
@@ -15,12 +14,8 @@ import org.springframework.data.jpa.repository.Modifying;
 @Repository
 public interface EnrolledUserDao extends JpaRepository<EnrolledUser, Integer> {
 
-//    @Query("Select c FROM EnrolledUser c WHERE c.address LIKE CONCAT('%',:address,'%')")
-//    public EnrolledUser findByAddress(@Param("address") String address);
-//    @Query("SELECT u FROM EnrolledUser u WHERE u.username = :username")
-//    public EnrolledUser getEnrolledUserByUsername(@Param("username") String email);
     public Optional<EnrolledUser> findByUsername(String username);
-    
+
     @Query("SELECT new mapp.dto.EnrolledUserDto(e.id, e.username, e.fname, e.lname, "
             + "e.email, e.dateofbirth, e.postalcode, e.address, e.city, "
             + "e.municipality, e.telephone, e.mobile, e.imageUrl) FROM EnrolledUser e "

@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -8,7 +7,6 @@ import mapp.entity.Appointment;
 import mapp.service.AppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/appointment")
 public class AppointmentController {
 
     @Autowired
     private AppointmentServiceImpl service;
-    
+
     @GetMapping
     public List<Appointment> getAppointments() {
         return service.findAll();
@@ -35,7 +32,6 @@ public class AppointmentController {
     public Appointment getAppointmentById(@PathVariable(value = "id") Integer appointmentId) throws Exception {
         Optional<Appointment> optionalAppointment = service.findById(appointmentId);
         return optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
-        //return optionalAppointment.get();
     }
 
     @PostMapping
@@ -53,14 +49,12 @@ public class AppointmentController {
     public void updateAppointment(@PathVariable(value = "id") Integer appointmentId,
             @RequestBody Appointment newAppointmentDetails) throws Exception {
         Optional<Appointment> optionalAppointment = service.findById(appointmentId);
-        Appointment appointmentToUpdate = optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
-        
-//        appointmentToUpdate.setDay(newAppointmentDetails.getDay());
+        optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
         service.edit(newAppointmentDetails);
     }
-    
+
     @GetMapping("/search/{id}")
-    public List<Appointment> findByProductId(@PathVariable(value = "id") Integer id){
+    public List<Appointment> findByProductId(@PathVariable(value = "id") Integer id) {
         return service.findByProductId(id);
     }
 

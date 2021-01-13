@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/enrolledUser")
 public class EndrolledUserController {
 
@@ -33,12 +33,6 @@ public class EndrolledUserController {
 
     @Autowired
     private EnrolledUserConverter converter;
-
-    @Autowired
-    private OrderingServiceImpl ordService;
-
-    @Autowired
-    private ImageUrlServiceImpl imgService;
 
     @GetMapping("/dto")
     public List<EnrolledUserDto> getEnrolledUsersDto() {
@@ -61,7 +55,6 @@ public class EndrolledUserController {
     public EnrolledUser getEnrolledUserById(@PathVariable(value = "id") Integer enrolledUserId) throws Exception {
         Optional<EnrolledUser> optionalEnrolledUser = service.findById(enrolledUserId);
         return optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
-        //return optionalEnrolledUser.get();
     }
 
     @PostMapping
@@ -75,54 +68,16 @@ public class EndrolledUserController {
         return ResponseEntity.ok("EnrolledUser deleted successfully, ID:" + enrolledUserId);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/dto/{id}")
     public void updateEnrolledUser(@PathVariable(value = "id") Integer enrolledUserId,
             @RequestBody EnrolledUser newEnrolledUserDetails) throws Exception {
-
         /* This method retrieves all the values stored inside an enrolledUser 
         before editing to prevent any data loss, due to how save method works 
          */
         Optional<EnrolledUser> optionalEnrolledUser = service.findById(enrolledUserId);
-        EnrolledUser enrolledUser = optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
-
-        if (!enrolledUser.getAppointmentList().isEmpty() && !(enrolledUser.getAppointmentList() == null)) {
-            List<Appointment> appointmentList = enrolledUser.getAppointmentList();
-            int appointmentListLength = appointmentList.size();
-            for (byte i = 0; i < appointmentListLength; i++) {
-                newEnrolledUserDetails.getAppointmentList().add(appointmentList.get(i));
-            }
-        }
-
-        if (!enrolledUser.getRoleList().isEmpty() && !(enrolledUser.getRoleList() == null)) {
-            List<Role> roleList = enrolledUser.getRoleList();
-            int roleListLength = roleList.size();
-            for (byte i = 0; i < roleListLength; i++) {
-                newEnrolledUserDetails.getRoleList().add(roleList.get(i));
-            }
-        }
-
-        if (!enrolledUser.getProductList().isEmpty() && !(enrolledUser.getProductList() == null)) {
-            List<Product> productList = enrolledUser.getProductList();
-            int productListLength = productList.size();
-            for (byte i = 0; i < productListLength; i++) {
-                newEnrolledUserDetails.getProductList().add(productList.get(i));
-            }
-        }
-
-        List<Ordering> ordering = ordService.findAllOrderingByEnrolledUserId(enrolledUserId);
-        if (!ordering.isEmpty()) {
-            newEnrolledUserDetails.setOrderingList(ordering);
-        }
-
-        ImageUrl imageUrl = imgService.findById(enrolledUserId).get();
-        if (!(imageUrl == null) || newEnrolledUserDetails.getImageUrl() == null) {
-            newEnrolledUserDetails.setImageUrl(imageUrl);
-        }
+        optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
+        newEnrolledUserDetails.setId(enrolledUserId);
         service.edit(newEnrolledUserDetails);
     }
 
-//    @GetMapping("/search/{address}")
-//    public EnrolledUser getEnrolledUserByAddress(@PathVariable(value = "address") String address){
-//        return service.findEnrolledUserByAddress(address);
-//    }
 }

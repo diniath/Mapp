@@ -1,8 +1,6 @@
-
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -18,36 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
-
 @Entity
 @Table(name = "company", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
-    , @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id")
-    , @NamedQuery(name = "Company.findByUsername", query = "SELECT c FROM Company c WHERE c.username = :username")
-    , @NamedQuery(name = "Company.findByPassword", query = "SELECT c FROM Company c WHERE c.password = :password")
-    , @NamedQuery(name = "Company.findByCname", query = "SELECT c FROM Company c WHERE c.cname = :cname")
-    , @NamedQuery(name = "Company.findByEmail", query = "SELECT c FROM Company c WHERE c.email = :email")
-    , @NamedQuery(name = "Company.findByPostalcode", query = "SELECT c FROM Company c WHERE c.postalcode = :postalcode")
-    , @NamedQuery(name = "Company.findByAddress", query = "SELECT c FROM Company c WHERE c.address = :address")
-    , @NamedQuery(name = "Company.findByCity", query = "SELECT c FROM Company c WHERE c.city = :city")
-    , @NamedQuery(name = "Company.findByMunicipality", query = "SELECT c FROM Company c WHERE c.municipality = :municipality")
-    , @NamedQuery(name = "Company.findByTelephone", query = "SELECT c FROM Company c WHERE c.telephone = :telephone")
-    , @NamedQuery(name = "Company.findByMobile", query = "SELECT c FROM Company c WHERE c.mobile = :mobile")
-    , @NamedQuery(name = "Company.findByVatnumber", query = "SELECT c FROM Company c WHERE c.vatnumber = :vatnumber")
-    , @NamedQuery(name = "Company.findByVatservice", query = "SELECT c FROM Company c WHERE c.vatservice = :vatservice")
-    , @NamedQuery(name = "Company.findByDescription", query = "SELECT c FROM Company c WHERE c.description = :description")
-    , @NamedQuery(name = "Company.findByRepresentative", query = "SELECT c FROM Company c WHERE c.representative = :representative")
-    , @NamedQuery(name = "Company.findByRating", query = "SELECT c FROM Company c WHERE c.rating = :rating")
-    , @NamedQuery(name = "Company.findByIban", query = "SELECT c FROM Company c WHERE c.iban = :iban")})
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,7 +49,7 @@ public class Company implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "cname")
-    private String cname;       
+    private String cname;
 
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
@@ -131,7 +107,7 @@ public class Company implements Serializable {
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "description")
-    private String description; 
+    private String description;
 
     @Basic(optional = false)
     @NotNull
@@ -152,7 +128,6 @@ public class Company implements Serializable {
     @Column(name = "profile")
     private String profile;
 
-//    @JsonManagedReference(value = "companyMany_roleList")
     @JoinTable(name = "company_role", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_id", referencedColumnName = "id")})
@@ -160,7 +135,6 @@ public class Company implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Role> roleList;
 
-//    @JsonManagedReference(value = "companyMany_postalCode")
     @JoinTable(name = "area_of_service", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "postal_code_id", referencedColumnName = "id")})
@@ -168,7 +142,6 @@ public class Company implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<PostalCode> postalCodeList;
 
-//    @JsonManagedReference(value = "companyMany_imageUrl")
     @JoinTable(name = "company_image", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
@@ -176,7 +149,6 @@ public class Company implements Serializable {
     @ManyToMany
     private List<ImageUrl> imageUrlList;
 
-//    @JsonManagedReference(value = "companyMany_orderlist")
     @JoinTable(name = "paid", joinColumns = {
         @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "orderlist_id", referencedColumnName = "id")})

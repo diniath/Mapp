@@ -9,26 +9,17 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Builder;
 
 
 @Entity
 @Table(name = "role", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByAdmission", query = "SELECT r FROM Role r WHERE r.admission = :admission")})
 public class Role implements Serializable {
 
     @Basic(optional = false)
@@ -39,7 +30,6 @@ public class Role implements Serializable {
 
     @JsonBackReference(value = "companyMany_roleList")
     @ManyToMany(mappedBy = "roleList")
-//    @JsonIgnore
     private List<Company> companyList;
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +41,6 @@ public class Role implements Serializable {
 
     @JsonBackReference(value = "enrolledUserMany_roleList")
     @ManyToMany(mappedBy = "roleList")
-//    @JsonIgnore // ignores the list of enrolled users to avoid the infinite loop created when try to access role with specific id  (stack: stackoverflow)
     private List<EnrolledUser> enrolledUserList;
 
     public Role() {

@@ -1,7 +1,6 @@
 
 package mapp.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -11,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,11 +17,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "postal_code", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "PostalCode.findAll", query = "SELECT p FROM PostalCode p")
-    , @NamedQuery(name = "PostalCode.findById", query = "SELECT p FROM PostalCode p WHERE p.id = :id")
-    , @NamedQuery(name = "PostalCode.findByPostalCode", query = "SELECT p FROM PostalCode p WHERE p.postalCode = :postalCode")
-    , @NamedQuery(name = "PostalCode.findByMunicipality", query = "SELECT p FROM PostalCode p WHERE p.municipality = :municipality")})
 public class PostalCode implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
@@ -21,14 +19,6 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "schedule", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
-    , @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id")
-    , @NamedQuery(name = "Schedule.findByDay", query = "SELECT s FROM Schedule s WHERE s.day = :day")
-    , @NamedQuery(name = "Schedule.findByOpentime", query = "SELECT s FROM Schedule s WHERE s.opentime = :opentime")
-    , @NamedQuery(name = "Schedule.findByClosetime", query = "SELECT s FROM Schedule s WHERE s.closetime = :closetime")
-    , @NamedQuery(name = "Schedule.findByReopentime", query = "SELECT s FROM Schedule s WHERE s.reopentime = :reopentime")
-    , @NamedQuery(name = "Schedule.findByReclosetime", query = "SELECT s FROM Schedule s WHERE s.reclosetime = :reclosetime")})
 public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;

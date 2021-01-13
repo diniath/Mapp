@@ -39,7 +39,12 @@ public class ProductServiceImpl {
         return product;
     }
 
-//    public Product findProductByAddress(@PathVariable(value = "address") String address){
-//        return dao.findByAddress(address);
-//    }
+    public List<Product> findBySubcategoryId(Integer id) {
+        return dao.findBySubcategoryId(id);
+    }
+
+    public List<Product> findByProfile(String profile) {
+        return dao.findByProfileContainingIgnoreCase(profile);
+    }
+
 }

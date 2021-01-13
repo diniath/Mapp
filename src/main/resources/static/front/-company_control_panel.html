@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./assets/css/myBootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/modals.css" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/animation.js"></script>
+
+    <title>Διαχείριση Προφίλ</title>
+</head>
+
+<body>
+    <header class="container-fluid">
+        <div class="d-flex justify-content-center p-5">
+            <section class="col-2"><a href="index.html"><img class="w-75" src="assets/img/header-logo.png"
+                        alt="logo" /></a>
+            </section>
+            <section class="col-9">
+                <section class="container">
+                    <section class="bg-white  border border-primary rounded d-flex justify-content-start col-7 ">
+                        <div class="col-10">
+                            <input type="text" placeholder="Search..." class="form-control border-0 font-medium "
+                                id="search" name="search">
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-map-marker-alt h4"></i>
+                            </button>
+                        </div>
+                        <div class="col-1">
+
+                            <button type="submit" class="btn ">
+                                <i class="fas fa-search h4"></i>
+                            </button>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="col-1">
+                <button id="userModalBtn" class="btn">
+                    <i class='fas fa-user-alt' style='font-size:24px'></i>
+                </button>
+                <button type="submit" class="btn" id="cartBtn" onclick="cartOpen">
+                    <i class="fas fa-shopping-cart" style='font-size:24px'></i>
+                </button>
+            </section>
+        </div>
+    </header>
+
+    <main class="container-fluid fmxw-1600">
+        <section class=" pt-5 pb-3">
+            <div class="row">
+                <div class="col-12 col-lg-1"></div>
+                <div class="col-12 col-lg-7">
+                    <div class="card card-body bg-white border-light shadow-sm mb-4">
+                        <!-- <h2 class="h2 mb-4">Ρυθμίσεις εταιρικού προφίλ</h2> -->
+                        <!-- <form>
+                            <h3 class="h3 my-4">Στοιχεία Εταιρείας</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="username" class="h5">Όνομα χρήστη</label>
+                                        <input class="form-control" id="company_user_name" type="text"
+                                            placeholder="Username" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_password" class="h5">Συνθηματικό</label>
+                                        <input class="form-control" id="company_password" type="number"
+                                            placeholder="Password" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="p-2">
+                                    <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                    <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+
+                                </div>
+                            </div>
+                        </form> -->
+
+                        <h2 class="class=" h3 my-4"">Ρυθμίσεις εταιρικού προφίλ</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="company_name class=" h5" ">Επωνυμία επιχείρησης</label>
+                                        <input class=" form-control" id="company_name" type="text"
+                                            placeholder="Εισάγετε το όνομα της επιχείρησης" required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="vat_number" class="h5">ΑΦΜ</label>
+                                        <input class="form-control" id="vat_number" type="number" placeholder="ΑΦΜ"
+                                            required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="iban" class="h5">IBAN</label>
+                                        <input class="form-control" id="iban" type="text" placeholder="iban"
+                                            required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div>
+                                        <label for="vat_service" class="h5">Δ.Ο.Υ.</label>
+                                        <input class="form-control" id="vat_service" type="text"
+                                            placeholder="Εισάγετε Δ.Ο.Υ." required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-12 mb-3">
+                                    <div>
+                                        <label for="company_description" class="h5">Περιγραφή επιχείρησης</label>
+                                        <textarea class="form-control" id="company_description" type="text"
+                                            placeholder="Λίγα λόγια για την επιχείρηση..." required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="p-2">
+                                    <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                    <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+
+                                </div>
+                            </div>
+
+                            <h2 class="h3 my-4">Επικοινωνία</h2>
+                            <div class="row align-items-center">
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="first_name" class="h5">Πρόσωπο επικοινωνίας</label>
+                                        <input class="form-control" id="representative_name" type="text"
+                                            placeholder="Όνομα και επώνυμο" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_email " class="h5">Email</label>
+                                        <input class="form-control" id="company_email" type="email"
+                                            placeholder="name@company.com" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_phone" class="h5">Τηλέφωνο</label>
+                                        <input class="form-control" id="company_phone" type="number"
+                                            placeholder="Εισάγετε σταθερό τηλέφωνο" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_mobile" class="h5">Κινητό</label>
+                                        <input class="form-control" id="company_mobile" type="number"
+                                            placeholder="+3069..." required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="p-2">
+                                    <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                    <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+
+                                </div>
+                            </div>
+
+                            <h2 class="h3 my-4">Διεύθυνση</h2>
+                            <div class="row">
+                                <div class="col-sm-9 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_address" class="h5">Οδός & Αριθμός</label>
+                                        <input class="form-control" id="company_address" type="text"
+                                            placeholder="Οδός και αριθμός" required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_city" class="h5">Πόλη</label>
+                                        <input class="form-control" id="company_city" type="text" placeholder="Πόλη"
+                                            required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="company_municipality" class="h5">Δήμος / Περιοχή</label>
+                                        <input class="form-control" id="company_municipality" type="text"
+                                            placeholder="Δήμος ή Περιοχή" required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 mt-0">
+                                    <label for="zip" class="h5">Ταχυδρομικός Κώδικας
+                                        <input class="form-select mt-2" id="company_zip" list="zip" name="myZip"
+                                            placeholder="T.K." />
+                                    </label>
+                                    <datalist id="zip" aria-label="zip">
+                                        <option value="10431 ΑΘΗΝΑ">
+                                        <option value="10433 ΑΘΗΝΑ">
+                                        <option value="10435 ΑΘΗΝΑ">
+                                        <option value="10436 ΑΘΗΝΑ">
+                                        <option value="10437 ΑΘΗΝΑ">
+                                        <option value="10438 ΑΘΗΝΑ">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="p-2">
+                                    <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                    <button type="button" class="btn btn-gray-500">Προσθήκη νέας</button>
+
+                                    <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+
+                                </div>
+
+                            </div>
+                            <h2 class="h3 my-4">Ωράριο επιχείρησης</h2>
+                            <div class="my-4" style="font-size: 9px;"> Δηλώστε το ωράριο της επιχείρησης σας, για να
+                                διευκολύνετε τους πελάτες σας στο κλείσιμο ραντεβού.</div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Δευτέρα
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" id="monday" list="schedule" name="timeslot"
+                                        placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Τρίτη
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Τετάρτη
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Πέμπτη
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Παρασκευή
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Σάββατο
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 mt-2">
+                                    Κυριακή
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-2">
+                                    και
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="από" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <input class="form-select mt-0" list="schedule" name="timeslot" placeholder="έως" />
+                                    <datalist id="schedule" aria-label="schedule">
+                                        <option value="08.00">
+                                        <option value="08.30">
+                                        <option value="09.00">
+                                        <option value="09.30">
+                                        <option value="10.00">
+                                        <option value="10.30">
+                                        <option value="11.00">
+                                        <option value="11.30">
+                                        <option value="12.00">
+                                        <option value="12.30">
+                                        <option value="13.00">
+                                        <option value="13.30">
+                                        <option value="14.00">
+                                        <option value="14.30">
+                                        <option value="15.00">
+                                        <option value="15.30">
+                                        <option value="16.00">
+                                        <option value="16.30">
+                                        <option value="17.00">
+                                        <option value="17.30">
+                                        <option value="18.00">
+                                        <option value="19.30">
+                                        <option value="20.00">
+                                        <option value="20.30">
+                                        <option value="21.00">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
+                                        <label class="form-check-label" for="defaultCheck10">
+                                            κλειστά
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+
+                            </div>
+
+                            <h2 class="h3 my-4">Προσφερόμενες Υπηρεσίες</h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="h6 " id="orders-titles-id">
+                                        <tr>
+                                            <th class="col-md-2">Υπηρεσία</th>
+                                            <th class="col-md-2">Κατηγορία</th>
+                                            <th class="col-md-2">Κόστος</th>
+                                            <th class="col-md-2">Διάρκεια</th>
+                                            <th class="col-md-2">Εικόνες</th>
+                                        </tr>
+                                        <tr>
+                                            <!-- yphresia -->
+                                            <td class="font-medium">
+                                                <input class="form-control" id="service" type="text" placeholder=""
+                                                    required="" style="font-size: 9px;">
+                                            </td>
+                                            <!-- kathgoria/upokathgoria -->
+                                            <td class="col-sm-2" style="font-size: 9px;">
+                                                <select class="form-select" id="categories"
+                                                    aria-label="Default select example" style="font-size: 9px;">
+                                                    <option selected>...</option>
+                                                    <optgroup label="Σπίτι | Κήπος">
+                                                        <option value="1">τεχνικά/αρχιτεκτονικά γραφεία</option>
+                                                        <option value="2">κηπουρικές εργασίες</option>
+                                                        <option value="3">διακόσμηση</option>
+                                                        <option value="4">ηλεκτρολογικές εργασίες</option>
+                                                        <option value="5">υδραυλικές εργασίες</option>
+                                                        <option value="6">ανακαίνιση σπιτιού</option>
+                                                        <option value="7">καθαριότητα</option>
+                                                        <option value="8">διεκαιρεωτικές εργασίες</option>
+                                                    </optgroup>
+                                                    <optgroup label="Υγεία | Ομορφιά">
+                                                        <option value="1">κομμωτήρια</option>
+                                                        <option value="2">ονυχοτεχνική </option>
+                                                        <option value="3">μασάζ</option>
+                                                        <option value="4">περιποίηση προσώπου/σώματος</option>
+                                                        <option value="5">διατροφή/αδυνάτισμα</option>
+                                                        <option value="6">personal training</option>
+                                                    </optgroup>
+                                                    <optgroup label="Τεχνολογία">
+                                                        <option value="1">digital marketing</option>
+                                                        <option value="2">programming & tech </option>
+                                                        <option value="3">e-commerce</option>
+                                                        <option value="4">επισκευές - Η/Υ, κινητά</option>
+                                                        <option value="5">video/animation</option>
+                                                        <option value="6">music/audio</option>
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                            <!-- <td class="col-md-2" style="font-size: 9px;">Κομμωτήρια
+                                            </td> -->
+                                            <!-- kostos -->
+                                            <td class="col-sm-2" style="font-size: 9px;">
+                                                <input class="form-control" id="cost" type="number" placeholder="€"
+                                                    required="" style="font-size: 9px;">
+                                            </td>
+                                            <!-- diarkeia -->
+                                            <td class="col-sm-2" style="font-size: 9px;">
+                                                <select class="form-select" id="categories"
+                                                    aria-label="Default select example" style="font-size: 9px;">
+                                                    <option selected>...</option>
+                                                    <option value="1">0h30mins</option>
+                                                    <option value="1">1h</option>
+                                                    <option value="1">1h30mins</option>
+                                                    <option value="1">2h</option>
+                                                    <option value="1">2h30mins</option>
+                                                    <option value="1">3h</option>
+                                                    <option value="1">3h30mins</option>
+                                                    <option value="1">4h</option>
+                                                    <option value="1">4h30mins</option>
+                                                    <option value="1">5h</option>
+                                                    <option value="1">5h30mins</option>
+                                                    <option value="1">6h</option>
+                                                    <option value="1">6h30mins</option>
+                                                    <option value="1">7h</option>
+                                                    <option value="1">7h30mins</option>
+                                                    <option value="1">8h</option>
+                                                </select>
+                                            </td>
+                                            <!-- add pictures -->
+                                            <td>
+                                                <div class="file-field">
+                                                    <div class="d-flex justify-content-sm ml-sm-3">
+                                                        <div class="d-flex">
+                                                            <span class="icon icon-md"><span
+                                                                    class="fas fa-paperclip mr-3"></span></span> <input
+                                                                type="file">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="p-2">
+                                    <button type="button" class="btn btn-primary">Αποθήκευση</button>
+                                    <button type="button" class="btn btn-gray-500">Προσθήκη νέας</button>
+                                    <button type="submit" id="resetBtn" class="btn btn-danger">Επαναφορά</button>
+                                </div>
+
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-5 mt-2 ">
+                                    <input class="form-select mt-2" list="saved-service" name="savedCard"
+                                        placeholder="Διαγραφή υπηρεσίας" />
+                                    <datalist id="saved-service" aria-label="service">
+                                        <option value="Γυναικείο κούρεμα">
+                                        <option value="Γυναικείο χτένισμα">
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-1 mt-3">
+                                    <button type="button" class="btn btn-primary p-1">
+                                        <i class="fa fa-trash p-1"></i></button>
+                                </div>
+                            </div>
+
+                        </form>
+                        <h2 class="h3 my-4">Διαχείριση ραντεβού</h2>
+                        <div class="row">
+                            <div class="col-md-12"
+                                style="border: 1px solid rgb(202, 198, 198); height: auto; padding: 10px; border-radius: 10px;">
+                                <table id="orders-titles-id" class="h6">
+                                    <tr>
+                                        <th class="col-md-2">Πελάτης</th>
+                                        <th class="col-md-2">Υπηρεσία</th>
+                                        <th class="col-md-2">Ημερομηνία</th>
+                                        <th class="col-md-2">Ώρα</th>
+                                        <th class="col-md-2">Αποδοχή</th>
+                                        <th class="col-md-2">Απόρριψη</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2" style="font-size: 12px;">Ελένη Παπαδοπούλου</td>
+                                        <td class="col-md-2" style="font-size: 12px;">Γυναικείο χτένισμα</td>
+                                        <td class="col-md-2" style="font-size: 12px;">15/05/2021</td>
+                                        <td class="col-md-2" style="font-size: 12px;">11.30
+                                        </td>
+                                        <td class="col-md-2 j" style="font-size: 12px;">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="fas fa-check"></i></button>
+                                        </td>
+                                        <td class="col-md-2" style="font-size: 12px;">
+                                            <!-- to skull mpike gia nota kalampouriou, an theloume X: fas fa-times -->
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="fas fa-skull"></i></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="card border-light text-center p-0">
+                                <div>
+                                </div>
+                                <div class="card-body pb-5 pt-9">
+                                    <img id="profile-photo" src="https://randomuser.me/api/portraits/women/57.jpg"
+                                        class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4"
+                                        alt="Profile Picture">
+                                    <h4 class="h3"> <span id="username-sidebar">Username</span></h4>
+                                    <div class="file-field">
+                                        <div class="d-flex justify-content-center">
+                                            <a class="btn btn btn-primary mb-2 w-100" href="#">Αλλαγή
+                                                φωτοφραφίας</a>
+                                            <input type="file">
+                                        </div>
+                                    </div>
+                                    <a class="btn btn btn-secondary w-100" href="#">Αποσύνδεση</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <footer class="bg-light col-lg-12 d-flex justify-content-center p-5">
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4">Κατηγορίες</h1>
+                <hr style="width: 95%">
+                <section class="d-flex justify-content-center">
+                    <section class="col-6">
+                        <button type="button" class="btn btn-light w-100 text-left  "
+                            onMouseOver="this.style.backgroundColor='#ffcc00'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΟΛΟΓΙΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#007bff'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΙΑΤΡΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#dc3545'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΕΚΠΑΙΔΕΥΣΗ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#28a745'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΙΤΕΣ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#9535f4'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΟΜΟΡΦΙΑ</button>
+
+                    </section>
+                    <section class="col-6">
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#e57f12'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΟΙΚΟΝΟΜΟΤΕΧΝΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#12b7e5'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΚΑΛΛΙΤΕΧΝΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#70bcd1'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΣΥΜΒΟΥΛΕΥΤΙΚΗ</button>
+
+                    </section>
+                </section>
+        </section>
+
+
+
+
+
+        <section class="col-4 pt-3 pb-3">
+            <h4 class="h4">Εταιρεία</h4>
+            <hr style="width: 95%">
+            <section class="d-flex justify-content-center">
+                <section class="col-6">
+                    <button type="button" class="btn w-100 text-left p-0">Ποιοί είμαστε</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Πώς λειτουργεί</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Πολιτική Προστασίας</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Προσωπικά Δεδομένα </button>
+                    <button type="button" class="btn  w-100 text-left p-0"> Πολιτική Cookies </button>
+                </section>
+                <section class="col-6">
+                    <button type="button" class="btn  w-100 text-left p-0">Ευκαιρίες καριέρας</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Β2Β - συνεργάτες</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Τύπος - νέα</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Sitemap</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Επικοινωνία</button>
+                </section>
+            </section>
+        </section>
+
+
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4 text-right text-italic"> ... ας συνδεθούμε :) </h1>
+                <hr style="width: 95%">
+                <section class="d-flex justify-content-center flex-column">
+                    <section class="text-right">
+                        <button type="submit" class="btn">
+                            <i class="fab fa-facebook-f h2 bg-transparent text-facebook"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-twitter h2 bg-transparent text-twitter"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-instagram h2 bg-transparent text-instagram"></i>
+
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-linkedin-in h2 bg-transparent text-gray"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-youtube h2 bg-transparent text-youtube "></i>
+                        </button>
+                    </section>
+
+
+
+                    <section class="d-flex justify-content-end">
+                        <section class="pt-3 col-8 ">
+                            <form>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Γράψε το email σου εδώ">
+                                </div>
+                                <button type="submit" class="btn btn-warning mt-2">Εγγραφή στο Newsletter</button>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+        </section>
+
+
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div id="userModal" class="modal">
+
+        <!-- Modal content -->
+        <section>
+            <div class="container d-flex justify-content-center">
+
+                <div id="userModalBlock" class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                        <div class="d-flex justify-content-end">
+                            <button id="userModalCloseBtn" type="submit" class="close btn p-0">
+                                <i class="fas fa-window-close h4"></i>
+                            </button>
+                        </div>
+                        <div class="text-center text-md-center mb-4 mt-md-0">
+                            <h1 class="mb-0 h3">Συνδεθείτε</h1>
+                        </div>
+                        <form action="#" class="mt-4">
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1"><span
+                                            class="fas fa-envelope"></span></span>
+                                    <input type="email" class="form-control" placeholder="example@example.com"
+                                        id="email" autofocus required>
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                            <div class="form-group">
+                                <!-- Form -->
+                                <div class="form-group mb-4">
+                                    <label for="password">Συνθηματικό</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon2"><span
+                                                class="fas fa-unlock-alt"></span></span>
+                                        <input type="password" placeholder="Συνθηματικό" class="form-control"
+                                            id="password" required>
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                <div class="d-flex justify-content-between align-items-top mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="remember">
+                                        <label class="form-check-label mb-0" for="remember">
+                                            Να με θυμάσαι
+                                        </label>
+                                    </div>
+                                    <!-- SOS ftiaksoume swsta thn parapompi gia to forgot password -->
+                                    <div><a href="./forgot-password.html" class="small text-right">Ξέχασα τον κωδικό
+                                            μου</a></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary">Συνδεθείτε</button>
+                        </form>
+
+
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            <span class="font-weight-normal">
+                                Δεν έχετε εγγραφεί;
+                                <!-- SOS ftiaksoume swsta parapompi gia sign-up -->
+                                <a href="./sign-up.html" class="font-weight-bold">Δημιουργείστε λογαριασμό</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <!-- Shopping cart -->
+    <section id="cart" class="container col-4 shadow-lg mt-6 rounded-left p-4"
+        style="display: none; position: absolute; right: 0px; top:0px; background-color: #ffcc00ed;">
+
+        <table class="table table-hover table-striped ">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3 class="h4 text-left p-0 m-0 pt-3">Το καλάθι μου</h3>
+                </div>
+                <div class="m-0 p-0"></div>
+                <button id="cartCloseBtn" class="btn"><i class="far fa-times-circle h4"></i></button>
+            </div>
+            </div>
+
+
+            <thead>
+                <th class="col-2 pl-1"><span class="h6">Περιγραφή</span></th>
+                <th class="col-2 pl-1"><span class="h6">Κράτηση</span></th>
+                <th class="col-2 pl-1"><span id="amount" class="h6">Τιμή</span></th>
+            </thead>
+
+            <tr>
+                <td>
+                    <p class="m-0 p-0 h5">Γυναικείο κούρεμα</p>
+                    <p class="m-0 p-0 h6">Arte de pello</p>
+                </td>
+                <td>
+                    <div class="m-0 p-0 ">
+                        <div> <i class="far fa-calendar-alt h4 "></i> <span class="h4">22/05/2020</span></div>
+                        <div><i class="far fa-clock h6"></i> <span class="h6">15:30</span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="m-0 p-0"><i class="fas fa-euro-sign h5"> <span class="h5">45</span></i>
+                        <button class="btn"><i class="fas fa-trash-alt h4"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="m-0 p-0 h5">Γυναικείο κούρεμα</p>
+                    <p class="m-0 p-0 h6">Arte de pello</p>
+                </td>
+                <td>
+                    <div class="m-0 p-0 ">
+                        <div> <i class="far fa-calendar-alt h4 "></i> <span class="h4">22/05/2020</span></div>
+                        <div><i class="far fa-clock h6"></i> <span class="h6">15:30</span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="m-0 p-0"><i class="fas fa-euro-sign h5"> <span class="h5">45</span></i>
+                        <button class="btn"><i class="fas fa-trash-alt h4"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tfoot class="">
+                <tr>
+                    <td class="text-left border-0"><span class="h6">ΣΥΝΟΛΟ:</span> <i class="fas fa-euro-sign"></i>
+                        <span class="h4 font-weight-bolder">45 </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </section>
+
+
+
+
+</body>
+
+</html>

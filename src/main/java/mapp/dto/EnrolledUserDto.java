@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import mapp.entity.ImageUrl;
 
 
-
-//@Data
 public class EnrolledUserDto {
     
     private static final long serialVersionUID = 1L;

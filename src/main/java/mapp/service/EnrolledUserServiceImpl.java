@@ -1,11 +1,12 @@
-
 package mapp.service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.EnrolledUserUpdateDtoConverter;
 import mapp.dao.EnrolledUserDao;
 import mapp.dto.EnrolledUserDto;
+import mapp.dto.EnrolledUserUpdateDto;
 import mapp.entity.Appointment;
 import mapp.entity.EnrolledUser;
 import mapp.entity.ImageUrl;
@@ -22,6 +23,12 @@ public class EnrolledUserServiceImpl {
     @Autowired
     private EnrolledUserDao dao;
 
+    @Autowired
+    private EnrolledUserUpdateDtoConverter converter;
+
+    @Autowired
+    private ImageUrlServiceImpl service;
+
     public List<EnrolledUserDto> retrieveAll(String username) {
         return dao.retrieveUsernameAsDTO(username);
     }
@@ -29,7 +36,7 @@ public class EnrolledUserServiceImpl {
     public List<EnrolledUser> findAll() {
         return dao.findAll();
     }
-    
+
     // This method prevents an enrolledUser to be saved as ADMIN (or Company)
     public EnrolledUser create(EnrolledUser enrolledUser) {
         EnrolledUser createdUser = null;
@@ -46,6 +53,9 @@ public class EnrolledUserServiceImpl {
     // supports update operation 
     // to prevent list of entities from being deleted
     public void edit(EnrolledUser enrolledUser) {
+
+        EnrolledUserUpdateDto dto = converter.entityToDto(enrolledUser);
+
 //        String username = enrolledUser.getUsername();
 //        String password = enrolledUser.getPassword();
 //        String fname = enrolledUser.getFname();
@@ -59,17 +69,18 @@ public class EnrolledUserServiceImpl {
 //        String telephone = enrolledUser.getTelephone();
 //        String mobile = enrolledUser.getMobile();
 //        Integer id = enrolledUser.getId();
-//
-//        dao.setEnrolledUserInfoById(
-//                username, password, fname, lname,
-//                email, dateofbirth, postalcode, address,
-//                city, municipality, telephone, mobile,
-//                id
-//        );
-        
+        dao.setEnrolledUserInfoById(
+                dto.getUsername(), dto.getPassword(), dto.getFname(), dto.getLname(),
+                dto.getEmail(), dto.getDateofbirth(), dto.getPostalcode(), dto.getAddress(),
+                dto.getCity(), dto.getMunicipality(), dto.getTelephone(), dto.getMobile(),
+                dto.getId()
+        );
+
         // change imageUrl *** ***  
-        
-         dao.saveAndFlush(enrolledUser);
+        if (!(enrolledUser.getImageUrl().getUrl() == null)) {
+                service.edit(enrolledUser.getImageUrl());
+        }
+
     }
 
     public void delete(int id) {

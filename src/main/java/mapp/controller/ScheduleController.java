@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -16,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
 
     @Autowired
     private ScheduleServiceImpl service;
 
-    
     @GetMapping
     public List<Schedule> getSchedules() {
         return service.findAll();
@@ -34,7 +31,6 @@ public class ScheduleController {
     public Schedule getScheduleById(@PathVariable(value = "myvariable") Integer scheduleId) throws Exception {
         Optional<Schedule> optionalSchedule = service.findById(scheduleId);
         return optionalSchedule.orElseThrow(() -> new Exception("Schedule not exists with id:" + scheduleId));
-        //return optionalSchedule.get();
     }
 
     @PostMapping
@@ -52,14 +48,12 @@ public class ScheduleController {
     public void updateSchedule(@PathVariable(value = "id") Integer scheduleId,
             @RequestBody Schedule newScheduleDetails) throws Exception {
         Optional<Schedule> optionalSchedule = service.findById(scheduleId);
-        Schedule scheduleToUpdate = optionalSchedule.orElseThrow(() -> new Exception("Schedule not exists with id:" + scheduleId));
-        
-//        scheduleToUpdate.setDay(newScheduleDetails.getDay());
+        optionalSchedule.orElseThrow(() -> new Exception("Schedule not exists with id:" + scheduleId));
         service.edit(newScheduleDetails);
     }
-    
+
     @GetMapping("/search/{id}")
-    public List<Schedule> getScheduleByCompanyId(@PathVariable(value = "id") Integer id){
+    public List<Schedule> getScheduleByCompanyId(@PathVariable(value = "id") Integer id) {
         return service.findScheduleByCompanyId(id);
     }
 

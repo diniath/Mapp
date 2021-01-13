@@ -2,9 +2,7 @@
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -15,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -24,10 +20,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "image_url", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "ImageUrl.findAll", query = "SELECT i FROM ImageUrl i")
-    , @NamedQuery(name = "ImageUrl.findById", query = "SELECT i FROM ImageUrl i WHERE i.id = :id")
-    , @NamedQuery(name = "ImageUrl.findByUrl", query = "SELECT i FROM ImageUrl i WHERE i.url = :url")})
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class ImageUrl implements Serializable {
 
@@ -112,6 +104,7 @@ public class ImageUrl implements Serializable {
         this.url = url;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;

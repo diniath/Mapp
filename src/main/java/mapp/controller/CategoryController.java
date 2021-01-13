@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
 
@@ -33,21 +33,12 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable(value = "id") Integer categoryId) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
         return optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
-        //return optionalCategory.get();
     }
 
     @PostMapping
     public Category createCategory(@RequestBody Category category) {
         return service.create(category);
     }
-
-//        public List<Category> createCategory(@RequestBody List<Category> categories) {
-//        List<Category> temp = new ArrayList();
-//        for (Category category : categories) {
-//            temp.add(service.create(category));
-//        }
-//        return temp;
-//    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategoryById(@PathVariable(value = "id") Integer categoryId) {

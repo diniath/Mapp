@@ -9,7 +9,8 @@ public class ProductDto {
 
     private Integer id;
 
+    private String profile;
+
     private String description;
-    
-    
+
 }

@@ -1,4 +1,3 @@
-
 package mapp.controller;
 
 import java.util.List;
@@ -16,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/orderlist")
 public class OrderlistController {
 
     @Autowired
     private OrderlistServiceImpl service;
 
-    
     @GetMapping
     public List<Orderlist> getOrderlists() {
         return service.findAll();
@@ -33,7 +31,6 @@ public class OrderlistController {
     public Orderlist getOrderlistById(@PathVariable(value = "myvariable") Integer orderlistId) throws Exception {
         Optional<Orderlist> optionalOrderlist = service.findById(orderlistId);
         return optionalOrderlist.orElseThrow(() -> new Exception("Orderlist not exists with id:" + orderlistId));
-        //return optionalOrderlist.get();
     }
 
     @PostMapping
@@ -51,15 +48,8 @@ public class OrderlistController {
     public void updateOrderlist(@PathVariable(value = "id") Integer orderlistId,
             @RequestBody Orderlist newOrderlistDetails) throws Exception {
         Optional<Orderlist> optionalOrderlist = service.findById(orderlistId);
-        Orderlist orderlistToUpdate = optionalOrderlist.orElseThrow(() -> new Exception("Orderlist not exists with id:" + orderlistId));
-        
-//        orderlistToUpdate.setDay(newOrderlistDetails.getDay());
+        optionalOrderlist.orElseThrow(() -> new Exception("Orderlist not exists with id:" + orderlistId));
         service.edit(newOrderlistDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public Orderlist getOrderlistByAddress(@PathVariable(value = "address") String address){
-//        return service.findOrderlistByAddress(address);
-//    }
 
 }

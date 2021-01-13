@@ -1,4 +1,3 @@
-
 package mapp.service;
 
 import java.util.List;
@@ -15,6 +14,12 @@ public class ReviewServiceImpl {
 
     @Autowired
     private ReviewDao dao;
+
+    @Autowired
+    private CompanyServiceImpl companyService;
+
+    @Autowired
+    private EnrolledUserServiceImpl enrolledUserService;
 
     public List<Review> findAll() {
         return dao.findAll();
@@ -45,15 +50,14 @@ public class ReviewServiceImpl {
         return dao.findByProductId(id);
     }
 
-        public List<Review> findByCompanyId(Integer id) {
+    public List<Review> findByCompanyId(Integer id) {
         return dao.findByCompanyId(id);
     }
+
     public List<Review> findByEnrolledUserId(Integer id) {
         return dao.findByEnrolledUserId(id);
     }
 
-    
-    
     private void setProductRating(Review review) {
         List<Review> reviewList = dao.findByProductId(review.getProduct().getId());
         int sum = review.getProductRating();

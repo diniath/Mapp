@@ -18,8 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,24 +25,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @Table(name = "enrolled_user", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "EnrolledUser.findAll", query = "SELECT e FROM EnrolledUser e")
-    , @NamedQuery(name = "EnrolledUser.findById", query = "SELECT e FROM EnrolledUser e WHERE e.id = :id")
-    , @NamedQuery(name = "EnrolledUser.findByUsername", query = "SELECT e FROM EnrolledUser e WHERE e.username = :username")
-    , @NamedQuery(name = "EnrolledUser.findByPassword", query = "SELECT e FROM EnrolledUser e WHERE e.password = :password")
-    , @NamedQuery(name = "EnrolledUser.findByFname", query = "SELECT e FROM EnrolledUser e WHERE e.fname = :fname")
-    , @NamedQuery(name = "EnrolledUser.findByLname", query = "SELECT e FROM EnrolledUser e WHERE e.lname = :lname")
-    , @NamedQuery(name = "EnrolledUser.findByEmail", query = "SELECT e FROM EnrolledUser e WHERE e.email = :email")
-    , @NamedQuery(name = "EnrolledUser.findByLocalDateofbirth", query = "SELECT e FROM EnrolledUser e WHERE e.dateofbirth = :dateofbirth")
-    , @NamedQuery(name = "EnrolledUser.findByPostalcode", query = "SELECT e FROM EnrolledUser e WHERE e.postalcode = :postalcode")
-    , @NamedQuery(name = "EnrolledUser.findByAddress", query = "SELECT e FROM EnrolledUser e WHERE e.address = :address")
-    , @NamedQuery(name = "EnrolledUser.findByCity", query = "SELECT e FROM EnrolledUser e WHERE e.city = :city")
-    , @NamedQuery(name = "EnrolledUser.findByMunicipality", query = "SELECT e FROM EnrolledUser e WHERE e.municipality = :municipality")
-    , @NamedQuery(name = "EnrolledUser.findByTelephone", query = "SELECT e FROM EnrolledUser e WHERE e.telephone = :telephone")
-    , @NamedQuery(name = "EnrolledUser.findByMobile", query = "SELECT e FROM EnrolledUser e WHERE e.mobile = :mobile")})
 public class EnrolledUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -126,14 +108,12 @@ public class EnrolledUser implements Serializable {
     @Column(name = "mobile")
     private String mobile;
 
-//    @JsonBackReference(value = "enrolledUserMany_appointment")
     @ManyToMany
     @JoinTable(name = "enrolled_user_appointment", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "appointment_id", referencedColumnName = "id")})
     private List<Appointment> appointmentList;
 
-//    @JsonManagedReference(value = "enrolledUserMany_roleList")
     @JoinTable(name = "user_role", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_id", referencedColumnName = "id")})
@@ -141,7 +121,6 @@ public class EnrolledUser implements Serializable {
     @ManyToMany
     private List<Role> roleList;
 
-//    @JsonManagedReference(value = "enrolledUserMany_productList")
     @JoinTable(name = "favorite", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")})

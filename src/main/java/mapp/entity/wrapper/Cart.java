@@ -7,7 +7,6 @@ import mapp.entity.Company;
 import mapp.entity.Ordering;
 import mapp.entity.Product;
 
-
 public class Cart {
 
     private Ordering ordering;

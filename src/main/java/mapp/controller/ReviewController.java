@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/review")
 public class ReviewController {
 
@@ -33,7 +33,6 @@ public class ReviewController {
     public Review getReviewById(@PathVariable(value = "myvariable") Integer reviewId) throws Exception {
         Optional<Review> optionalReview = service.findById(reviewId);
         return optionalReview.orElseThrow(() -> new Exception("Review not exists with id:" + reviewId));
-        //return optionalReview.get();
     }
 
     @PostMapping
@@ -51,9 +50,7 @@ public class ReviewController {
     public void updateReview(@PathVariable(value = "id") Integer reviewId,
             @RequestBody Review newReviewDetails) throws Exception {
         Optional<Review> optionalReview = service.findById(reviewId);
-        Review reviewToUpdate = optionalReview.orElseThrow(() -> new Exception("Review not exists with id:" + reviewId));
-
-//        reviewToUpdate.setDay(newReviewDetails.getDay());
+        optionalReview.orElseThrow(() -> new Exception("Review not exists with id:" + reviewId));
         service.edit(newReviewDetails);
     }
 

@@ -1,11 +1,8 @@
-
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -19,18 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "orderlist", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
-    , @NamedQuery(name = "Orderlist.findById", query = "SELECT o FROM Orderlist o WHERE o.id = :id")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +31,6 @@ public class Orderlist implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-//    @JsonBackReference(value = "companyMany_orderlist")
     @ManyToMany(mappedBy = "orderlistList")
     private List<Company> companyList;
 

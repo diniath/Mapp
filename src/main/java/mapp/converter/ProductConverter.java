@@ -1,4 +1,3 @@
-
 package mapp.converter;
 
 import java.util.stream.Collectors;
@@ -7,7 +6,6 @@ import mapp.entity.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import java.util.List;
-
 
 @Component
 public class ProductConverter {
@@ -20,9 +18,7 @@ public class ProductConverter {
     }
 
     public List<ProductDto> entityToDto(List<Product> product) {
-
         return product.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
-
     }
 
     public Product dtoToEntity(ProductDto dto) {

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./assets/css/myBootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/modals.css" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/animation.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <title>Διαχείριση Προφίλ</title>
+</head>
+
+<body>
+    <header class="container-fluid">
+        <div class="d-flex justify-content-center p-5">
+            <section class="col-2"><a href="index.html"><img class="w-75" src="assets/img/header-logo.png"
+                        alt="logo" /></a>
+            </section>
+            <section class="col-9">
+                <section class="container">
+                    <section class="bg-white  border border-primary rounded d-flex justify-content-start col-7 ">
+                        <div class="col-10">
+                            <input type="text" placeholder="Search..." class="form-control border-0 font-medium "
+                                id="search" name="search">
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-map-marker-alt h4"></i>
+                            </button>
+                        </div>
+                        <div class="col-1">
+
+                            <button type="submit" class="btn ">
+                                <i class="fas fa-search h4"></i>
+                            </button>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="col-1">
+                <button id="userModalBtn" class="btn">
+                    <i class='fas fa-user-alt' style='font-size:24px'></i>
+                </button>
+                <button type="submit" class="btn" id="cartBtn" onclick="cartOpen">
+                    <i class="fas fa-shopping-cart" style='font-size:24px'></i>
+                </button>
+            </section>
+        </div>
+    </header>
+
+    <main class="container-fluid fmxw-1600">
+        <section>
+
+            <div>
+                <div class=" d-flex z-10 bg-warning p-5">
+                    <div class="p-0">
+                        <h3 class="h3">ΓΙΑ ΕΜΑΣ </h3>
+                        <h6 class="font-base">Sherlock </h6>
+                        <article class="h5 pr-6">
+                            Η Sherlock Α.Ε. ιδρύθηκε το 2020 και δραστηριοποιείται στην ανάπτυξη καινοτόμων υπηρεσιών
+                            τεχνολογίας, δημιουργώντας πρωτοποριακές πλατφόρμες ηλεκτρονικού εμπορίου και ιστοσελίδες
+                            υψηλής απόδοσης. Με έδρα την Αθήνα, η Sherlock Α.Ε. είναι το κορυφαίο digital brand πίσω από
+                            τη δημιουργία και την εξέλιξη των δυνατοτήτων της πρωτοποριακής μηχανής αναζήτησης και
+                            σύγκρισης τιμών υπηρεσιώνr. Η εταιρεία παρέχει ένα εύρος χρηστοκεντρικών λύσεων λογισμικού
+                            και πλατφορμών ηλεκτρονικού εμπορίου και συστημάτων κράτησης αξιοποιώντας νέες τεχνολογίες
+                            και
+                            μεθοδολογίες, που αναδεικνύουν το πάθος του ανθρώπινου δυναμικού της.
+                        </article>
+                    </div>
+                    <img class="fmxh-550 shadow image" src="assets/img/team-presentation.jpg" alt="">
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <section>
+            <h2 class="h2 pt-5 pl-2">Γενικές πληροφορίες</h2>
+            <div id="accordion ">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                Όροι χρήσης
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body p-5">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                                Ιδιωτικότητα και GDPR
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body p-5">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus laudantium eos molestiae
+                            enim similique, laborum quos adipisci aperiam a quo, nostrum sit assumenda. Nam expedita
+                            culpa natus dolore veniam placeat!
+                            Molestiae nulla natus eius earum maxime explicabo eum odio cupiditate corporis, ex, mollitia
+                            dolor aut, dolorum consequuntur. Placeat a eaque veritatis, harum quisquam distinctio
+                            facilis, odit quos provident molestiae amet!
+                            Odio, enim. Nam tempore provident fugit blanditiis quae ipsam iure voluptatum illo! Mollitia
+                            libero fugit consequatur atque ut commodi nisi, cumque itaque, quae repudiandae, soluta
+                            ipsum. Minus amet nihil esse.
+                            Culpa ratione id reiciendis facilis totam debitis. Provident cum sapiente maxime officiis
+                            voluptatum voluptates repudiandae dolorum placeat, velit molestiae laboriosam dolore ratione
+                            debitis officia sed? Quis natus recusandae soluta illum!
+                            Qui ipsam nihil error blanditiis aliquid fugiat velit eaque rerum consectetur animi commodi
+                            mollitia, unde veritatis vitae maxime recusandae nisi itaque alias delectus temporibus
+                            minima cupiditate ut! Eum, corporis impedit?
+                            Ipsa culpa quisquam facere laboriosam enim quos tempore officia quasi facilis nesciunt
+                            architecto vero blanditiis consequatur nisi voluptatibus dolorum perspiciatis eaque, eveniet
+                            labore quod perferendis sequi corrupti. Natus, fuga temporibus!
+                            Ex corporis culpa tenetur cumque cum quos labore vitae hic dolores ea, error ipsa illo.
+                            Veniam officiis ipsum porro unde commodi eos dicta, consequatur asperiores ex ipsam
+                            similique possimus aliquid.
+                            Illum, molestias? Eveniet reprehenderit alias ducimus accusantium sint. Nostrum facilis
+                            natus quisquam ipsa quas quidem atque voluptates, cumque praesentium sed fuga dicta illum,
+                            soluta laudantium repellendus, eligendi velit eum nemo.
+                            Amet enim soluta eveniet unde dolores temporibus, nemo, cupiditate totam adipisci, minima
+                            explicabo dolorem velit! Placeat, dolores repellat aut ab reprehenderit maxime distinctio
+                            nulla commodi facilis voluptates dicta necessitatibus sint!
+                            Earum perferendis delectus laudantium possimus placeat sit ratione saepe nobis expedita
+                            dolorum nam obcaecati dolores neque porro molestias maiores, laboriosam labore eos deserunt
+                            distinctio autem facilis? Sequi corporis quia quae!
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree">
+                                Πως λειτουργεί
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body p-5">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+
+
+    <footer class="bg-light col-lg-12 d-flex justify-content-center p-5">
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4">Κατηγορίες</h1>
+                <hr style="width: 95%">
+                <section class="d-flex justify-content-center">
+                    <section class="col-6">
+                        <button type="button" class="btn btn-light w-100 text-left  "
+                            onMouseOver="this.style.backgroundColor='#ffcc00'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΟΛΟΓΙΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#007bff'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΙΑΤΡΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#dc3545'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΕΚΠΑΙΔΕΥΣΗ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#28a745'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΙΤΕΣ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#9535f4'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΟΜΟΡΦΙΑ</button>
+
+                    </section>
+                    <section class="col-6">
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#e57f12'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΟΙΚΟΝΟΜΟΤΕΧΝΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#12b7e5'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΚΑΛΛΙΤΕΧΝΙΚΑ</button>
+                        <button type="button" class="btn btn-light w-100 text-left"
+                            onMouseOver="this.style.backgroundColor='#70bcd1'"
+                            onMouseOut="this.style.backgroundColor='#eaedf2'">ΣΥΜΒΟΥΛΕΥΤΙΚΗ</button>
+
+                    </section>
+                </section>
+        </section>
+
+
+
+
+
+        <section class="col-4 pt-3 pb-3">
+            <h4 class="h4">Εταιρεία</h4>
+            <hr style="width: 95%">
+            <section class="d-flex justify-content-center">
+                <section class="col-6">
+                    <button type="button" class="btn w-100 text-left p-0">Ποιοί είμαστε</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Πώς λειτουργεί</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Πολιτική Προστασίας</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Προσωπικά Δεδομένα </button>
+                    <button type="button" class="btn  w-100 text-left p-0"> Πολιτική Cookies </button>
+                </section>
+                <section class="col-6">
+                    <button type="button" class="btn  w-100 text-left p-0">Ευκαιρίες καριέρας</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Β2Β - συνεργάτες</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Τύπος - νέα</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Sitemap</button>
+                    <button type="button" class="btn  w-100 text-left p-0">Επικοινωνία</button>
+                </section>
+            </section>
+        </section>
+
+
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4 text-right text-italic"> ... ας συνδεθούμε :) </h1>
+                <hr style="width: 95%">
+                <section class="d-flex justify-content-center flex-column">
+                    <section class="text-right">
+                        <button type="submit" class="btn">
+                            <i class="fab fa-facebook-f h2 bg-transparent text-facebook"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-twitter h2 bg-transparent text-twitter"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-instagram h2 bg-transparent text-instagram"></i>
+
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-linkedin-in h2 bg-transparent text-gray"></i>
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fab fa-youtube h2 bg-transparent text-youtube "></i>
+                        </button>
+                    </section>
+
+
+
+                    <section class="d-flex justify-content-end">
+                        <section class="pt-3 col-8 ">
+                            <form>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Γράψε το email σου εδώ">
+                                </div>
+                                <button type="submit" class="btn btn-warning mt-2">Εγγραφή στο Newsletter</button>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+        </section>
+
+
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div id="userModal" class="modal">
+
+        <!-- Modal content -->
+        <section>
+            <div class="container d-flex justify-content-center">
+
+                <div id="userModalBlock" class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                        <div class="d-flex justify-content-end">
+                            <button id="userModalCloseBtn" type="submit" class="close btn p-0">
+                                <i class="fas fa-window-close h4"></i>
+                            </button>
+                        </div>
+                        <div class="text-center text-md-center mb-4 mt-md-0">
+                            <h1 class="mb-0 h3">Συνδεθείτε</h1>
+                        </div>
+                        <form action="#" class="mt-4">
+                            <!-- Form -->
+                            <div class="form-group mb-4">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1"><span
+                                            class="fas fa-envelope"></span></span>
+                                    <input type="email" class="form-control" placeholder="example@example.com"
+                                        id="email" autofocus required>
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                            <div class="form-group">
+                                <!-- Form -->
+                                <div class="form-group mb-4">
+                                    <label for="password">Συνθηματικό</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon2"><span
+                                                class="fas fa-unlock-alt"></span></span>
+                                        <input type="password" placeholder="Συνθηματικό" class="form-control"
+                                            id="password" required>
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                <div class="d-flex justify-content-between align-items-top mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="remember">
+                                        <label class="form-check-label mb-0" for="remember">
+                                            Να με θυμάσαι
+                                        </label>
+                                    </div>
+                                    <!-- SOS ftiaksoume swsta thn parapompi gia to forgot password -->
+                                    <div><a href="./forgot-password.html" class="small text-right">Ξέχασα τον κωδικό
+                                            μου</a></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary">Συνδεθείτε</button>
+                        </form>
+
+
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            <span class="font-weight-normal">
+                                Δεν έχετε εγγραφεί;
+                                <!-- SOS ftiaksoume swsta parapompi gia sign-up -->
+                                <a href="./sign-up.html" class="font-weight-bold">Δημιουργείστε λογαριασμό</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <!-- Shopping cart -->
+    <section id="cart" class="container col-4 shadow-lg mt-6 rounded-left p-4"
+        style="display: none; position: absolute; right: 0px; top:0px; background-color: #ffcc00ed;">
+
+        <table class="table table-hover table-striped ">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3 class="h4 text-left p-0 m-0 pt-3">Το καλάθι μου</h3>
+                </div>
+                <div class="m-0 p-0"></div>
+                <button id="cartCloseBtn" class="btn"><i class="far fa-times-circle h4"></i></button>
+            </div>
+            </div>
+
+
+            <thead>
+                <th class="col-2 pl-1"><span class="h6">Περιγραφή</span></th>
+                <th class="col-2 pl-1"><span class="h6">Κράτηση</span></th>
+                <th class="col-2 pl-1"><span id="amount" class="h6">Τιμή</span></th>
+            </thead>
+
+            <tr>
+                <td>
+                    <p class="m-0 p-0 h5">Γυναικείο κούρεμα</p>
+                    <p class="m-0 p-0 h6">Arte de pello</p>
+                </td>
+                <td>
+                    <div class="m-0 p-0 ">
+                        <div> <i class="far fa-calendar-alt h4 "></i> <span class="h4">22/05/2020</span></div>
+                        <div><i class="far fa-clock h6"></i> <span class="h6">15:30</span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="m-0 p-0"><i class="fas fa-euro-sign h5"> <span class="h5">45</span></i>
+                        <button class="btn"><i class="fas fa-trash-alt h4"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="m-0 p-0 h5">Γυναικείο κούρεμα</p>
+                    <p class="m-0 p-0 h6">Arte de pello</p>
+                </td>
+                <td>
+                    <div class="m-0 p-0 ">
+                        <div> <i class="far fa-calendar-alt h4 "></i> <span class="h4">22/05/2020</span></div>
+                        <div><i class="far fa-clock h6"></i> <span class="h6">15:30</span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="m-0 p-0"><i class="fas fa-euro-sign h5"> <span class="h5">45</span></i>
+                        <button class="btn"><i class="fas fa-trash-alt h4"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tfoot class="">
+                <tr>
+                    <td class="text-left border-0"><span class="h6">ΣΥΝΟΛΟ:</span> <i class="fas fa-euro-sign"></i>
+                        <span class="h4 font-weight-bolder">45 </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </section>
+
+
+
+
+</body>
+
+</html>

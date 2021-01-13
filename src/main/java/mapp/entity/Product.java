@@ -1,10 +1,7 @@
-
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,25 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
-
 @Entity
 @Table(name = "product", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
-    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findByRating", query = "SELECT p FROM Product p WHERE p.rating = :rating")
-    , @NamedQuery(name = "Product.findByDuration", query = "SELECT p FROM Product p WHERE p.duration = :duration")
-    , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,8 +38,8 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "description")
-    private String description;
+    @Column(name = "profile")
+    private String profile;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -68,6 +55,12 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "status")
     private boolean status;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "description")
+    private String description;
 
 //    @JsonManagedReference(value = "productMany_imageUrl")
     @JoinTable(name = "product_image", joinColumns = {
@@ -102,12 +95,23 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String description, BigDecimal price, int duration, boolean status) {
+    public Product(Integer id, String profile, BigDecimal price, Integer rating, int duration, boolean status, String description) {
         this.id = id;
-        this.description = description;
+        this.profile = profile;
         this.price = price;
+        this.rating = rating;
         this.duration = duration;
         this.status = status;
+        this.description = description;
+    }
+
+    
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public Integer getId() {

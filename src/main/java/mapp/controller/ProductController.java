@@ -22,7 +22,7 @@ import mapp.entity.Subcategory;
 import mapp.service.CompanyServiceImpl;
 import mapp.service.SubcategoryServiceImpl;
 
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/product")
 public class ProductController {
 
@@ -53,7 +53,6 @@ public class ProductController {
     public Product getProductById(@PathVariable(value = "id") Integer productId) throws Exception {
         Optional<Product> optionalProduct = service.findById(productId);
         return optionalProduct.orElseThrow(() -> new Exception("Product not exists with id:" + productId));
-        //return optionalProduct.get();
     }
 
     @PostMapping
@@ -85,8 +84,13 @@ public class ProductController {
         service.edit(newProductDetails);
     }
 
-//    @GetMapping("/search/{address}")
-//    public Product getProductByAddress(@PathVariable(value = "address") String address){
-//        return service.findProductByAddress(address);
-//    }
+    @GetMapping("/search/subcategory/{id}")
+    public List<Product> findBySubcategoryId(@PathVariable(value = "id") Integer id) {
+        return service.findBySubcategoryId(id);
+    }
+
+    @GetMapping("/search/profile/{inputString}")
+    public List<Product> findByProfile(@PathVariable(value = "inputString") String profile) {
+        return service.findByProfile(profile);
+    }
 }
