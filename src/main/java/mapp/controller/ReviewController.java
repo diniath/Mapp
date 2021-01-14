@@ -1,8 +1,8 @@
-
 package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.ReviewDtoConverter;
 import mapp.entity.Review;
 import mapp.service.ReviewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import mapp.dto.ReviewDto;
 
 @RestController
 @RequestMapping("/review")
@@ -23,8 +23,12 @@ public class ReviewController {
 
     @Autowired
     private ReviewServiceImpl service;
-
+    
+    @Autowired
+    private ReviewDtoConverter converter;
+    
     @GetMapping
+
     public List<Review> getReviews() {
         return service.findAll();
     }
@@ -64,8 +68,14 @@ public class ReviewController {
         return service.findByCompanyId(id);
     }
 
-    @GetMapping("/search/enrolledUser/{id}")
-    public List<Review> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
-        return service.findByEnrolledUserId(id);
-    }
+//    @GetMapping("/search/enrolledUser/{id}")
+//    public List<Review> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
+//        return service.findByEnrolledUserId(id);
+//    }
+    
+      @GetMapping("/search/enrolledUser/{id}")
+    public List<ReviewDto> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
+        List<Review> reviews = service.findByEnrolledUserId(id);
+        return converter.entityToDto(reviews);
+    }  
 }

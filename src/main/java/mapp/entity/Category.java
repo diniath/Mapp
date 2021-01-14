@@ -28,12 +28,12 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property id cannot be null")
     @Column(name = "id")
     private Integer id;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property description cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;

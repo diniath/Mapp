@@ -32,7 +32,7 @@ public class Review implements Serializable {
     private Integer id;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property ratingDate cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "rating_date")
     private LocalDate ratingDate;
@@ -42,7 +42,7 @@ public class Review implements Serializable {
     private String productComment;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property productRating cannot be null")
     @Column(name = "product_rating")
     private short productRating;
     

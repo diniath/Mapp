@@ -3,7 +3,6 @@ package mapp.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -31,25 +29,24 @@ public class Appointment implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @NotNull(message = "Please *********** enter a ********** value")
+    @NotNull(message = "Property enddate cannot be null")
     @Column(name = "enddate")
     private Short enddate;
 
-    @NotNull(message = "{NotNull.appointment.startdate}")
+    @NotNull(message = "Property startdate cannot be null")
     @Column(name = "startdate")
     private Short startdate;
 
-    @NotNull(message = "{NotNull.appointment.appointmentDate}")
+    @NotNull(message = "Property appointmentDate cannot be null")
     @Column(name = "appointment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
 
-    @JsonBackReference(value = "enrolledUserMany_appointment")
-//    @JsonManagedReference(value="enrolledUserMany_appointment")     
-//    @JsonIgnore
-    @ManyToMany(mappedBy = "appointmentList", fetch = FetchType.LAZY)
-    @Cascade(CascadeType.SAVE_UPDATE)
-    private List<EnrolledUser> enrolledUserList;
+    @JsonBackReference(value = "appointment_enrolledUser")
+    @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    private EnrolledUser enrolledUser;
 
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -105,12 +102,12 @@ public class Appointment implements Serializable {
         this.appointmentDate = appointmentDate;
     }
 
-    public List<EnrolledUser> getEnrolledUserList() {
-        return enrolledUserList;
+    public EnrolledUser getEnrolledUser() {
+        return enrolledUser;
     }
 
-    public void setEnrolledUserList(List<EnrolledUser> enrolledUserList) {
-        this.enrolledUserList = enrolledUserList;
+    public void setEnrolledUser(EnrolledUser enrolledUser) {
+        this.enrolledUser = enrolledUser;
     }
 
     @JsonBackReference(value = "company_appointment")

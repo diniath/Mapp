@@ -37,81 +37,79 @@ public class EnrolledUser implements Serializable {
     private Integer id;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property username cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property password cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property fname cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "fname")
     private String fname;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property lname cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "lname")
     private String lname;
     
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property email cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property dateofbirth cannot be null")
     @Column(name = "dateofbirth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateofbirth;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property postalcode cannot be null")
     @Column(name = "postalcode")
     private int postalcode;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property address cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "address")
     private String address;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property city cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "city")
     private String city;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property municipality cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "municipality")
     private String municipality;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property telephone cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "telephone")
     private String telephone;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property mobile cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "mobile")
     private String mobile;
 
-    @ManyToMany
-    @JoinTable(name = "enrolled_user_appointment", joinColumns = {
-        @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "appointment_id", referencedColumnName = "id")})
+    @JsonBackReference(value = "enrolledUser_appointment")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enrolledUser")
     private List<Appointment> appointmentList;
 
     @JoinTable(name = "user_role", joinColumns = {
@@ -263,6 +261,7 @@ public class EnrolledUser implements Serializable {
         this.mobile = mobile;
     }
 
+    
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }

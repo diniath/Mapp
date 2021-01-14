@@ -36,33 +36,36 @@ public class Product implements Serializable {
     private Integer id;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property profile cannot be null")
     @Size(min = 1, max = 200)
     @Column(name = "profile")
     private String profile;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property price cannot be null")
     @Column(name = "price")
     private BigDecimal price;
+    
     @Column(name = "rating")
     private Integer rating;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property duration cannot be null")
     @Column(name = "duration")
     private int duration;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property status cannot be null")
     @Column(name = "status")
     private boolean status;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property description cannot be null")
     @Size(min = 1, max = 500)
     @Column(name = "description")
     private String description;
 
-//    @JsonManagedReference(value = "productMany_imageUrl")
     @JoinTable(name = "product_image", joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
@@ -75,7 +78,7 @@ public class Product implements Serializable {
     private List<EnrolledUser> enrolledUserList;
 
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false) //, fetch = FetchType.LAZY
+    @ManyToOne(optional = false)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 

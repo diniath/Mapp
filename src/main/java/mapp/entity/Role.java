@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 public class Role implements Serializable {
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property admission cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "admission")
     private String admission;

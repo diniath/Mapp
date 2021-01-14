@@ -10,4 +10,6 @@ public interface AppointmentDao extends JpaRepository<Appointment, Integer> {
 
     public List<Appointment> findByProductId(Integer Id);
 
+    public List<Appointment> findByEnrolledUserId(Integer id);
+
 }

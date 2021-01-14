@@ -26,7 +26,7 @@ public class PostalCode implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property postalCode cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "postal_code")
     private String postalCode;

@@ -34,83 +34,83 @@ public class Company implements Serializable {
     private Integer id;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property username cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
 
     @Basic(optional = false)
-    @NotNull()
+    @NotNull(message = "Property password cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property cname cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "cname")
     private String cname;
 
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property email cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property postalcode cannot be null")
     @Column(name = "postalcode")
     private int postalcode;
 
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property address cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "address")
     private String address;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property city cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "city")
     private String city;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property municipality cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "municipality")
     private String municipality;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property telephone cannot be null")
     @Column(name = "telephone")
     private String telephone;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property mobile cannot be null")
     @Column(name = "mobile")
     private String mobile;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property vatnumber cannot be null")
     @Column(name = "vatnumber")
     private String vatnumber;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property vatservice cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "vatservice")
     private String vatservice;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property description cannot be null")
     @Size(min = 1, max = 200)
     @Column(name = "description")
     private String description;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property representative cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "representative")
     private String representative;
@@ -123,7 +123,7 @@ public class Company implements Serializable {
     private Integer rating;
 
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property profile cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "profile")
     private String profile;

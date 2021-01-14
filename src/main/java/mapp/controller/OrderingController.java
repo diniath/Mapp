@@ -2,7 +2,9 @@ package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.OrderingDtoConverter;
 import mapp.entity.Ordering;
+import mapp.dto.OrderingDto;
 import mapp.service.OrderingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class OrderingController {
 
     @Autowired
     private OrderingServiceImpl service;
+
+    @Autowired
+    private OrderingDtoConverter converter;
 
     @GetMapping
     public List<Ordering> getOrderings() {
@@ -53,8 +58,9 @@ public class OrderingController {
     }
 
     @GetMapping("/search/{id}")
-    public List<Ordering> getOrderingByAddress(@PathVariable(value = "id") Integer id) {
-        return service.findAllOrderingByEnrolledUserId(id);
+    public List<List<OrderingDto>> getOrderingByAddress(@PathVariable(value = "id") Integer id) {
+        List<Ordering> orderings = service.findAllOrderingByEnrolledUserId(id);
+        return converter.entityToDto(orderings);
     }
 
 }

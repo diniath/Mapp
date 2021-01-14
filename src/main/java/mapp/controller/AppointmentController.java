@@ -3,7 +3,9 @@ package mapp.controller;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import mapp.converter.AppointmentDtoConverter;
 import mapp.entity.Appointment;
+import mapp.dto.AppointmentDto;
 import mapp.service.AppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,10 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentServiceImpl service;
-
+    
+    @Autowired
+    private AppointmentDtoConverter converter;
+    
     @GetMapping
     public List<Appointment> getAppointments() {
         return service.findAll();
@@ -58,4 +63,10 @@ public class AppointmentController {
         return service.findByProductId(id);
     }
 
+    @GetMapping("/search/enrolledUser/{id}")
+    public List<AppointmentDto> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
+        List<Appointment> appointments = service.findByEnrolledUserId(id);
+        return converter.entityToDto(appointments);
+    } 
+    
 }

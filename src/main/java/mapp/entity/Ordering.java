@@ -37,13 +37,13 @@ public class Ordering implements Serializable {
     private Integer id;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property orderdate cannot be null")
     @Column(name = "orderdate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderdate;
     
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property paymentMethod cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "payment_method")
     private String paymentMethod;

@@ -177,14 +177,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mapp`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(200) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
   `price` DECIMAL(9,2) NOT NULL,
   `subcategory_id` INT UNSIGNED NOT NULL,
   `company_id` INT UNSIGNED NOT NULL,
   `rating` INT UNSIGNED NULL,
   `duration` INT UNSIGNED NOT NULL,
   `status` TINYINT(1) NOT NULL,
-  `profile` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_product_subcategory1_idx` (`subcategory_id` ASC) VISIBLE,
   INDEX `fk_product_company1_idx` (`company_id` ASC) VISIBLE,
@@ -229,12 +228,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mapp`.`review` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ratingDate` DATE NULL,
-  `product_comment` VARCHAR(45) NULL,
+  `ratingDate` DATETIME NULL,
+  `product_comment` VARCHAR(100) NULL,
   `product_rating` TINYINT(5) UNSIGNED NOT NULL,
   `orderlist_id` INT UNSIGNED NOT NULL,
   `company_rating` TINYINT(5) NULL,
-  `comment_company` VARCHAR(45) NULL,
+  `comment_company` VARCHAR(100) NULL,
   `company_id` INT UNSIGNED NOT NULL,
   `product_id` INT UNSIGNED NOT NULL,
   `enrolled_user_id` INT UNSIGNED NOT NULL,
@@ -276,9 +275,13 @@ CREATE TABLE IF NOT EXISTS `mapp`.`appointment` (
   `enddate` TINYINT(49) NULL,
   `startdate` TINYINT(49) NULL,
   `appointment_date` DATE NULL,
+  `product_id` INT UNSIGNED NOT NULL,
+  `enrolled_user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_appointment_orderlist1_idx` (`orderlist_id` ASC) VISIBLE,
   INDEX `fk_appointment_company1_idx` (`company_id` ASC) VISIBLE,
+  INDEX `fk_appointment_product1_idx` (`product_id` ASC) VISIBLE,
+  INDEX `fk_appointment_enrolled_user1_idx` (`enrolled_user_id` ASC) VISIBLE,
   CONSTRAINT `fk_appointment_orderlist1`
     FOREIGN KEY (`orderlist_id`)
     REFERENCES `mapp`.`orderlist` (`id`)
@@ -287,6 +290,16 @@ CREATE TABLE IF NOT EXISTS `mapp`.`appointment` (
   CONSTRAINT `fk_appointment_company1`
     FOREIGN KEY (`company_id`)
     REFERENCES `mapp`.`company` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointment_product1`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `mapp`.`product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointment_enrolled_user1`
+    FOREIGN KEY (`enrolled_user_id`)
+    REFERENCES `mapp`.`enrolled_user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -350,27 +363,6 @@ CREATE TABLE IF NOT EXISTS `mapp`.`product_image` (
   CONSTRAINT `fk_product_image_image_url1`
     FOREIGN KEY (`image_url_id`)
     REFERENCES `mapp`.`image_url` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mapp`.`enrolled_user_appointment`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mapp`.`enrolled_user_appointment` (
-  `appointment_id` INT UNSIGNED NOT NULL,
-  `enrolled_user_id` INT UNSIGNED NOT NULL,
-  INDEX `fk_enrolled_user_appointment_appointment1_idx` (`appointment_id` ASC) VISIBLE,
-  INDEX `fk_enrolled_user_appointment_enrolled_user1_idx` (`enrolled_user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_client_appointment_appointment1`
-    FOREIGN KEY (`appointment_id`)
-    REFERENCES `mapp`.`appointment` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_client_appointment_enrolled_user1`
-    FOREIGN KEY (`enrolled_user_id`)
-    REFERENCES `mapp`.`enrolled_user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

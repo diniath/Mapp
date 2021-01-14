@@ -51,10 +51,11 @@ public class CartServiceImpl {
             appointment.setStartdate(cart.getStartDate());
             appointment.setAppointmentDate(cart.getAppointmentDate());
             appointment.setProduct(cart.getProduct());
+            appointment.setEnrolledUser(cart.getOrdering().getEnrolledUser());
             appointment = appointmentService.create(appointment);
 
-            List<EnrolledUser> enrolledUsers = new ArrayList();
-            enrolledUsers.add(cart.getOrdering().getEnrolledUser());
+//            List<EnrolledUser> enrolledUsers = new ArrayList();
+//            enrolledUsers.add(cart.getOrdering().getEnrolledUser());
 
         }
     }

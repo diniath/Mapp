@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./assets/css/myBootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/modals.css" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/animation.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!--Stripe JavaScript Library-->
+    <script src="https://js.stripe.com/v3/"></script>
+
+</head>
+
+<body class="bg-my">
+
+    <main class="container-fluid m-0 p-0 w-100">
+        <section class="w-100">
+            <div class="bg-twitter p-0 m-0 d-flex align-items-end justify-content-center">
+                <div class="">
+                    <img class="" src="assets/img/candyshop.png" alt="">
+                </div>
+                <div class="">
+
+                    <section class="px-4 fmxw-800">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
+                                    <h2 class="h2 text-center">
+                                        Ολοκλήρωση αγορών
+                                    </h2>
+                                    <p class="lead mb-4 h4 font-weight-light text-center">
+                                        Συμπληρώστε τα στοιχεία στην παρακάτω φόρμα για πληρωμή
+                                    </p>
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5>Καρότσι αγορών</h5>
+                                            <p class="lead">&#8364; 9.99</p>
+                                        </div>
+                                    </div>
+                                    <form action="#" id="payment-form" method="post">
+                                        <input id="api-key" type="hidden" th:value="${stripePublicKey}">
+                                        <div class="form-group">
+                                            <label class="font-weight-medium" for="card-element">
+                                                Εισάγετε τον κωδικό της κάρτας σας
+                                            </label>
+                                            <div class="w-100" id="card-element">
+                                                <!-- A Stripe Element will be inserted here. -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" id="email" name="email"
+                                                placeholder="Email πελάτη" type="email" required>
+                                        </div>
+                                        <!-- Used to display Element errors. -->
+                                        <div class="text-danger w-100" id="card-errors" role="alert"></div>
+                                        <div class="form-group pt-2">
+                                            <button class="btn btn-primary btn-block" id="submitButton" type="submit">
+                                                Πληρωμή με κάρτα
+                                            </button>
+                                            <div class="small text-muted mt-2">
+                                                <p class="flex-wrap"> Ασφαλής πληρωμή με Stripe. Με το πάτημα του
+                                                    παραπάνω κουμπιού,
+                                                    δηλώνετε
+                                                    ότι είστε σύμφωνοι με τους <a target="_blank" href="about.html#privacy">Όρους
+                                                        χρήσης</a>,
+                                                    <a target="_blank" href="about.html#privacy">την πολιτική απορρήτου</a> και
+                                                    <a target="_blank" href="about.html#privacy">την πολιτικη επιστοφής χρημάτων</a> της
+                                                    εταιρείας.
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                    <!-- <p class="mt-5 text-muted">
+                                        <small>An example project by <a th:href="@{https://attacomsian.com}"
+                                                target="_blank">Atta</a>.
+                                        </small>
+                                    </p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+
+
+    <!--custom javascript for handling subscription-->
+    <script>
+        $(function () {
+            var API_KEY = $('#api-key').val();
+            // Create a Stripe client.
+            var stripe = Stripe(API_KEY);
+
+            // Create an instance of Elements.
+            var elements = stripe.elements();
+
+            // Create an instance of the card Element.
+            var card = elements.create('card');
+
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function (event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                // handle payment
+                handlePayments();
+            });
+
+            //handle card submission
+            function handlePayments() {
+                stripe.createToken(card).then(function (result) {
+                    if (result.error) {
+                        // Inform the user if there was an error.
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        // Send the token to your server.
+                        var token = result.token.id;
+                        var email = $('#email').val();
+                        $.post(
+                            "/create-charge",
+                            { email: email, token: token },
+                            function (data) {
+                                alert(data.details);
+                            }, 'json');
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -47,4 +47,8 @@ public class AppointmentServiceImpl {
         return dao.findByProductId(id);
     }
 
+    public List<Appointment> findByEnrolledUserId(Integer id) {
+        return dao.findByEnrolledUserId(id);
+    }
+
 }

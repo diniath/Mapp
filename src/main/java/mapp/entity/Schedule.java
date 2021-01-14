@@ -27,20 +27,29 @@ public class Schedule implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property day cannot be null")
     @Column(name = "day")
     private int day;
+    
+    /*
+        The values for the following 4 references go from 1-48. 
+        Each value represents half an hour, 48 for a whole day.
+    */
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property opentime cannot be null")
     @Column(name = "opentime")
     private short opentime;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property closetime cannot be null")
     @Column(name = "closetime")
     private short closetime;
+    
     @Column(name = "reopentime")
     private Short reopentime;
+    
     @Column(name = "reclosetime")
     private Short reclosetime;
 
