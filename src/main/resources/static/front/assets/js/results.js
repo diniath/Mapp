@@ -177,7 +177,6 @@ function filterProductsFromFetch(products) {
 
 $('.js-filter').on('change', (e) => {
     const subcategoryId = e.target.value;
-    console.log(subcategoryId);
     const searchBySubcategoryURL = "http://localhost:8080/product/search/subcategory/" + subcategoryId;
     fetchFast(searchBySubcategoryURL, renderResultPage);
 });

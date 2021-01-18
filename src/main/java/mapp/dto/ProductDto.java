@@ -9,8 +9,12 @@ public class ProductDto {
 
     private Integer id;
 
-    private String profile;
+    private String productProfile;
 
-    private String description;
+    private String productDescription;
+
+    private Integer companyId;
+
+    private String companyProfile;
 
 }

@@ -53,7 +53,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 "/review/**", "/schedule/**", "/subcategory/**",
                               "/enrolledUser/**", // SOSSSSSS CHECK 
 //                "/chat.html", "/chat.sendMessage", "/chat.addUser", 
-                "/mapp/**", 
+                "/mapp/**", "/chat/css/main.css", "/chat/js/main.js",
 //                "/topic/public",
                 
                 

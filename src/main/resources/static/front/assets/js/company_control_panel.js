@@ -174,3 +174,11 @@ function authorizedFetch(method, url, body) {
         .then(toJSON)
         .catch(handleErrors);
 }
+
+const disconnect = document.getElementById('js-disconnect');
+
+disconnect.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('company');
+    window.location.href = "index.html";
+});

@@ -1,203 +1,68 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>S H E R L O C K C h a t</title>
+    <link rel="stylesheet" href="./chat/css/main.css" />
+    <link rel="stylesheet" href="assets/css/myBootstrap.css" />
+  </head>
+  <body>
+    <noscript>
+      <h2>Sorry! Your browser doesn't support Javascript</h2>
+    </noscript>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title> Sherlock Chatbox </title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div id="username-page">
+      <div class="username-page-container bg-warning rounded-pill">
+        <h1 class="title h2 p-4">Sherlock Chatbox</h1>
+        <form id="usernameForm" name="usernameForm">
+          <div class="form-group">
+            <input
+              type="text"
+              id="name"
+              placeholder="Όνομα χρήστη"
+              autocomplete="off"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="accent username-submit btn btn-twitch">
+              Εκκίνηση Συνομιλίας
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    <link rel="stylesheet" href="./assets/css/myBootstrap.css" />
-    <link rel="stylesheet" href="./assets/css/modals.css" />
+    <div id="chat-page" class="hidden pt-10">
+      <div class="chat-container rounded">
+        <div class="chat-header">
+          <h2 class="h2 text-warning">Sherlock Chat</h2>
+        </div>
+        <div class="connecting">Γίνεται σύνδεση...</div>
+        <ul id="messageArea"></ul>
+        <form id="messageForm" name="messageForm">
+          <div class="form-group">
+            <div class="input-group clearfix">
+              <input
+                type="text"
+                id="message"
+                placeholder="Πληκτολογήστε το μήνυμα σας..."
+                autocomplete="off"
+                class="form-control"
+              />
+              <button type="submit" class="primary">Απ/λη</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-
-
-</head>
-
-
-
-<body>
-    <noscript>
-        <h2>Συγγνώμη αλλά ο φυλλομετριτής σας δεν υποστηρίζει Javascript!</h2>
-    </noscript>
-    <main class="container-fluid d-flex align-content-center justify-content-center">
-        <div><img src="assets/img/cart-bg.png" alt=""
-                class="w-100 h-100 position-absolute p-0 m-0 top-0 left-0 z-0 shadow">
-        </div>
-        <div id="username-page" class=" p-11 z-1 ">
-            <div class="container bg-warning p-6 rounded-pill shadow">
-                <h1 class="h3 text-twitch text-center">Πληκρολογίστε ένα ψευδώνυμο</h1>
-                <form id="usernameForm" name="usernameForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Ψευδώνυμο" autocomplete="off" class="form-control" />
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-twitch mt-4">Είσοδος στο Chatbox</button>
-                        <a href="index.html" class="btn btn-danger mt-4">Έξοδος</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="chat-page" class="container fmh-500 hidden z-4">
-            <div class="container fmh-500 bg-white p-5 mt-5 rounded shadow">
-                <div class="h2 text-warning">
-                    <h2>Sherlock Chatbox</h2>
-                </div>
-                <div class="h6 text-twitch font-weight-light">
-                    Παρακαλώ περιμένετε...
-                </div>
-                <div class="fmh-500 bg-soft-indigo rounded">
-                    <ul id="messageArea">
-
-                    </ul>
-                </div>
-                <form id="messageForm" name="messageForm" class="container w-100">
-                    <div class="d-flex ">
-                        <div class="w-100">
-                            <input type="text" id="message" placeholder="ΠΛηκτρολογήστε ένα μήνυμα!" autocomplete="off"
-                                class="form-control " />
-                        </div>
-                        <button type="submit" class="btn btn-twitch">Αποστολή</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </main>
-
-
-    <script>
-        'use strict';
-
-        var usernamePage = document.querySelector('#username-page');
-        var chatPage = document.querySelector('#chat-page');
-        var usernameForm = document.querySelector('#usernameForm');
-        var messageForm = document.querySelector('#messageForm');
-        var messageInput = document.querySelector('#message');
-        var messageArea = document.querySelector('#messageArea');
-        var connectingElement = document.querySelector('.connecting');
-
-        var stompClient = null;
-        var username = null;
-
-        var colors = [
-            '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-            '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-        ];
-
-        function connect(event) {
-            username = document.querySelector('#name').value.trim();
-
-            if (username) {
-                usernamePage.classList.add('hidden');
-                chatPage.classList.remove('hidden');
-
-                var socket = new SockJS('/mapp');
-                stompClient = Stomp.over(socket);
-
-                stompClient.connect({}, onConnected, onError);
-            }
-            event.preventDefault();
-        }
-
-
-        function onConnected() {
-            // Subscribe to the Public Topic
-            stompClient.subscribe('/topic/public', onMessageReceived);
-
-            // Tell your username to the server
-            stompClient.send("/app/chat.addUser",
-                {},
-                JSON.stringify({ sender: username, type: 'ΕΙΣΟΔΟΣ' }) /*JOIN*/
-            )
-
-            connectingElement.classList.add('hidden');
-        }
-
-
-        function onError(error) {
-            connectingElement.textContent = 'Κάτι πήγε στραβά. Πρεακαλώ δοκιμάστε αργότερα';
-            connectingElement.style.color = 'red';
-        }
-
-
-        function sendMessage(event) {
-            var messageContent = messageInput.value.trim();
-            if (messageContent && stompClient) {
-                var chatMessage = {
-                    sender: username,
-                    content: messageInput.value,
-                    type: 'CHAT'
-                };
-                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-                messageInput.value = '';
-            }
-            event.preventDefault();
-        }
-
-
-        function onMessageReceived(payload) {
-            var message = JSON.parse(payload.body);
-
-            var messageElement = document.createElement('li');
-
-            if (message.type === 'ΕΙΣΟΔΟΣ') { /*JOIN*/
-                messageElement.classList.add('event-message');
-                message.content = message.sender + ' εισήλθε!';
-            } else if (message.type === 'ΕΞΟΔΟΣ') { /*LEAVE*/
-                messageElement.classList.add('event-message');
-                message.content = message.sender + ' έφυγε!';
-            } else {
-                messageElement.classList.add('chat-message');
-
-                var avatarElement = document.createElement('i');
-                var avatarText = document.createTextNode(message.sender[0]);
-                avatarElement.appendChild(avatarText);
-                avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
-                messageElement.appendChild(avatarElement);
-
-                var usernameElement = document.createElement('span');
-                var usernameText = document.createTextNode(message.sender);
-                usernameElement.appendChild(usernameText);
-                messageElement.appendChild(usernameElement);
-            }
-
-            var textElement = document.createElement('p');
-            var messageText = document.createTextNode(message.content);
-            textElement.appendChild(messageText);
-
-            messageElement.appendChild(textElement);
-
-            messageArea.appendChild(messageElement);
-            messageArea.scrollTop = messageArea.scrollHeight;
-        }
-
-
-        function getAvatarColor(messageSender) {
-            var hash = 0;
-            for (var i = 0; i < messageSender.length; i++) {
-                hash = 31 * hash + messageSender.charCodeAt(i);
-            }
-            var index = Math.abs(hash % colors.length);
-            return colors[index];
-        }
-
-        usernameForm.addEventListener('submit', connect, true)
-        messageForm.addEventListener('submit', sendMessage, true)
-
-    </script>
-
-
-</body>
-
+    <script src="./chat/js/main.js"></script>
+  </body>
 </html>

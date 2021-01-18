@@ -71,26 +71,26 @@ loginBtn.addEventListener("submit", (e) => {
 function authenticate(url, headers) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    let data = {"username": username, "password": password};
+    let data = { "username": username, "password": password };
 
     fetch(url, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(data)
     })
-            .then(function (response) {
-                if (response.status == "200") {
-                    return response.json();
-                } else {
-                    alert("Incorrect username or password");
-                }
-            })
-            .then(function (data) {
-                localStorage.setItem("Authorization", JSON.stringify(data));
-                $('.close:visible').click();
-                authorizedGet("http://localhost:8080/enrolledUser/search/" + username, storeUser);
-                authorizedGet("http://localhost:8080/company/search/" + username, storeCompany);
-            }).catch(handleErrors);
+        .then(function (response) {
+            if (response.status == "200") {
+                return response.json();
+            } else {
+                alert("Incorrect username or password");
+            }
+        })
+        .then(function (data) {
+            localStorage.setItem("Authorization", JSON.stringify(data));
+            $('.close:visible').click();
+            authorizedGet("http://localhost:8080/enrolledUser/search/" + username, storeUser);
+            authorizedGet("http://localhost:8080/company/search/" + username, storeCompany);
+        }).catch(handleErrors);
 }
 
 
@@ -102,30 +102,75 @@ function handleErrors(error) {
 // L O G I N   G E T 
 function authorizedGet(url, methodToRun) {
     let tokenElement = JSON.parse(localStorage.getItem('Authorization'));
-    let authorizedHeaders = {"Authorization": "Bearer " + tokenElement.jwt};
+    let authorizedHeaders = { "Authorization": "Bearer " + tokenElement.jwt };
     fetch(url, {
         method: "GET",
-        headers: authorizedHeaders})
-            .then(toJSON)
-            .then(methodToRun)
-            .catch(handleErrors);
+        headers: authorizedHeaders
+    })
+        .then(toJSON)
+        .then(methodToRun)
+        .catch(handleErrors);
 }
 
 function storeUser(user) {
-    if (user) {
+    if (user.status != "BAD_REQUEST") {
         localStorage.setItem('user', JSON.stringify(user));
+        try {
+            let company = localStorage.getItem('company');
+            if (company) {
+                localStorage.removeItem('company');
+            }
+        } catch (error) { console.log(error) }
     }
 }
 
 function storeCompany(company) {
-    if (company) {
+    if (company.status != "BAD_REQUEST") {
         localStorage.setItem('company', JSON.stringify(company));
+        try {
+            let user = localStorage.getItem('user');
+            if (user) {
+                localStorage.removeItem('user');
+            }
+        } catch (error) { console.log(error) }
     }
 }
 
 // CART ===========================================================================
 
-let cartList = [];
+ 
+// const addToCart = document.getElementById('js-add-to-cart');
+
+function addProductToCart() {
+    try {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        cartForList = Array.from(cart);
+
+    } catch (error) { console.log(error); }
+    let temp = addToCartList();
+    // temp.randomId ++;
+    cartForList.push(temp);
+    localStorage.setItem('cart', JSON.stringify(cartForList));
+}
+
+// addToCart.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     try {
+//         let cart = JSON.parse(localStorage.getItem('cart'));
+//         console.log("*" + cart + "*");
+
+//         cartForList = Array.from(cart);
+
+//     } catch (error) { console.log(error); }
+//     let temp = addToCartList();
+//     // temp.randomId ++;
+//     cartForList.push(temp);
+//     localStorage.setItem('cart', JSON.stringify(cartForList));
+
+// });
+
+
+let cartForList = [];
 
 function addToCartList() {
     const title = document.getElementById("serviceTitle").innerText;
@@ -133,24 +178,27 @@ function addToCartList() {
     const appointment = document.getElementById("serviceDateTime").value;
     const date = appointment.substring(0, appointment.length - 6);
     const time = appointment.substr(appointment.length - 5);
+    const serviceId = document.getElementById('serviceId').innerText;
+
+    let random = Math.random();
 
     const tempObj = {
-        "id": Math.random(),
-        "tilte": title,
-        "price": price,
-        "date": date,
-        "time": time,
-        "randomId": Math.random()
-    };
+        id: serviceId,
+        tilte: title,
+        price: price,
+        date: date,
+        time: time,
+        randomId: random,
+        counter: random
+    }
 
-    return cartList.push(tempObj);
+    return tempObj;
 }
-
 
 function checkOutCart() {
 
-    localStorage.setItem('cart', JSON.stringify(cartList));
-    window.location.href = "charge.html" /*localhost:8080/*/
+    localStorage.setItem('cart', JSON.stringify(cartForList));
+    window.location.href = "http://localhost:8080/charge"
 }
 
 
@@ -193,29 +241,35 @@ $(document).ready(function () {
     $("#cartBtn").click(function renderCart() {
         let output = "";
         let cartTotal = 0;
-        for (let i = 0; i < cartList.length; i++) {
-            output += renderCartList(cartList[i]);
+        for (let i = 0; i < cartForList.length; i++) {
+            output += renderCartList(cartForList[i]);
         }
         document.querySelector('#cartServiceList').innerHTML = output;
 
-        for (let i = 0; i < cartList.length; i++) {
-            cartTotal += parseInt(cartList[i].price);
+        for (let i = 0; i < cartForList.length; i++) {
+            cartTotal += parseInt(cartForList[i].price);
         }
         document.getElementById('cartTotal').innerText = cartTotal;
     });
 });
 
-function deleteBtn(id) {
-    document.getElementById(id).closest('tr').remove();
-    for (let i = 0; i < cartList.length; i++) {
-        cartList.pop(cartList[i].randomId === id);
+function deleteBtn(randomId) {
+    document.getElementById(randomId).closest('tr').remove();
+    for (let i = 0; i < cartForList.length; i++) {
+
+        cartForList = cartForList.filter(e => { e.counter !== randomId })
     }
 
+
     let cartTotal = 0;
-    for (let i = 0; i < cartList.length; i++) {
-        cartTotal += parseInt(cartList[i].price);
+    for (let i = 0; i < cartForList.length; i++) {
+        cartTotal += parseInt(cartForList[i].price);
     }
     document.getElementById('cartTotal').innerText = cartTotal;
+    try {
+        localStorage.removeItem('cart');
+    } catch (error) { console.log(error); }
+    localStorage.setItem('cart', JSON.stringify(cartForList));
 }
 
 $(document).ready(function () {
@@ -244,10 +298,21 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("#userModalBtn").click(function () {
-
-        let user = JSON.parse(localStorage.getItem('user'));
-        let company = JSON.parse(localStorage.getItem('company'));
-        if (!user || !company) {
+        let user = {};
+        let company = {};
+        try {
+            user = JSON.parse(localStorage.getItem('user'));
+        }
+        catch (exception_var) {
+            catch_statements
+        }
+        try {
+            company = JSON.parse(localStorage.getItem('company'));
+        }
+        catch (exception_var) {
+            catch_statements
+        }
+        if (!user && !company) {
             $("#userModal").slideToggle();
         } else if (user) {
             window.location.href = "user_cp.html?";
@@ -322,3 +387,51 @@ $("#unrealisticReview").rating({
         $("#unrealisticInput").val(e.stars);
     }
 });
+
+
+
+
+// function storeCartToDb() {
+//     let carts = [];
+//     try {
+//         cart = JSON.parse(localStorage.getItem('cart'));
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     carts.forEach(cart => {
+//         let url = "http://localhost:8080/cart"
+//         body = createOrderingFromCart(cart);
+//         postCart(url, body);
+//     });
+// }
+
+// function createOrderingFromCart(cart) {
+//     let enrolleduser = {};
+//     let userid = 11;
+//     try {
+//         enrolleduser = JSON.parse(localStorage.getItem('user'));
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     if (enrolleduser) {
+//         userid = enrolleduser.id;
+//     }
+
+//     const order = {
+//         ordering: { orderdate: cart.date, paymentMethod: 'card', enrolledUser: { id: userid } },
+//         product: { id: cart.id },
+//         company: { id: 1 },
+//         endDate: 18,
+//         startDate: 19,
+//         appointmentDate: cart.date
+//     }
+//     return JSON.stringify(order);
+// }
+
+
+// const sendCart = document.getElementById('submitButton');
+
+// sendCart.addEventListener('submit', (e) => {
+//     storeCartToDb();
+// });
+

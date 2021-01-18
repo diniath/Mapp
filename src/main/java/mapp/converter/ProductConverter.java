@@ -12,9 +12,13 @@ public class ProductConverter {
 
     public ProductDto entityToDto(Product product) {
 
-        ModelMapper mapper = new ModelMapper();
-        ProductDto map = mapper.map(product, ProductDto.class);
-        return map;
+        ProductDto dto = new ProductDto();
+        dto.setId(product.getId());
+        dto.setProductDescription(product.getDescription());
+        dto.setProductProfile(product.getProfile());
+        dto.setCompanyId(product.getCompany().getId());
+        dto.setCompanyProfile(product.getCompany().getProfile());
+        return dto;
     }
 
     public List<ProductDto> entityToDto(List<Product> product) {

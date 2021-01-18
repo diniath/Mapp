@@ -68,3 +68,11 @@ function toJSON(response) {
 function handleErrors(error) {
     alert = "ops something went wrong"
 }
+
+const disconnect = document.getElementById('js-disconnect');
+
+disconnect.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('user');
+    window.location.href = "index.html";
+});

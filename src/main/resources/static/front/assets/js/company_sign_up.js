@@ -47,7 +47,6 @@ const save = document.getElementById('js-form-update');
 
 save.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log("garbili");
     let companyToSign = companySignUp();
     authorizedFetch("POST", "http://localhost:8080/company", companyToSign);
 });
@@ -55,12 +54,9 @@ save.addEventListener('submit', (e) => {
 
 // Post, Put  
 function authorizedFetch(method, url, body) {
-    let tokenElement = JSON.parse(localStorage.getItem('Authorization'));
-    console.log(tokenElement);
     let headers = {
         "Content-Type": "application/json",
-        "Access-Control-Origin": "*",
-        "Authorization": "Bearer " + tokenElement.jwt
+        "Access-Control-Origin": "*"
     };
     fetch(url, {
         method: method,
@@ -68,7 +64,12 @@ function authorizedFetch(method, url, body) {
         body: body
     })
         .then(toJSON)
-        // .then(redirectAfterSignUp)
+        .then(function (response) {
+            if (response.status == "200") {
+                window.location.href = "index.html?"; 
+                return response.json();
+            }
+        })
         .catch(handleErrors);
 }
 
@@ -81,8 +82,8 @@ function handleErrors(error) {
 }
 
 
-// function redirectAfterSignUp(){
-//     $('js-submit').on('click',(e)=>{
-//         window.location.href = "index.html?";
-//     });
+// function redirectAfterSignUp(response) {
+//     if (response.status == "200") {
+//         window.location.href = "index.html";
+//     }
 // }
