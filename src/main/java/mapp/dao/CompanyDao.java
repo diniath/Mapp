@@ -1,6 +1,7 @@
 
 package mapp.dao;
 
+import java.util.Optional;
 import mapp.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -31,6 +32,7 @@ public interface CompanyDao extends JpaRepository<Company, Integer>{
             String profile, 
             Integer id
     );
-    
+
+    public Optional<Company> findByUsername(String username);
     
 }

@@ -60,7 +60,7 @@ public class ProductController {
         return service.create(product);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteProductById(@PathVariable(value = "id") Integer productId) {
         service.delete(productId);
         return ResponseEntity.ok("Product deleted successfully, ID:" + productId);

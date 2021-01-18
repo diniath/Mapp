@@ -190,7 +190,7 @@ public class Product implements Serializable {
         this.company = company;
     }
 
-    @JsonBackReference(value = "product_subcategory")
+//    @JsonBackReference(value = "product_subcategory")
     public Subcategory getSubcategory() {
         return subcategory;
     }

@@ -40,25 +40,19 @@ public class CategoryController {
         return service.create(category);
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCategoryById(@PathVariable(value = "id") Integer categoryId) {
         service.delete(categoryId);
         return ResponseEntity.ok("Category deleted successfully, ID:" + categoryId);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("put/{id}")
     public void updateCategory(@PathVariable(value = "id") Integer categoryId,
             @RequestBody Category newCategoryDetails) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
-        Category categoryToUpdate = optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
+        optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
         newCategoryDetails.setId(categoryId);
-//        categoryToUpdate.setDay(newCategoryDetails.getDay());
         service.edit(newCategoryDetails);
     }
     
-//    @GetMapping("/search/{address}")
-//    public Category getCategoryByAddress(@PathVariable(value = "address") String address){
-//        return service.findCategoryByAddress(address);
-//    }
-
 }

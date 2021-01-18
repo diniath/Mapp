@@ -73,7 +73,9 @@ public class CompanyServiceImpl {
     public Company findCompanyByAddress(@PathVariable(value = "address") String address) {
         return dao.findByAddress(address);
     }
-    
 
-    
+    public Optional<Company> findCompanyByUsername(String username) {
+        return dao.findByUsername(username);
+    }
+
 }

@@ -38,7 +38,7 @@ public class OrderlistController {
         return service.create(orderlist);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteOrderlistById(@PathVariable(value = "id") Integer orderlistId) {
         service.delete(orderlistId);
         return ResponseEntity.ok("Orderlist deleted successfully, ID:" + orderlistId);

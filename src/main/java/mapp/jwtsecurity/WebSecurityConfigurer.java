@@ -19,6 +19,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService myUserDetailsService;
+
+    @Autowired
+    private MyCompanyDetailsService myCompanyDetailsService;
+
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
@@ -27,7 +31,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailsService);
+        auth.userDetailsService(myUserDetailsService).and().
+                userDetailsService(myCompanyDetailsService);
+
     }
 
     @Bean
@@ -42,18 +48,24 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     }
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS
-            = {
-                "/login.html", "/"
-//                    , "/front/**"
-//                    , "/css/**"
-//                    , "/home", "/charge", "/subscription",
-//                "/style.css",
-//                "/front/-about.html", "/front/assets/css/modals.css",
-//                "/front/assets/css/myBootstrap.css",
-//                "/front/assets/js/animation.js",
-//                "/front/assets/img/header-logo.png",
-//                "/front/assets/img/team-presentation.jpg",
-//                "/front/results.html", "/product/search/**"
+            = {"/auth/user", "/auth/company", "/cart", "/category/**",
+                "/company/**", "/ordering/**", "/orderlist/**", "/product/**",
+                "/review/**", "/schedule/**", "/subcategory/**",
+                              "/enrolledUser/**", // SOSSSSSS CHECK 
+//                "/chat.html", "/chat.sendMessage", "/chat.addUser", 
+                "/mapp/**", 
+//                "/topic/public",
+                
+                
+                "/front/**", 
+                "/front/assets/css/modals.css",
+                "/assets/css/myBootstrap.css",
+                "/front/assets/js/animation.js",
+                "/front/assets/img/header-logo.png",
+                "/front/assets/img/team-presentation.jpg",
+                "/front/results.html", "/product/search/**", "/charge",
+                "/create-subscription", "/create-charge", "/cancel-subscription",
+                "/subscription", "/user_cp.html"
             };
 
     @Override
@@ -63,10 +75,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().
                 antMatchers(CLASSPATH_RESOURCE_LOCATIONS).permitAll().
                 // Authentication pages do not require permissions
-                antMatchers("/authenticate").permitAll().
-                antMatchers("/role/**").hasRole("USER").
+                antMatchers("/delete/**").hasRole("ADMIN").
+                antMatchers("/put/**").hasRole("ADMIN").
+                antMatchers("/role/**").hasRole("ADMIN").
+//                antMatchers("/enrolledUser/**").hasAnyRole("ADMIN", "USER", "TEST").
                 antMatchers("/").permitAll().
-                antMatchers("/favicon.ico").permitAll().
                 //Other pages		
                 anyRequest().authenticated().
                 and().

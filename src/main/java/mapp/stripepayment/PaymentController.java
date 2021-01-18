@@ -1,8 +1,6 @@
 
 package mapp.stripepayment;
 
-
-import com.stripe.model.Coupon;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,84 +20,22 @@ public class PaymentController {
         this.stripeService = stripeService;
     }
 
-    @GetMapping("/home")
-    public String homepage() {
-        return "homepage";
-    }
-
-    @GetMapping("/subscription")
-    public String subscriptionPage(Model model) {
-        model.addAttribute("stripePublicKey", API_PUBLIC_KEY);
-        return "subscription";
-    }
-
     @GetMapping("/charge")
     public String chargePage(Model model) {
         model.addAttribute("stripePublicKey", API_PUBLIC_KEY);
         return "charge";
     }
 
-    /*========== REST APIs for Handling Payments ===================*/
-    @PostMapping("/create-subscription")
-    public @ResponseBody
-    Response createSubscription(String email, String token, String plan, String coupon) {
-        //validate data
-        if (token == null || plan.isEmpty()) {
-            return new Response(false, "Stripe payment token is missing. Please, try again later.");
-        }
-
-        //create customer first
-        String customerId = stripeService.createCustomer(email, token);
-
-        if (customerId == null) {
-            return new Response(false, "An error occurred while trying to create a customer.");
-        }
-
-        //create subscription
-        String subscriptionId = stripeService.createSubscription(customerId, plan, coupon);
-        if (subscriptionId == null) {
-            return new Response(false, "An error occurred while trying to create a subscription.");
-        }
-
-        // Ideally you should store customerId and subscriptionId along with customer object here.
-        // These values are required to update or cancel the subscription at later stage.
-        return new Response(true, "Success! Your subscription id is " + subscriptionId);
-    }
-
-    @PostMapping("/cancel-subscription")
-    public @ResponseBody
-    Response cancelSubscription(String subscriptionId) {
-        boolean status = stripeService.cancelSubscription(subscriptionId);
-        if (!status) {
-            return new Response(false, "Failed to cancel the subscription. Please, try later.");
-        }
-        return new Response(true, "Subscription cancelled successfully.");
-    }
-
-    @PostMapping("/coupon-validator")
-    public @ResponseBody
-    Response couponValidator(String code) {
-        Coupon coupon = stripeService.retrieveCoupon(code);
-        if (coupon != null && coupon.getValid()) {
-            String details = (coupon.getPercentOff() == null ? "$" + (coupon.getAmountOff() / 100) : coupon.getPercentOff() + "%")
-                    + " OFF " + coupon.getDuration();
-            return new Response(true, details);
-        } else {
-            return new Response(false, "This coupon code is not available. This may be because it has expired or has "
-                    + "already been applied to your account.");
-        }
-    }
-
     @PostMapping("/create-charge")
     public @ResponseBody
-    Response createCharge(String email, String token) {
+    Response createCharge(String email, String token, String total) {
         //validate data
         if (token == null) {
             return new Response(false, "Stripe payment token is missing. Please, try again later.");
         }
-
+        System.out.println(total);
         //create charge
-        String chargeId = stripeService.createCharge(email, token, 999); //$9.99 USD
+        String chargeId = stripeService.createCharge(email, token, Integer.parseInt(total)); //$9.99 USD
         if (chargeId == null) {
             return new Response(false, "An error occurred while trying to create a charge.");
         }

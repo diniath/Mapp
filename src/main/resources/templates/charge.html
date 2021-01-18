@@ -1,80 +1,151 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Charge</title>
-    <!--Bootstrap 4 CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--Bootstrap 4 JavaScript-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- CSS EXTERNAL FILES AND LIBRARIES -->
+    <link rel="stylesheet" href="./front/assets/css/myBootstrap.css" />
+    <link rel="stylesheet" href="./front/assets/css/modals.css" />
+    <link rel="stylesheet" href="./front/assets/css/dateTimePicker.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
-    <!--Stripe JavaScript Library-->
+    <!-- JS EXTERNAL FILES AND LIBRARIES -->
+    <!-- <script defer type="text/javascript" src="front/assets/js/globalConfig.js"></script> -->
+    <!-- <script defer type="text/javascript" src="front/assets/js/charge.js"></script> -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body class="bg-light pt-5">
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
 
-<!--hero section-->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
-                <h1>
-                    Stripe One-Time Charge
-                </h1>
-                <p class="lead mb-4">
-                    Please fill the form below to complete the order payment
-                </p>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5>Leather Bag</h5>
-                        <p class="lead">USD 9.99</p>
+    <style>
+        .CardField-number-fakeNumber-number {
+            font-size: 18px;
+            padding: 3px;
+            background-color: white;
+        }
+    </style>
+
+    <title>Πληρωμή καλαθιού υπηρεσιών</title>
+  </head>
+
+  <body class="bg-my">
+    <main class="container-fluid m-0 p-0 w-100">
+      <section class="w-100">
+        <div
+          class="bg-twitter p-0 m-0 d-flex align-items-end justify-content-center"
+        >
+          <div class="">
+            <img class="" src="front/assets/img/candyshop.png" alt="" />
+          </div>
+          <div class="">
+            <section class="px-4 fmxw-800">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
+                    <h2 class="h2 text-center">Ολοκλήρωση αγορών</h2>
+                    <p class="lead mb-4 h4 font-weight-light text-center">
+                      Συμπηρώστε τα στοιχεία στην παρακάτω φόρμα για πληρωμή
+                    </p>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h5>Καρότσι αγορών</h5>
+                        <p class="h5">
+                          &#8364;
+                          <span class="lead h5" id="totalCartBill">10</span>
+                        </p>
+                      </div>
                     </div>
-                </div>
-                <form action="#" id="payment-form" method="post">
-                    <input id="api-key" type="hidden" th:value="${stripePublicKey}">
-                    <div class="form-group">
+                    <form action="#" id="payment-form" method="post">
+                      <input
+                        id="api-key"
+                        type="hidden"
+                        th:value="${stripePublicKey}"
+                      />
+                      <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Enter credit or debit card below
+                          Εισάγετε τον κωδικό της κάρτας σας
                         </label>
                         <div class="w-100" id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
+                          <!-- A Stripe Element will be inserted here. -->
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="email" name="email"
-                               placeholder="Email Address" type="email" required>
-                    </div>
-                    <!-- Used to display Element errors. -->
-                    <div class="text-danger w-100" id="card-errors" role="alert"></div>
-                    <div class="form-group pt-2">
-                        <button class="btn btn-primary btn-block" id="submitButton" type="submit">
-                            Pay With Your Card
+                      </div>
+                      <div class="form-group">
+                        <input
+                          class="form-control"
+                          id="email"
+                          name="email"
+                          placeholder="Email πελάτη"
+                          type="email"
+                          required
+                        />
+                      </div>
+                      <!-- Used to display Element errors. -->
+                      <div
+                        class="text-danger w-100"
+                        id="card-errors"
+                        role="alert"
+                      ></div>
+                      <div class="form-group pt-2">
+                        <button
+                          class="btn btn-warning btn-block"
+                          id="submitButton"
+                          type="submit"
+                        >
+                          Πληρωμή με κάρτα
                         </button>
                         <div class="small text-muted mt-2">
-                            Pay securely with Stripe. By clicking the button above, you agree
-                            to our <a target="_blank" href="#">Terms of Service</a>,
-                            <a target="_blank" href="#">Privacy</a> and
-                            <a target="_blank" href="#">Refund</a> policies.
-
+                          <p class="flex-wrap">
+                            Ασφαλής πληρωμή με Stripe. Με το πάτημα του παραπάνω
+                            κουμπιού, δηλώνετε ότι είστε σύμφωνοι με τους
+                            <a target="_blank" href="about.html#privacy"
+                              >Όρους χρήσης</a
+                            >,
+                            <a target="_blank" href="about.html#privacy"
+                              >την πολιτική απορρήτου</a
+                            >
+                            και
+                            <a target="_blank" href="about.html#privacy"
+                              >την πολιτικη επιστοφής χρημάτων</a
+                            >
+                            της εταιρείας.
+                          </p>
                         </div>
-                    </div>
-
-
-                </form>
-                <p class="mt-5 text-muted">
-                    <small>An example project by <a th:href="@{https://attacomsian.com}" target="_blank">Atta</a>.
-                    </small>
-                </p>
-            </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
-    </div>
-</section>
+      </section>
+    </main>
+    <script>
+      let retrieveCartFromLocalStorage = localStorage.getItem("cart");
+      let checkedOutCart = JSON.parse(retrieveCartFromLocalStorage);
 
-<!--custom javascript for handling subscription-->
-<script>
-    $(function () {
-        var API_KEY = $('#api-key').val();
+      console.log(checkedOutCart);
+      console.log(checkedOutCart[0].price);
+
+      let totalCartBill = 0;
+
+      for (let i = 0; i < checkedOutCart.length; i++) {
+        totalCartBill += parseInt(checkedOutCart[i].price);
+      }
+
+      console.log("totalCartBill  " + totalCartBill);
+
+      document.getElementById("totalCartBill").innerText = totalCartBill;
+      $(function () {
+        var API_KEY = $("#api-key").val();
         // Create a Stripe client.
         var stripe = Stripe(API_KEY);
 
@@ -82,51 +153,59 @@
         var elements = stripe.elements();
 
         // Create an instance of the card Element.
-        var card = elements.create('card');
+        var card = elements.create("card");
 
         // Add an instance of the card Element into the `card-element` <div>.
-        card.mount('#card-element');
+        card.mount("#card-element");
 
         // Handle real-time validation errors from the card Element.
-        card.addEventListener('change', function (event) {
-            var displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
-            }
+        card.addEventListener("change", function (event) {
+          var displayError = document.getElementById("card-errors");
+          if (event.error) {
+            displayError.textContent = event.error.message;
+          } else {
+            displayError.textContent = "";
+          }
         });
 
         // Handle form submission.
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            // handle payment
-            handlePayments();
+        var form = document.getElementById("payment-form");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          // handle payment
+          handlePayments();
         });
 
         //handle card submission
         function handlePayments() {
-            stripe.createToken(card).then(function (result) {
-                if (result.error) {
-                    // Inform the user if there was an error.
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    // Send the token to your server.
-                    var token = result.token.id;
-                    var email = $('#email').val();
-                    $.post(
-                        "/create-charge",
-                        {email: email, token: token},
-                        function (data) {
-                            alert(data.details);
-                        }, 'json');
-                }
-            });
-        }
-    });
-</script>
+          stripe.createToken(card).then(function (result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById("card-errors");
+              errorElement.textContent = result.error.message;
+            } else {
+              // Send the token to your server.
+              let token = result.token.id;
+              let email = $("#email").val();
+              let cart = JSON.parse(localStorage.getItem("cart"));
+              let sum = 0;
 
-</body>
+              cart.forEach((element) => {
+                sum += parseInt(element.price);
+              });
+              sum = sum*100;
+              $.post(
+                "/create-charge",
+                { email: email, token: token, total: sum },
+                function (data) {
+                  alert(data.details);
+                },
+                "json"
+              );
+            }
+          });
+        }
+      });
+    </script>
+  </body>
 </html>

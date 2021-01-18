@@ -16,6 +16,7 @@ public class ReviewDtoConverter {
         dto.setProductComment(review.getProductComment());
         dto.setProductProfile(review.getProduct().getProfile());
         dto.setCompanyProfile(review.getCompany().getProfile());
+        dto.setUsername(review.getEnrolledUser().getUsername());
         return dto;
     }
 

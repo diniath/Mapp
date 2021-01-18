@@ -38,7 +38,7 @@ public class ScheduleController {
         return service.create(schedule);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteScheduleById(@PathVariable(value = "id") Integer scheduleId) {
         service.delete(scheduleId);
         return ResponseEntity.ok("Schedule deleted successfully, ID:" + scheduleId);

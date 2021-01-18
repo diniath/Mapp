@@ -38,7 +38,7 @@ public class ImageUrlController {
         return service.create(imageUrl);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteImageUrlById(@PathVariable(value = "id") Integer imageUrlId) {
         service.delete(imageUrlId);
         return ResponseEntity.ok("ImageUrl deleted successfully, ID:" + imageUrlId);

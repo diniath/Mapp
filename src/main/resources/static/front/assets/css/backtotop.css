@@ -1,0 +1,38 @@
+#backToTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 80px;
+    z-index: 99;
+    font-size: 50px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #2e5972;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+
+#backToTop:hover {
+    color: #ffcc00;
+}
+
+#myChatBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    font-size: 50px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: lightseagreen;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+
+#myChatBtn:hover {
+    color: #ffcc00;
+}

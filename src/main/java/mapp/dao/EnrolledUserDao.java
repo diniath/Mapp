@@ -24,12 +24,12 @@ public interface EnrolledUserDao extends JpaRepository<EnrolledUser, Integer> {
 
     // supports update operation 
     @Modifying
-    @Query("update EnrolledUser e set e.username = ?1, e.password = ?2, e.fname = ?3, "
-            + "e.lname = ?4, e.email = ?5, e.dateofbirth = ?6, e.postalcode = ?7, "
-            + "e.address = ?8, e.city = ?9, e.municipality = ?10, e.telephone = ?11, "
-            + "e.mobile = ?12 where e.id = ?13")
+    @Query("update EnrolledUser e set e.username = ?1, e.fname = ?2, "
+            + "e.lname = ?3, e.email = ?4, e.dateofbirth = ?5, e.postalcode = ?6, "
+            + "e.address = ?7, e.city = ?8, e.municipality = ?9, e.telephone = ?10, "
+            + "e.mobile = ?11 where e.id = ?12")
     void setEnrolledUserInfoById(
-            String username, String password, String fname, String lname,
+            String username, String fname, String lname,
             String email, LocalDate dateofbirth, Integer postalcode, String address,
             String city, String municipality, String telephone, String mobile,
             Integer id

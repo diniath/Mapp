@@ -5,14 +5,7 @@ import java.util.Optional;
 import mapp.converter.EnrolledUserConverter;
 import mapp.entity.EnrolledUser;
 import mapp.dto.EnrolledUserDto;
-import mapp.entity.Appointment;
-import mapp.entity.ImageUrl;
-import mapp.entity.Ordering;
-import mapp.entity.Product;
-import mapp.entity.Role;
 import mapp.service.EnrolledUserServiceImpl;
-import mapp.service.ImageUrlServiceImpl;
-import mapp.service.OrderingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,7 +55,7 @@ public class EndrolledUserController {
         return service.create(enrolledUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteEnrolledUserById(@PathVariable(value = "id") Integer enrolledUserId) {
         service.delete(enrolledUserId);
         return ResponseEntity.ok("EnrolledUser deleted successfully, ID:" + enrolledUserId);
@@ -78,6 +71,11 @@ public class EndrolledUserController {
         optionalEnrolledUser.orElseThrow(() -> new Exception("EnrolledUser not exists with id:" + enrolledUserId));
         newEnrolledUserDetails.setId(enrolledUserId);
         service.edit(newEnrolledUserDetails);
+    }
+
+    @GetMapping("/search/{username}")
+    public EnrolledUserDto findEnrolledUserByUsername(@PathVariable(value = "username") String username) {
+        return converter.entityToDto(service.findEnrolledUserByUsername(username).get());
     }
 
 }

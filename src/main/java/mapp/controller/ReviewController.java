@@ -23,10 +23,10 @@ public class ReviewController {
 
     @Autowired
     private ReviewServiceImpl service;
-    
+
     @Autowired
     private ReviewDtoConverter converter;
-    
+
     @GetMapping
 
     public List<Review> getReviews() {
@@ -44,7 +44,7 @@ public class ReviewController {
         return service.create(review);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteReviewById(@PathVariable(value = "id") Integer reviewId) {
         service.delete(reviewId);
         return ResponseEntity.ok("Review deleted successfully, ID:" + reviewId);
@@ -59,23 +59,21 @@ public class ReviewController {
     }
 
     @GetMapping("/search/product/{id}")
-    public List<Review> findByProductId(@PathVariable(value = "id") Integer id) {
-        return service.findByProductId(id);
+    public List<ReviewDto> findByProductId(@PathVariable(value = "id") Integer id) {
+        List<Review> reviews = service.findByProductId(id);
+        return converter.entityToDto(reviews);
     }
 
     @GetMapping("/search/company/{id}")
-    public List<Review> findByCompanyId(@PathVariable(value = "id") Integer id) {
-        return service.findByCompanyId(id);
-    }
+    public List<ReviewDto> findByCompanyId(@PathVariable(value = "id") Integer id) {
+        List<Review> reviews = service.findByCompanyId(id);
+        return converter.entityToDto(reviews);
 
-//    @GetMapping("/search/enrolledUser/{id}")
-//    public List<Review> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
-//        return service.findByEnrolledUserId(id);
-//    }
-    
-      @GetMapping("/search/enrolledUser/{id}")
+    }
+   
+    @GetMapping("/search/enrolledUser/{id}")
     public List<ReviewDto> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
         List<Review> reviews = service.findByEnrolledUserId(id);
         return converter.entityToDto(reviews);
-    }  
+    }
 }

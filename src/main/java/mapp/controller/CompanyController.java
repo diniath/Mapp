@@ -66,7 +66,7 @@ public class CompanyController {
         return service.create(company);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCompanyById(@PathVariable(value = "id") Integer companyId) {
         service.delete(companyId);
         return ResponseEntity.ok("Company deleted successfully, ID:" + companyId);
@@ -86,4 +86,9 @@ public class CompanyController {
         return service.findCompanyByAddress(address);
     }
 
+        @GetMapping("/search/{username}")
+    public CompanyDto findCompanyByUsername(@PathVariable(value = "username") String username) {
+        return converter.entityToDto(service.findCompanyByUsername(username).get());
+    }
+    
 }

@@ -10,8 +10,6 @@ public class EnrolledUserUpdateDto {
 
     private String username;
 
-    private String password;
-
     private String fname;
 
     private String lname;
@@ -35,10 +33,9 @@ public class EnrolledUserUpdateDto {
     public EnrolledUserUpdateDto() {
     }
 
-    public EnrolledUserUpdateDto(Integer id, String username, String password, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, String telephone, String mobile) {
+    public EnrolledUserUpdateDto(Integer id, String username, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, String telephone, String mobile) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -65,14 +62,6 @@ public class EnrolledUserUpdateDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFname() {

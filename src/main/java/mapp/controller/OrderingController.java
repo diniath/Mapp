@@ -43,7 +43,7 @@ public class OrderingController {
         return service.create(ordering);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteOrderingById(@PathVariable(value = "id") Integer orderingId) {
         service.delete(orderingId);
         return ResponseEntity.ok("Ordering deleted successfully, ID:" + orderingId);

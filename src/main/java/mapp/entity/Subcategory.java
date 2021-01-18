@@ -3,6 +3,7 @@
 package mapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "subcategory", catalog = "mapp", schema = "")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Subcategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
