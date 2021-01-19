@@ -39,18 +39,15 @@ const save = document.getElementById('js-form-update');
 save.addEventListener('submit', (e) => {
     e.preventDefault();
     let userToSign = userSignUp();
-    authorizedFetch("POST", "http://localhost:8080/enrolledUser", userToSign);
+    storeUserToDatabase("POST", "http://localhost:8080/enrolledUser", userToSign);
 });
 
 
 // Post, Put  
-function authorizedFetch(method, url, body) {
-    let tokenElement = JSON.parse(localStorage.getItem('Authorization'));
-    console.log(tokenElement);
+function storeUserToDatabase(method, url, body) {
     let headers = {
         "Content-Type": "application/json",
-        "Access-Control-Origin": "*",
-        "Authorization": "Bearer " + tokenElement.jwt
+        "Access-Control-Origin": "*"
     };
     fetch(url, {
         method: method,
@@ -69,10 +66,3 @@ function handleErrors(error) {
     alert = "ops something went wrong"
 }
 
-const disconnect = document.getElementById('js-disconnect');
-
-disconnect.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('user');
-    window.location.href = "index.html";
-});

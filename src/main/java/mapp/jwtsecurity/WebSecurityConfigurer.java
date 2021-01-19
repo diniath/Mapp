@@ -51,12 +51,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             = {"/auth/user", "/auth/company", "/cart", "/category/**",
                 "/company/**", "/ordering/**", "/orderlist/**", "/product/**",
                 "/review/**", "/schedule/**", "/subcategory/**",
-                              "/enrolledUser/**", // SOSSSSSS CHECK 
-//                "/chat.html", "/chat.sendMessage", "/chat.addUser", 
+                              "/enrolledUser/**", 
                 "/mapp/**", "/chat/css/main.css", "/chat/js/main.js",
-//                "/topic/public",
-                
-                
                 "/front/**", 
                 "/front/assets/css/modals.css",
                 "/assets/css/myBootstrap.css",

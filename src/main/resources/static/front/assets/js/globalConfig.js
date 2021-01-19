@@ -138,7 +138,7 @@ function storeCompany(company) {
 
 // CART ===========================================================================
 
- 
+
 // const addToCart = document.getElementById('js-add-to-cart');
 
 function addProductToCart() {
@@ -231,12 +231,10 @@ function renderCartList(service) {
     return template;
 }
 
-
 $(document).ready(function () {
     $("#cartBtn").click(function () {
         $("#cart").slideToggle();
     });
-
 
     $("#cartBtn").click(function renderCart() {
         let output = "";
@@ -255,12 +253,12 @@ $(document).ready(function () {
 
 function deleteBtn(randomId) {
     document.getElementById(randomId).closest('tr').remove();
-    for (let i = 0; i < cartForList.length; i++) {
-
-        cartForList = cartForList.filter(e => { e.counter !== randomId })
+    var removeIndex = cartForList.map(item => item.counter).indexOf(randomId);
+    if (removeIndex > 1) {
+        removeIndex && cartForList.splice(removeIndex, 1);
+    } else {
+        cartForList.shift();
     }
-
-
     let cartTotal = 0;
     for (let i = 0; i < cartForList.length; i++) {
         cartTotal += parseInt(cartForList[i].price);
