@@ -1,0 +1,12 @@
+"id";"username";"password";"fname";"lname";"email";"dateofbirth";"postalcode";"address";"city";"municipality";"telephone";"mobile";"image_url_id"
+1;"john";"1234";"Ioannis";"Ioannou";"john@gmail.com";"1990-03-02";15344;"akropoleos 2";"athens";"philadelphia";"2102222222";"6972222226";1
+2;"pelataki";"1234";"Vassiliki";"Vassileiou";"vaso@gmail.com";"2001-03-02";15344;"aetos";"athens";"chalkidona";"2106664333";"6976663336";2
+3;"daboss";"1234";"fragko";"fonias";"ff@gmail.com";"1970-03-02";15344;"kallithea 22";"athens";"politeia";"2222222222";"2222222222";3
+5;"nick";"1234";"Νικος";"Νικολάου";"nick@gmail.com";"1990-03-02";15344;"Ακροπόλεως 2";"Αθήνα";"Φιλαδέλφεια";"2102222222";"6972222222";4
+6;"peter";"1234";"Πετρος";"Πέτρου";"peter@gmail.com";"1990-03-02";15344;"Πετρου Ράλλη 2";"Αθήνα";"Πετρούπολη";"2103332333";"6972222333";5
+7;"maria";"1234";"Μαρια";"Μαράτου";"maria@gmail.com";"1990-03-02";15344;"Αγιας Μαρίας 2";"Αθήνα";"Μαριούπολη";"2104432333";"6922552333";6
+8;"testaki";"1234";"Peter";"Panos";"pan@gmail.com";"2001-11-04";15344;"Air 24";"FlyLand";"Flyyyy";"2106664333";"6976663336";64
+9;"τεστ";"τττ";"τττ";"τττ";"kaka@gmail.com";"2021-09-09";12331;"58758ηξγ";"νηξγκ";"γμξ";"67587587";"68686";64
+10;"wrqwerwere";"1234";"weqrqrre";"qwerwrqwer";"qaqaw@gmail.com";"2020-12-31";12331;"wqerqwer 22";"werqwer";"qwerqwe";"13213123";"1231231";66
+11;"noUserOnPayment";"1234";"noUserOnPayment";"noUserOnPayment";"nouseronpayment@gmail.com";"1990-01-01";12345;"noUserStreet";"noUserCity";"noUsermunicipality";"noUserTelephone";"noUserMobile";66
+12;"minaidhs";"1234";"heloo";"world";"qaqaw@gmail.com";"2021-01-12";15344;"wqerqwer 22";"ΑΘΗΝΑ";"aetos";"2131313123";"1321321";66
