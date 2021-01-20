@@ -73,8 +73,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // Authentication pages do not require permissions
                 antMatchers("/delete/**").hasRole("ADMIN").
                 antMatchers("/put/**").hasRole("ADMIN").
-                antMatchers("/role/**").hasRole("ADMIN").
-//                antMatchers("/enrolledUser/**").hasAnyRole("ADMIN", "USER", "TEST").
+                antMatchers("/role/**").hasRole("ADMIN").               
                 antMatchers("/").permitAll().
                 //Other pages		
                 anyRequest().authenticated().

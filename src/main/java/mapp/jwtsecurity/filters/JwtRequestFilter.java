@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import mapp.dao.CompanyDao;
 import mapp.dao.EnrolledUserDao;
-import mapp.entity.EnrolledUser;
 import mapp.jwtsecurity.MyCompanyDetailsService;
 
 @Component

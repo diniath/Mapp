@@ -432,4 +432,3 @@ $("#unrealisticReview").rating({
 // sendCart.addEventListener('submit', (e) => {
 //     storeCartToDb();
 // });
-

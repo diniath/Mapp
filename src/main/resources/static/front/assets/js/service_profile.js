@@ -42,7 +42,7 @@ function renderServiceDetails(service) {
 function renderUserReviewsBox(review) {
     review = `
             <div class=" d-flex justify-content-between p-1">
-                        <div class="h6">${review.profile}</div>
+                        <div class="h6">${review.productProfile}</div>
                         <div class="text-warning">
                             <span class="text-warning">
                                 <i class="${review.productRating > 0 ? "fas fa-star" : "far fa-star"} h6"></i>
