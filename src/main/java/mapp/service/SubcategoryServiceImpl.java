@@ -22,8 +22,8 @@ public class SubcategoryServiceImpl{
     }
     
     public Subcategory create(Subcategory subcategory) {
-        Subcategory comp = dao.save(subcategory);
-        return comp;
+        Subcategory subcat = dao.save(subcategory);
+        return subcat;
     }
     
     public void edit(Subcategory subcategory) {

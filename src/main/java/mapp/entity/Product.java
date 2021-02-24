@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,28 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
-/**
- *
- * @author Hello Java !
- */
 @Entity
 @Table(name = "product", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
-    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findByRating", query = "SELECT p FROM Product p WHERE p.rating = :rating")
-    , @NamedQuery(name = "Product.findByDuration", query = "SELECT p FROM Product p WHERE p.duration = :duration")
-    , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,42 +34,60 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "description")
-    private String description;
+    @NotNull(message = "Property profile cannot be null")
+    @Size(min = 1, max = 200)
+    @Column(name = "profile")
+    private String profile;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property price cannot be null")
     @Column(name = "price")
     private BigDecimal price;
+    
     @Column(name = "rating")
     private Integer rating;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property duration cannot be null")
     @Column(name = "duration")
     private int duration;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property status cannot be null")
     @Column(name = "status")
     private boolean status;
+
+    @Basic(optional = false)
+    @NotNull(message = "Property description cannot be null")
+    @Size(min = 1, max = 500)
+    @Column(name = "description")
+    private String description;
+
     @JoinTable(name = "product_image", joinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "image_url_id", referencedColumnName = "id")})
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)    
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<ImageUrl> imageUrlList;
+
+    @JsonBackReference(value = "product_enrolledUserList")
     @ManyToMany(mappedBy = "productList")
     private List<EnrolledUser> enrolledUserList;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
+
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Subcategory subcategory;
+
+    @JsonBackReference(value = "product_orderlist")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Orderlist> orderlistList;
 
@@ -95,12 +98,23 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String description, BigDecimal price, int duration, boolean status) {
+    public Product(Integer id, String profile, BigDecimal price, Integer rating, int duration, boolean status, String description) {
         this.id = id;
-        this.description = description;
+        this.profile = profile;
         this.price = price;
+        this.rating = rating;
         this.duration = duration;
         this.status = status;
+        this.description = description;
+    }
+
+    
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public Integer getId() {
@@ -167,6 +181,7 @@ public class Product implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
+    @JsonBackReference(value = "company_product")
     public Company getCompany() {
         return company;
     }
@@ -175,6 +190,7 @@ public class Product implements Serializable {
         this.company = company;
     }
 
+//    @JsonBackReference(value = "product_subcategory")
     public Subcategory getSubcategory() {
         return subcategory;
     }
@@ -215,5 +231,5 @@ public class Product implements Serializable {
     public String toString() {
         return "mapp.entity.Product[ id=" + id + " ]";
     }
-    
+
 }

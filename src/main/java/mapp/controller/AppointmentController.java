@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import mapp.converter.AppointmentDtoConverter;
 import mapp.entity.Appointment;
+import mapp.dto.AppointmentDto;
 import mapp.service.AppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,17 +18,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @appointment Hello Java !
- */
-
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/appointment")
 public class AppointmentController {
 
     @Autowired
     private AppointmentServiceImpl service;
+    
+    @Autowired
+    private AppointmentDtoConverter converter;
     
     @GetMapping
     public List<Appointment> getAppointments() {
@@ -43,7 +37,6 @@ public class AppointmentController {
     public Appointment getAppointmentById(@PathVariable(value = "id") Integer appointmentId) throws Exception {
         Optional<Appointment> optionalAppointment = service.findById(appointmentId);
         return optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
-        //return optionalAppointment.get();
     }
 
     @PostMapping
@@ -51,7 +44,7 @@ public class AppointmentController {
         return service.create(appointment);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteAppointmentById(@PathVariable(value = "id") Integer appointmentId) {
         service.delete(appointmentId);
         return ResponseEntity.ok("Appointment deleted successfully, ID:" + appointmentId);
@@ -61,15 +54,19 @@ public class AppointmentController {
     public void updateAppointment(@PathVariable(value = "id") Integer appointmentId,
             @RequestBody Appointment newAppointmentDetails) throws Exception {
         Optional<Appointment> optionalAppointment = service.findById(appointmentId);
-        Appointment appointmentToUpdate = optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
-        
-//        appointmentToUpdate.setDay(newAppointmentDetails.getDay());
+        optionalAppointment.orElseThrow(() -> new Exception("Appointment not exists with id:" + appointmentId));
         service.edit(newAppointmentDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public Appointment getAppointmentByAddress(@PathVariable(value = "address") String address){
-//        return service.findAppointmentByAddress(address);
-//    }
 
+    @GetMapping("/search/{id}")
+    public List<Appointment> findByProductId(@PathVariable(value = "id") Integer id) {
+        return service.findByProductId(id);
+    }
+
+    @GetMapping("/search/enrolledUser/{id}")
+    public List<AppointmentDto> findByEnrolledUserId(@PathVariable(value = "id") Integer id) {
+        List<Appointment> appointments = service.findByEnrolledUserId(id);
+        return converter.entityToDto(appointments);
+    } 
+    
 }

@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -15,22 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "image_url", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "ImageUrl.findAll", query = "SELECT i FROM ImageUrl i")
-    , @NamedQuery(name = "ImageUrl.findById", query = "SELECT i FROM ImageUrl i WHERE i.id = :id")
-    , @NamedQuery(name = "ImageUrl.findByUrl", query = "SELECT i FROM ImageUrl i WHERE i.url = :url")})
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class ImageUrl implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,18 +32,22 @@ public class ImageUrl implements Serializable {
     @Size(max = 2083)
     @Column(name = "url")
     private String url;
+
+    @JsonBackReference(value = "productMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Product> productList;
+
+    @JsonBackReference(value = "companyMany_imageUrl")
     @ManyToMany(mappedBy = "imageUrlList")
     private List<Company> companyList;
+
+    @JsonBackReference(value = "companyList_imageUrl")    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<Company> companyList1;
+
+    @JsonBackReference(value = "enrolledUser_imageUrl")    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
     private List<EnrolledUser> enrolledUserList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
-    private List<Category> categoryList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageUrl")
-    private List<Subcategory> subcategoryList;
 
     public ImageUrl() {
     }
@@ -69,7 +63,6 @@ public class ImageUrl implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public List<Product> getProductList() {
         return productList;
@@ -103,22 +96,15 @@ public class ImageUrl implements Serializable {
         this.enrolledUserList = enrolledUserList;
     }
 
-    public List<Category> getCategoryList() {
-        return categoryList;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public List<Subcategory> getSubcategoryList() {
-        return subcategoryList;
-    }
-
-    public void setSubcategoryList(List<Subcategory> subcategoryList) {
-        this.subcategoryList = subcategoryList;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -144,12 +130,4 @@ public class ImageUrl implements Serializable {
         return "mapp.entity.ImageUrl[ id=" + id + " ]";
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    
 }

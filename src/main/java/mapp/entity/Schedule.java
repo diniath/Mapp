@@ -1,39 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "schedule", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
-    , @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id")
-    , @NamedQuery(name = "Schedule.findByDay", query = "SELECT s FROM Schedule s WHERE s.day = :day")
-    , @NamedQuery(name = "Schedule.findByOpentime", query = "SELECT s FROM Schedule s WHERE s.opentime = :opentime")
-    , @NamedQuery(name = "Schedule.findByClosetime", query = "SELECT s FROM Schedule s WHERE s.closetime = :closetime")
-    , @NamedQuery(name = "Schedule.findByReopentime", query = "SELECT s FROM Schedule s WHERE s.reopentime = :reopentime")
-    , @NamedQuery(name = "Schedule.findByReclosetime", query = "SELECT s FROM Schedule s WHERE s.reclosetime = :reclosetime")})
 public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,24 +27,34 @@ public class Schedule implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property day cannot be null")
     @Column(name = "day")
     private int day;
+    
+    /*
+        The values for the following 4 references go from 1-48. 
+        Each value represents half an hour, 48 for a whole day.
+    */
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property opentime cannot be null")
     @Column(name = "opentime")
     private short opentime;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property closetime cannot be null")
     @Column(name = "closetime")
     private short closetime;
+    
     @Column(name = "reopentime")
     private Short reopentime;
+    
     @Column(name = "reclosetime")
     private Short reclosetime;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private Company company;
 
@@ -125,6 +120,7 @@ public class Schedule implements Serializable {
         this.reclosetime = reclosetime;
     }
 
+    @JsonBackReference(value="company_schedule")
     public Company getCompany() {
         return company;
     }
@@ -157,5 +153,5 @@ public class Schedule implements Serializable {
     public String toString() {
         return "mapp.entity.Schedule[ id=" + id + " ]";
     }
-    
+
 }

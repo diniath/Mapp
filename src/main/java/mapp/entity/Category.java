@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -12,20 +9,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.Cascade;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "category", catalog = "mapp", schema = "")
 @NamedQueries({
@@ -37,18 +28,16 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property id cannot be null")
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property description cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
-    private ImageUrl imageUrl;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Subcategory> subcategoryList;
 
@@ -80,14 +69,7 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public ImageUrl getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(ImageUrl imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
+    @JsonManagedReference(value="category_subcategory")
     public List<Subcategory> getSubcategoryList() {
         return subcategoryList;
     }
@@ -120,5 +102,5 @@ public class Category implements Serializable {
     public String toString() {
         return "mapp.entity.Category[ id=" + id + " ]";
     }
-    
+
 }

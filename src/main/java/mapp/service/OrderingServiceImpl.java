@@ -8,6 +8,7 @@ import mapp.entity.Ordering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Service
@@ -39,7 +40,8 @@ public class OrderingServiceImpl{
         return ordering;
     }
     
-//    public Ordering findOrderingByAddress(@PathVariable(value = "address") String address){
-//        return dao.findByAddress(address);
-//    }
+    public List<Ordering> findAllOrderingByEnrolledUserId(@PathVariable(value = "id") Integer id){
+        return dao.findByEnrolledUserId(id);
+    }
+    
 }

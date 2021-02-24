@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import mapp.dao.EnrolledUserDao;
 import mapp.entity.EnrolledUser;
-import mapp.security.models.MyUserDetails;
+import mapp.jwtsecurity.models.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

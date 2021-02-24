@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>S H E R L O C K C h a t</title>
+    <link rel="stylesheet" href="./chat/css/main.css" />
+    <link rel="stylesheet" href="assets/css/myBootstrap.css" />
+  </head>
+  <body>
+    <noscript>
+      <h2>Sorry! Your browser doesn't support Javascript</h2>
+    </noscript>
+
+    <div id="username-page">
+      <div class="username-page-container bg-warning rounded-pill">
+        <h1 class="title h2 p-4">Sherlock Chatbox</h1>
+        <form id="usernameForm" name="usernameForm">
+          <div class="form-group">
+            <input
+              type="text"
+              id="name"
+              placeholder="Όνομα χρήστη"
+              autocomplete="off"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="accent username-submit btn btn-twitch">
+              Εκκίνηση Συνομιλίας
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="chat-page" class="hidden pt-6 pb-6">
+      <div class="chat-container rounded">
+        <div class="chat-header">
+          <h2 class="h2 text-warning">Sherlock Chat</h2>
+          <a href="index.html" class="btn btn-danger mt-4">Exit</a>
+        </div>
+        <div class="connecting">Γίνεται σύνδεση...</div>
+        <ul id="messageArea"></ul>
+        <form id="messageForm" name="messageForm">
+          <div class="form-group">
+            <div class="input-group clearfix">
+              <input
+                type="text"
+                id="message"
+                placeholder="Πληκτολογήστε το μήνυμα σας..."
+                autocomplete="off"
+                class="form-control"
+              />
+              <button type="submit" class="primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="./chat/js/main.js"></script>
+  </body>
+</html>

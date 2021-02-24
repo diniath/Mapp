@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
 import java.io.Serializable;
@@ -14,23 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Hello Java !
- */
+
 @Entity
 @Table(name = "postal_code", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "PostalCode.findAll", query = "SELECT p FROM PostalCode p")
-    , @NamedQuery(name = "PostalCode.findById", query = "SELECT p FROM PostalCode p WHERE p.id = :id")
-    , @NamedQuery(name = "PostalCode.findByPostalCode", query = "SELECT p FROM PostalCode p WHERE p.postalCode = :postalCode")
-    , @NamedQuery(name = "PostalCode.findByMunicipality", query = "SELECT p FROM PostalCode p WHERE p.municipality = :municipality")})
 public class PostalCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,13 +26,15 @@ public class PostalCode implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property postalCode cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "postal_code")
     private String postalCode;
     @Size(max = 45)
     @Column(name = "municipality")
     private String municipality;
+
+//    @JsonBackReference(value = "companyMany_postalCode")
     @ManyToMany(mappedBy = "postalCodeList")
     private List<Company> companyList;
 
@@ -118,5 +106,5 @@ public class PostalCode implements Serializable {
     public String toString() {
         return "mapp.entity.PostalCode[ id=" + id + " ]";
     }
-    
+
 }

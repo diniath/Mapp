@@ -15,12 +15,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import mapp.dao.CompanyDao;
+import mapp.dao.EnrolledUserDao;
+import mapp.jwtsecurity.MyCompanyDetailsService;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private MyUserDetailsService userDetailsService;
+
+    @Autowired
+    private MyCompanyDetailsService companyDetailsService;
+
+    @Autowired
+    private CompanyDao cdao;
+
+    @Autowired
+    private EnrolledUserDao edao;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -32,13 +44,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
+        String companyUsername = null;
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+            String usernameFromJwt = jwtUtil.extractUsername(jwt);
+            System.out.println(usernameFromJwt);
+            try {
+                username = edao.findByUsername(usernameFromJwt).get().getUsername();
+            } catch (Exception e) {
+                System.out.println("User not found Exception");
+            }
+            try {
+                companyUsername = cdao.findByUsername(usernameFromJwt).get().getUsername();
+            } catch (Exception e) {
+                System.out.println("User not found Exception");
+            }
         }
-
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
@@ -53,6 +76,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+
+        if (companyUsername != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = this.companyDetailsService.loadUserByUsername(companyUsername);
+
+            if (jwtUtil.validateToken(jwt, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+
         chain.doFilter(request, response);
     }
 

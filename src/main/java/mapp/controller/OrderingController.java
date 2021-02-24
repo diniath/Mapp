@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.controller;
 
 import java.util.List;
 import java.util.Optional;
+import mapp.converter.OrderingDtoConverter;
 import mapp.entity.Ordering;
+import mapp.dto.OrderingDto;
 import mapp.service.OrderingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @ordering Hello Java !
- */
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/ordering")
 public class OrderingController {
 
     @Autowired
     private OrderingServiceImpl service;
 
-    
+    @Autowired
+    private OrderingDtoConverter converter;
+
     @GetMapping
     public List<Ordering> getOrderings() {
         return service.findAll();
@@ -41,7 +36,6 @@ public class OrderingController {
     public Ordering getOrderingById(@PathVariable(value = "id") Integer orderingId) throws Exception {
         Optional<Ordering> optionalOrdering = service.findById(orderingId);
         return optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
-        //return optionalOrdering.get();
     }
 
     @PostMapping
@@ -49,7 +43,7 @@ public class OrderingController {
         return service.create(ordering);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteOrderingById(@PathVariable(value = "id") Integer orderingId) {
         service.delete(orderingId);
         return ResponseEntity.ok("Ordering deleted successfully, ID:" + orderingId);
@@ -59,15 +53,14 @@ public class OrderingController {
     public void updateOrdering(@PathVariable(value = "id") Integer orderingId,
             @RequestBody Ordering newOrderingDetails) throws Exception {
         Optional<Ordering> optionalOrdering = service.findById(orderingId);
-        Ordering orderingToUpdate = optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
-        
-//        orderingToUpdate.setDay(newOrderingDetails.getDay());
+        optionalOrdering.orElseThrow(() -> new Exception("Ordering not exists with id:" + orderingId));
         service.edit(newOrderingDetails);
     }
-    
-//    @GetMapping("/search/{address}")
-//    public Ordering getOrderingByAddress(@PathVariable(value = "address") String address){
-//        return service.findOrderingByAddress(address);
-//    }
+
+    @GetMapping("/search/{id}")
+    public List<List<OrderingDto>> getOrderingByAddress(@PathVariable(value = "id") Integer id) {
+        List<Ordering> orderings = service.findAllOrderingByEnrolledUserId(id);
+        return converter.entityToDto(orderings);
+    }
 
 }

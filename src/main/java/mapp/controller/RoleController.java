@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.controller;
 
 import java.util.List;
@@ -13,7 +8,6 @@ import mapp.exceptions.ResourceNotFoundException;
 import mapp.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,15 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @role Hello Java !
- */
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/role")
 public class RoleController {
 
-    
     @Autowired
     private RoleServiceImpl service;
 
@@ -44,10 +33,8 @@ public class RoleController {
     public Role getRoleById(@PathVariable(value = "id") Integer roleId) throws Exception {
         Optional<Role> optionalRole = service.findById(roleId);
         return optionalRole.orElseThrow(() -> new ResourceNotFoundException("Role not exists with id:" + roleId));
-        //return optionalRole.get();
     }
-    
-    
+
     @PostMapping
     public Role createRole(@Valid @RequestBody Role role) {
         return service.create(role);
@@ -63,15 +50,9 @@ public class RoleController {
     public void updateRole(@PathVariable(value = "id") Integer roleId,
             @RequestBody Role newRoleDetails) throws Exception {
         Optional<Role> optionalRole = service.findById(roleId);
-        Role roleToUpdate = optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
-
-//        roleToUpdate.setDay(newRoleDetails.getDay());
+        optionalRole.orElseThrow(() -> new Exception("Role not exists with id:" + roleId));
         newRoleDetails.setId(roleId);
         service.edit(newRoleDetails);
     }
 
-//    @GetMapping("/search/{address}")
-//    public Role getRoleByAddress(@PathVariable(value = "address") String address){
-//        return service.findRoleByAddress(address);
-//    }
 }

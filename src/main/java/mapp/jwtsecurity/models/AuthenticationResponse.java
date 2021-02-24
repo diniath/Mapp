@@ -1,3 +1,4 @@
+
 package mapp.jwtsecurity.models;
 
 import java.io.Serializable;

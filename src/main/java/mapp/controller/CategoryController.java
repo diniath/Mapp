@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.controller;
 
 import java.util.List;
@@ -20,11 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @category Hello Java !
- */
-@RestController//@RestController = @Controller + @ResponseBody
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
 
@@ -41,41 +33,26 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable(value = "id") Integer categoryId) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
         return optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
-        //return optionalCategory.get();
     }
 
     @PostMapping
     public Category createCategory(@RequestBody Category category) {
         return service.create(category);
     }
-
-//        public List<Category> createCategory(@RequestBody List<Category> categories) {
-//        List<Category> temp = new ArrayList();
-//        for (Category category : categories) {
-//            temp.add(service.create(category));
-//        }
-//        return temp;
-//    }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCategoryById(@PathVariable(value = "id") Integer categoryId) {
         service.delete(categoryId);
         return ResponseEntity.ok("Category deleted successfully, ID:" + categoryId);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("put/{id}")
     public void updateCategory(@PathVariable(value = "id") Integer categoryId,
             @RequestBody Category newCategoryDetails) throws Exception {
         Optional<Category> optionalCategory = service.findById(categoryId);
-        Category categoryToUpdate = optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
+        optionalCategory.orElseThrow(() -> new Exception("Category not exists with id:" + categoryId));
         newCategoryDetails.setId(categoryId);
-//        categoryToUpdate.setDay(newCategoryDetails.getDay());
         service.edit(newCategoryDetails);
     }
     
-//    @GetMapping("/search/{address}")
-//    public Category getCategoryByAddress(@PathVariable(value = "address") String address){
-//        return service.findCategoryByAddress(address);
-//    }
-
 }

@@ -1,37 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Hello Java !
- */
 @Entity
 @Table(name = "orderlist", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
-    , @NamedQuery(name = "Orderlist.findById", query = "SELECT o FROM Orderlist o WHERE o.id = :id")})
-    public class Orderlist implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
+public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,17 +30,22 @@ import javax.persistence.Table;
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @ManyToMany(mappedBy = "orderlistList")
     private List<Company> companyList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlist")
     private List<Appointment> appointmentList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderlist")
     private List<Review> reviewList;
+
     @JoinColumn(name = "ordering_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Ordering ordering;
+
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Product product;
 
     public Orderlist() {
@@ -75,6 +71,7 @@ import javax.persistence.Table;
         this.companyList = companyList;
     }
 
+    @JsonManagedReference(value = "orderlist_appointment")
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
@@ -83,6 +80,7 @@ import javax.persistence.Table;
         this.appointmentList = appointmentList;
     }
 
+    @JsonManagedReference(value = "orderlist_review")
     public List<Review> getReviewList() {
         return reviewList;
     }
@@ -91,6 +89,7 @@ import javax.persistence.Table;
         this.reviewList = reviewList;
     }
 
+    @JsonBackReference(value = "orderlist_ordering")
     public Ordering getOrdering() {
         return ordering;
     }
@@ -99,6 +98,7 @@ import javax.persistence.Table;
         this.ordering = ordering;
     }
 
+    @JsonBackReference(value = "product_orderlist")
     public Product getProduct() {
         return product;
     }
@@ -131,5 +131,5 @@ import javax.persistence.Table;
     public String toString() {
         return "mapp.entity.Orderlist[ id=" + id + " ]";
     }
-    
+
 }

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Final head -->
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS EXTERNAL FILES AND LIBRARIES -->
+    <link rel="stylesheet" href="./assets/css/myBootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/modals.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <!-- JS EXTERNAL FILES AND LIBRARIES -->
+    <script defer type="text/javascript" src="assets/js/globalConfig.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="./assets/css/backtotop.css"/>
+        <script defer type="text/javascript" src="assets/js/backToTop.js"></script>
+
+    <title>Sherlock</title>
+</head>
+
+<body>
+    <button onclick="topFunction()" id="backToTop" title="Go to top"><i class="fas fa-chevron-circle-up"></i></button>
+    <a href="chat.html" id="myChatBtn"><i class="fas fa-comments"></i></a>
+    <!-- Header Final-->
+    <header class="container-fluid p-0 m-0  bg-black">
+        <section class="container-fluid position-absolute">
+            <div class="d-flex position-static justify-content-end p-5">
+
+                <section class="col-1">
+                    <a id="userModalBtn" class="btn">
+                        <i class="fas fa-user-alt h2"></i>
+                    </a>
+                    <a type="submit" class="btn" id="cartBtn" onclick="cartOpen()">
+                        <i class="fas fa-shopping-cart h2"></i>
+                    </a>
+                </section>
+            </div>
+        </section>
+
+        <img class="img p-0 m-0 shadow w-100" src="assets/img/homepage.jpg" alt="">
+        <div class="h1 position-absolute top-8 right-0 ml-10 col-7">
+            <section class="col-9">
+                <section class="container">
+                    <!-- Logo -->
+                    <div><img class="w-50 pl-3 py-3" src="assets/img/header-logo.png" alt=""></div>
+                    <!-- Searchbar -->
+                    <section class="">
+                        <section class="container">
+                            <section class="bg-white fmw-400 border border-primary rounded d-flex justify-content-between col-12">
+                                <form role="form" id="search-form" class="w-100">
+                                    <div class="d-flex w-100 justify-content-between align-content-between">
+                                        <div class="w-100">
+                                            <input type="text" placeholder="Αναζήτηση..."
+                                                class="form-control border-0 font-medium " id="search" name="search"
+                                                list="searchSubcategory-datalist">
+                                            <datalist id="searchSubcategory-datalist"></datalist>
+                                        </div>
+                                        <div class="col-1">
+                                            <button type="submit" class="btn">
+                                                <i class="fas fa-search h4"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                        </section>
+                    </section>
+                    <div class="text-gray display-1 text-right pr-3">ΨΑΧΝΕΙΣ
+                        ΚΟΜΜΩΤΗΡΙΟ?</div>
+                    <div class="h4 text-right pr-3">Κλείσε ραντεβού με 3 μόνο βήματα</div>
+                </section>
+            </section>
+        </div>
+    </header>
+
+
+    <main class="container-fluid p-0 m-0 d-flex justify-content-center align-content-center">
+
+
+        <div class="d-flex justify-content-center container-fluid bg-warning">
+            <div class="d-flex justify-content-between fmxw-1600  col-12 bg-warning">
+                <!-- c1 -->
+                <div class="col-4 text-center">
+                    <a href="category_technicians.html"><span class=""> <i
+                                class="fas fa-tools display-2 py-4 "></i></span></a>
+                    <a href="category_technicians.html">
+                        <h2 class="h2 text-center text-capitalize font-weight-light">ΤΕΧΝΙΤΕΣ</h2>
+                    </a>
+                    <hr class="mx-6">
+                    <div class="pl-3"> <a href="results.html?subcategoryid=2"
+                            class="btn-lg btn p-1  ml-3 w-100 text-left">ΚΗΠΟΥΡΙΚΕΣ ΕΡΓΑΣΙΕΣ</a>
+                        <div> <a href="results.html?subcategoryid=3"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΔΙΑΚΟΣΜΗΣΗ & ΑΝΑΚΑΙΝΙΣΗ</a>
+                        </div>
+                        <div> <a href="results.html?subcategoryid=4"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΗΛΕΚΤΡΟΛΟΓΙΚΕΣ ΕΡΓΑΣΙΕΣ</a>
+                        </div>
+                        <div> <a href="results.html?subcategoryid=5"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΥΔΡΑΥΛΙΚΕΣ ΕΡΓΑΣΙΕΣ</a></div>
+                        <div> <a href="results.html?subcategoryid=7"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΚΑΘΑΡΙΟΤΗΤΑ</a></div>
+                        <div> <a href="results.html?subcategoryid=1"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΑΡΧΙΤΕΚΤΟΝΙΚΑ - ΤΕΧΝΙΚΑ
+                                ΓΡΑΦΕΙΑ</a></div>
+                    </div>
+                    <div class="py-2"> <a href="category_technicians.html" class="btn w-100">περισσότερα...</a></div>
+                </div>
+
+                <!-- c2 -->
+                <div class="col-4 text-center">
+                    <a href="category_technology.html"><span class=""> <i
+                                class="fas fa-desktop display-2 py-4 "></i></span></a>
+                    <a href="category_technology.html">
+                        <h2 class="h2 text-center text-capitalize font-weight-light">ΤΕΧΝΟΛΟΓΙΑ</h2>
+                    </a>
+                    <hr class="mx-6">
+                    <div class="pl-3"> <a href="results.html?subcategoryid=15"
+                            class="btn-lg btn p-1  ml-3 w-100 text-left">DIGITAL MARKETING</a>
+                        <div> <a href="results.html?subcategoryid=16"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">DEVELOPING AND TECH</a></div>
+                        <div> <a href="results.html?subcategoryid=17"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΗΛΕΚΤΡΟΝΙΚΟ ΕΜΠΟΡΙΟ</a></div>
+                        <div> <a href="results.html?subcategoryid=18"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">SERVICE & ΕΠΙΣΚΕΥΕΣ </a></div>
+                        <div> <a href="results.html?subcategoryid=19" class="btn-lg btn p-1  ml-3 w-100 text-left">VIDEO
+                                & PHOTOGRAPHY
+                            </a></div>
+                        <div> <a href="results.html?subcategoryid=20" class="btn-lg btn p-1  ml-3 w-100 text-left">MUSIC
+                                & AUDIO</a></div>
+                    </div>
+                    <div class="py-2"> <a href="category_technology.html" class="btn w-100">περισσότερα...</a></div>
+                </div>
+
+                <!-- c3 -->
+                <div class="col-4 text-center">
+                    <a href="category_healthandbeauty.html"><span class=""> <i
+                                class="far fa-heart display-2 py-4 "></i></span></a>
+                    <a href="category_healthandbeauty.html">
+                        <h2 class="h2 text-center text-capitalize font-weight-light">ΥΓΕΙΑ & ΟΜΟΡΦΙΑ</h2>
+                    </a>
+                    <hr class="mx-6">
+                    <div class="pl-3"> <a href="results.html?subcategoryid=9"
+                            class="btn-lg btn p-1  ml-3 w-100 text-left">ΚΟΜΜΩΤΗΡΙΑ</a>
+                        <div> <a href="results.html?subcategoryid=10"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΟΝΥΧΟΤΕΧΝΙΚΗ</a></div>
+                        <div> <a href="results.html?subcategoryid=14"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">PERSONAL TRAINING</a></div>
+                        <div> <a href="results.html?subcategoryid=13"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΔΙΑΤΡΟΦΗ & ΑΔΥΝΑΤΙΣΜΑ</a></div>
+                        <div> <a href="results.html?subcategoryid=12"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΠΕΡΙΠΟΙΗΣΗ ΠΡΟΣΩΠΟΥ - ΣΩΜΑΤΟΣ
+                            </a></div>
+                        <div> <a href="results.html?subcategoryid=11"
+                                class="btn-lg btn p-1  ml-3 w-100 text-left">ΜΑΣΑΖ</a></div>
+                    </div>
+                    <div class="py-2"> <a href="category_healthandbeauty.html" class="btn w-100">περισσότερα...</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </main>
+
+    <!-- Footer Final-->
+    <footer class="bg-light col-lg-12 d-flex justify-content-center p-5">
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4">Κατηγορίες</h4>
+            <hr style="width: 95%">
+            <section class="d-flex justify-content-center">
+                <section class="col-6">
+                    <a href="category_technology.html" type="a" class="btn btn-light w-100 text-left  "
+                        onmouseover="this.style.backgroundColor='#ffcc00'"
+                        onmouseout="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΟΛΟΓΙΑ</a>
+                    <a href="index.html"><a onclick="showAlert()" type="a" class="btn btn-light w-100 text-left"
+                            onmouseover="this.style.backgroundColor='#007bff'"
+                            onmouseout="this.style.backgroundColor='#eaedf2'">ΙΑΤΡΙΚΑ</a></a>
+                    <a href="index.html"><a onclick="showAlert()" type="a" class="btn btn-light w-100 text-left"
+                            onmouseover="this.style.backgroundColor='#dc3545'"
+                            onmouseout="this.style.backgroundColor='#eaedf2'">ΕΚΠΑΙΔΕΥΣΗ</a></a>
+                    <a href="category_technicians.html" type="a" class="btn btn-light w-100 text-left"
+                        onmouseover="this.style.backgroundColor='#28a745'"
+                        onmouseout="this.style.backgroundColor='#eaedf2'">ΤΕΧΝΙΤΕΣ</a>
+                    <a href="category_healthandbeauty.html" type="a" class="btn btn-light w-100 text-left"
+                        onmouseover="this.style.backgroundColor='#9535f4'"
+                        onmouseout="this.style.backgroundColor='#eaedf2'">ΟΜΟΡΦΙΑ</a>
+                </section>
+                <section class="col-6">
+                    <a href=""><a onclick="showAlert()" type="a" class="btn btn-light w-100 text-left"
+                            onmouseover="this.style.backgroundColor='#e57f12'"
+                            onmouseout="this.style.backgroundColor='#eaedf2'">ΟΙΚΟΝΟΜΟΤΕΧΝΙΚΑ</a></a>
+                    <a href=""><a onclick="showAlert()" type="a" class="btn btn-light w-100 text-left"
+                            onmouseover="this.style.backgroundColor='#12b7e5'"
+                            onmouseout="this.style.backgroundColor='#eaedf2'">ΚΑΛΛΙΤΕΧΝΙΚΑ</a></a>
+                    <a href=""><a onclick="showAlert()" type="a" class="btn btn-light w-100 text-left"
+                            onmouseover="this.style.backgroundColor='#70bcd1'"
+                            onmouseout="this.style.backgroundColor='#eaedf2'">ΣΥΜΒΟΥΛΕΥΤΙΚΗ</a></a>
+                </section>
+            </section>
+        </section>
+        <section class="col-4 pt-3 pb-3">
+            <h4 class="h4">Εταιρεία</h4>
+            <hr style="width: 95%">
+            <section class="d-flex justify-content-center">
+                <section class="col-6">
+                    <a type="a" href="about.html" class="btn w-100 text-left p-0">Ποιοί
+                        είμαστε</a>
+                    <a type="a" href="about.html#how-it-works" class="btn  w-100 text-left p-0">Πώς
+                        λειτουργεί</a>
+                    <a href="about.html#privacy" type="a" class="btn  w-100 text-left p-0">Πολιτική
+                        Προστασίας</a>
+                    <a href="about.html#privacy" type="a" class="btn  w-100 text-left p-0">Προσωπικά
+                        Δεδομένα </a>
+                    <a href="about.html#privacy" type="a" class="btn  w-100 text-left p-0"> Πολιτική
+                        Cookies </a>
+                </section>
+                <section class="col-6">
+                    <a href="index.html"><a onclick="showAlert()" type="a" class="btn  w-100 text-left p-0">Ευκαιρίες
+                            καριέρας</a></a>
+                    <a type="a" href="company_sign_up.html" class="btn  w-100 text-left p-0">Β2Β -
+                        συνεργάτες</a>
+                    <a href="index.html"><a onclick="showAlert()" type="a" class="btn  w-100 text-left p-0">Τύπος -
+                            νέα</a></a>
+                    <a href="index.html"><a onclick="showAlert()" type="a"
+                            class="btn  w-100 text-left p-0">Sitemap</a></a>
+                    <a href="contact.html" type="a" class="btn  w-100 text-left p-0">Επικοινωνία</a>
+                </section>
+            </section>
+        </section>
+        <section class="col-4 pt-3 pb-3">
+            <h4 class=" h4 text-right text-italic"> ... ας συνδεθούμε :) </h4>
+            <hr style="width: 95%">
+            <section class="d-flex justify-content-center flex-column">
+                <section class="text-right">
+                    <a href="https://www.facebook.com/" class="btn">
+                        <i class="fab fa-facebook-f h2 bg-transparent text-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com/" class="btn">
+                        <i class="fab fa-twitter h2 bg-transparent text-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" class="btn">
+                        <i class="fab fa-instagram h2 bg-transparent text-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" class="btn">
+                        <i class="fab fa-linkedin-in h2 bg-transparent text-gray"></i>
+                    </a>
+                    <a href="https://www.youtube.com/" class="btn">
+                        <i class="fab fa-youtube h2 bg-transparent text-youtube "></i>
+                    </a>
+                </section>
+                <section class="d-flex justify-content-end">
+                    <section class="pt-3 col-8 ">
+                        <form>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Γράψε το email σου εδώ">
+                            </div>
+                            <a type="submit" class="btn btn-warning mt-2">Εγγραφή στο Newsletter</a>
+                        </form>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </footer>
+
+   <!-- Sign In Modal -->
+   <div id="userModal" class="modal">
+    <!-- Modal content -->
+    <section>
+        <div class="container d-flex justify-content-center">
+
+            <div id="userModalBlock" class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                    <div class="d-flex justify-content-end">
+                        <button id="userModalCloseBtn" type="submit" class="close btn p-0">
+                            <i class="fas fa-window-close h4"></i>
+                        </button>
+                    </div>
+                    <div class="text-center text-md-center mb-4 mt-md-0">
+                        <h1 class="mb-0 h3">Συνδεθείτε</h1>
+                    </div>
+
+
+                    <form class="mt-4" id="login-form">
+                        <!--                                                             Form -->
+                        <div class="form-group mb-4" id="login-form">
+                            <label for="username">Όνομα χρήστη</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fas fa-user-tag m-0 p-0"></i></span></span>
+                                <input type="text" class="form-control" placeholder="Όνομα χρήστη" id="username"
+                                    autofocus required>
+                            </div>
+                        </div>
+                        <!--                                                             End of Form -->
+                        <div class="form-group">
+                            <!--                                                                 Form -->
+                            <div class="form-group mb-4">
+                                <label for="password">Συνθηματικό</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon2"><span
+                                            class="fas fa-unlock-alt"></span></span>
+                                    <input type="password" placeholder="Συνθηματικό" class="form-control"
+                                        id="password" required>
+                                </div>
+                            </div>
+                            <!--                                                                 End of Form -->
+                            <div class="d-flex justify-content-between align-items-top mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="js-company-login">
+                                    <label class="form-check-label mb-0" for="remember">
+                                        Είσοδος συνεργάτη Β2Β
+                                    </label>
+                                </div>
+                                <!--                                                                     SOS ftiaksoume swsta thn parapompi gia to forgot password -->
+                                <div><a href="./forgot-password.html" class="small text-right">Ξέχασα τον κωδικό
+                                        μου</a></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary"
+                            id="myFormSubmit">Συνδεθείτε</button>
+                    </form>
+
+
+                    <div class="d-flex justify-content-center align-items-center mt-4">
+                        <span class="font-weight-normal">
+                            Δεν έχετε εγγραφεί;
+                            <!-- SOS ftiaksoume swsta parapompi gia sign-up -->
+                            <a href="./sign-up.html" class="font-weight-bold">Δημιουργείστε λογαριασμό</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <!-- Shopping cart -->
+    <section id="cart" class="container col-4 shadow-lg mt-6 rounded-left p-4"
+        style="display: none; position: absolute; right: 0px; top:0px; background-color: #ffcc00ed;">
+
+        <table class="table table-hover table-striped" id="cartTable">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3 class="h4 text-left p-0 m-0 pt-3">Το καλάθι μου</h3>
+                </div>
+                <div class="m-0 p-0"></div>
+                <a id="cartCloseBtn" class="btn"><i class="far fa-times-circle h4"></i></a>
+            </div>
+
+
+            <thead>
+                <th class="col-2 pl-1"><span class="h6">Περιγραφή</span></th>
+                <th class="col-2 pl-1"><span class="h6">Κράτηση</span></th>
+                <th class="col-2 pl-1"><span id="amount" class="h6">Τιμή</span></th>
+            </thead>
+
+            <tbody id="cartServiceList">
+                <!-- cart service list -->
+            </tbody>
+
+            <tfoot class="">
+                <tr class="border-0">
+                    <td class="text-left border-0"><span class="h6">ΣΥΝΟΛΟ:</span> <i class="fas fa-euro-sign"></i>
+                        <span class="h4 font-weight-bolder" id="cartTotal"> </span>
+                    </td>
+                    <td class="border-0"></td>
+                    <td class="border-0 align-right">
+                        <button onclick="checkOutCart()" class="btn btn-primary align-self-end">ΟΛΟΚΛΗΡΩΣΗ
+                            ΑΓΟΡΩΝ</button>
+                    </td>
+
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </section>
+</body>
+
+</html>

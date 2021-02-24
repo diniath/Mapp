@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,8 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -29,27 +25,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author Hello Java !
- */
 @Entity
 @Table(name = "enrolled_user", catalog = "mapp", schema = "")
-@NamedQueries({
-    @NamedQuery(name = "EnrolledUser.findAll", query = "SELECT e FROM EnrolledUser e")
-    , @NamedQuery(name = "EnrolledUser.findById", query = "SELECT e FROM EnrolledUser e WHERE e.id = :id")
-    , @NamedQuery(name = "EnrolledUser.findByUsername", query = "SELECT e FROM EnrolledUser e WHERE e.username = :username")
-    , @NamedQuery(name = "EnrolledUser.findByPassword", query = "SELECT e FROM EnrolledUser e WHERE e.password = :password")
-    , @NamedQuery(name = "EnrolledUser.findByFname", query = "SELECT e FROM EnrolledUser e WHERE e.fname = :fname")
-    , @NamedQuery(name = "EnrolledUser.findByLname", query = "SELECT e FROM EnrolledUser e WHERE e.lname = :lname")
-    , @NamedQuery(name = "EnrolledUser.findByEmail", query = "SELECT e FROM EnrolledUser e WHERE e.email = :email")
-    , @NamedQuery(name = "EnrolledUser.findByLocalDateofbirth", query = "SELECT e FROM EnrolledUser e WHERE e.dateofbirth = :dateofbirth")
-    , @NamedQuery(name = "EnrolledUser.findByPostalcode", query = "SELECT e FROM EnrolledUser e WHERE e.postalcode = :postalcode")
-    , @NamedQuery(name = "EnrolledUser.findByAddress", query = "SELECT e FROM EnrolledUser e WHERE e.address = :address")
-    , @NamedQuery(name = "EnrolledUser.findByCity", query = "SELECT e FROM EnrolledUser e WHERE e.city = :city")
-    , @NamedQuery(name = "EnrolledUser.findByMunicipality", query = "SELECT e FROM EnrolledUser e WHERE e.municipality = :municipality")
-    , @NamedQuery(name = "EnrolledUser.findByTelephone", query = "SELECT e FROM EnrolledUser e WHERE e.telephone = :telephone")
-    , @NamedQuery(name = "EnrolledUser.findByMobile", query = "SELECT e FROM EnrolledUser e WHERE e.mobile = :mobile")})
 public class EnrolledUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,82 +35,102 @@ public class EnrolledUser implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property username cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property password cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property fname cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "fname")
     private String fname;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property lname cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "lname")
     private String lname;
+    
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property email cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property dateofbirth cannot be null")
     @Column(name = "dateofbirth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateofbirth;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property postalcode cannot be null")
     @Column(name = "postalcode")
     private int postalcode;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property address cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "address")
     private String address;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property city cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "city")
     private String city;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property municipality cannot be null")
     @Size(min = 1, max = 45)
     @Column(name = "municipality")
     private String municipality;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property telephone cannot be null")
+    @Size(min = 1, max = 45)
     @Column(name = "telephone")
-    private int telephone;
+    private String telephone;
+    
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Property mobile cannot be null")
+    @Size(min = 1, max = 45)
     @Column(name = "mobile")
-    private int mobile;
-    @ManyToMany(mappedBy = "enrolledUserList")
+    private String mobile;
+
+    @JsonBackReference(value = "enrolledUser_appointment")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enrolledUser")
     private List<Appointment> appointmentList;
+
     @JoinTable(name = "user_role", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_id", referencedColumnName = "id")})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<Role> roleList;
+
     @JoinTable(name = "favorite", joinColumns = {
         @JoinColumn(name = "enrolled_user_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)    
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToMany
     private List<Product> productList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "enrolledUser")
     private List<Ordering> orderingList;
+
     @JoinColumn(name = "image_url_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private ImageUrl imageUrl;
 
@@ -144,7 +141,7 @@ public class EnrolledUser implements Serializable {
         this.id = id;
     }
 
-    public EnrolledUser(Integer id, String username, String password, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, int telephone, int mobile) {
+    public EnrolledUser(Integer id, String username, String password, String fname, String lname, String email, LocalDate dateofbirth, int postalcode, String address, String city, String municipality, String telephone, String mobile) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -248,22 +245,23 @@ public class EnrolledUser implements Serializable {
         this.municipality = municipality;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
+    
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
@@ -288,6 +286,7 @@ public class EnrolledUser implements Serializable {
         this.productList = productList;
     }
 
+    @JsonManagedReference(value = "enrolledUser_ordering")
     public List<Ordering> getOrderingList() {
         return orderingList;
     }
@@ -296,6 +295,7 @@ public class EnrolledUser implements Serializable {
         this.orderingList = orderingList;
     }
 
+    @JsonBackReference(value = "enrolledUser_imageUrl")
     public ImageUrl getImageUrl() {
         return imageUrl;
     }
@@ -328,5 +328,5 @@ public class EnrolledUser implements Serializable {
     public String toString() {
         return "mapp.entity.EnrolledUser[ id=" + id + " ]";
     }
-    
+
 }
